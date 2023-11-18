@@ -1,6 +1,8 @@
 import QtQuick
 import QtQuick.Window
 
+import WeatherstationGui 1.0
+
 Window {
     id: window
 
@@ -8,4 +10,13 @@ Window {
     width: 1280
     height: 800
     visible: true
+
+    PanomaxImages {
+        id: panomaxImages
+    }
+
+    PanoramaImage {
+        anchors.fill: parent
+        imageModel: panomaxImages.recentImageModel
+    }
 }

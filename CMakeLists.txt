@@ -10,27 +10,44 @@ find_package(Qt6 6.5 REQUIRED COMPONENTS Quick)
 qt_standard_project_setup(REQUIRES 6.5)
 
 qt_add_executable(appWeatherstationGui
-    src/main.cpp
+  src/main.cpp
+  src/panomaximageinfo.h
+  src/panomaximageinfo.cpp
+  src/panomaximageprovider.h
+  src/panomaximageprovider.cpp
+  src/panomaximagedownloader.h
+  src/panomaximagedownloader.cpp
 )
 
+include_directories(src)
+
 qt_add_qml_module(appWeatherstationGui
-    URI WeatherstationGui
-    VERSION 1.0
-    QML_FILES
-        qml/Main.qml
+  URI WeatherstationGui
+
+  VERSION 1.0
+
+  QML_FILES
+    qml/Main.qml
+    qml/PanoramaImage.qml
+
+  SOURCES
+    src/tiledimagemodel.h
+    src/tiledimagemodel.cpp
+    src/panomaximages.h
+    src/panomaximages.cpp
 )
 
 set_target_properties(appWeatherstationGui PROPERTIES
-    WIN32_EXECUTABLE TRUE
+  WIN32_EXECUTABLE TRUE
 )
 
 target_link_libraries(appWeatherstationGui
-    PRIVATE Qt6::Quick
+  PRIVATE Qt6::Quick
 )
 
 include(GNUInstallDirs)
 install(TARGETS appWeatherstationGui
-    BUNDLE DESTINATION .
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  BUNDLE DESTINATION .
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
