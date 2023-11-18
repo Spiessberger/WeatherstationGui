@@ -34,7 +34,12 @@ QNetworkReply::NetworkError PanomaxImageDownloader::error() const
 
 void PanomaxImageDownloader::downloadTile(int tileIndex)
 {
-    QUrl url = m_url.arg(tileIndex);
+    QUrl url;
+    if (m_numTiles > 1) {
+        url = m_url.arg(tileIndex);
+    } else {
+        url = m_url;
+    }
     QNetworkRequest req{url};
 
     qDebug() << "starting download of" << url;
