@@ -15,7 +15,7 @@ Window {
         id: panomaxImages
     }
 
-    PanoramaImage {
+    PanoramaView {
         anchors.fill: parent
         imageModel: panomaxImages.recentImageModel
     }

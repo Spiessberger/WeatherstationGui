@@ -29,6 +29,7 @@ qt_add_qml_module(appWeatherstationGui
   QML_FILES
     qml/Main.qml
     qml/PanoramaImage.qml
+    qml/PanoramaView.qml
 
   SOURCES
     src/tiledimagemodel.h
