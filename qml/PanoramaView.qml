@@ -7,12 +7,17 @@ Item {
 
     property TiledImageModel imageModel
 
+    ImageWrapProxyModel {
+        id: imageWrapModel
+        tiledImageModel: root.imageModel
+        sourceWidth: root.imageModel ? root.imageModel.sourceWidth : 0
+    }
+
     Flickable {
       id: flick
       anchors.horizontalCenter: parent.horizontalCenter
       width: parent.width
       height: parent.height
-
 
       contentHeight: d.initialHeight
       contentWidth: d.initialWidth
@@ -24,7 +29,9 @@ Item {
 
         width: parent.width
         height: parent.height
-        imageModel: root.imageModel
+        imageModel: imageWrapModel
+        sourceWidth: imageWrapModel.sourceWidth
+        sourceHeight: root.imageModel ? root.imageModel.sourceHeight : 0
         visibleArea: Qt.rect(flick.visibleArea.xPosition, flick.visibleArea.yPosition, flick.visibleArea.widthRatio, flick.visibleArea.heightRatio)
         visibleAreaBuffer: 500
 
@@ -43,11 +50,14 @@ Item {
         }
       }
     }
+
     QtObject {
       id: d
 
       property real scaleFactor: 1.0
-      property real initialWidth: flick.height / imageModel.sourceSize.height * imageModel.sourceSize.width
+      property real initialWidth: root.imageModel && root.imageModel.sourceHeight > 0 ?
+                                      flick.height / root.imageModel.sourceHeight * root.imageModel.sourceWidth :
+                                      0
       property real initialHeight: flick.height
     }
 }

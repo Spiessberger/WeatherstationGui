@@ -36,6 +36,8 @@ qt_add_qml_module(appWeatherstationGui
     src/tiledimagemodel.cpp
     src/panomaximages.h
     src/panomaximages.cpp
+    src/imagewrapproxymodel.h
+    src/imagewrapproxymodel.cpp
 )
 
 set_target_properties(appWeatherstationGui PROPERTIES

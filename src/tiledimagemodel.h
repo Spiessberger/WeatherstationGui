@@ -2,45 +2,49 @@
 
 #include <QAbstractListModel>
 #include <QQmlEngine>
-#include <QSizeF>
 
 namespace wsgui {
 
-class TiledImageModel : public QAbstractListModel
-{
-    Q_OBJECT
-    Q_PROPERTY(QSizeF sourceSize READ sourceSize NOTIFY sourceSizeChanged)
-    QML_ELEMENT
+class TiledImageModel : public QAbstractListModel {
+  Q_OBJECT
+  Q_PROPERTY(qreal sourceWidth READ sourceWidth WRITE setSourceWidth NOTIFY
+                 sourceWidthChanged)
+  Q_PROPERTY(qreal sourceHeight READ sourceHeight WRITE setSourceHeight NOTIFY
+                 sourceHeightChanged)
+  QML_ELEMENT
 public:
-    explicit TiledImageModel(const QString &sourcePrefix = "", QObject *parent = nullptr);
+  explicit TiledImageModel(const QString &sourcePrefix = "",
+                           QObject *parent = nullptr);
 
-    QSizeF sourceSize() const;
+  qreal sourceWidth() const;
+  qreal sourceHeight() const;
 
-    void updateTiles(const std::vector<QImage> &imageTiles,
-                     const QDateTime &imageTime,
-                     const QString &resolution);
+  void updateTiles(const std::vector<QImage> &imageTiles,
+                   const QDateTime &imageTime, const QString &resolution);
 
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-    QVariant data(const QModelIndex &index, int role) const override;
-    QHash<int, QByteArray> roleNames() const override;
+  int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+  QVariant data(const QModelIndex &index, int role) const override;
+  QHash<int, QByteArray> roleNames() const override;
 
 signals:
-    void sourceSizeChanged();
+  void sourceWidthChanged();
+  void sourceHeightChanged();
 
 private:
-    enum Roles { Source = Qt::UserRole, Width, Height };
-    struct ImageTile
-    {
-        QString source;
-        int width = 0;
-        int height = 0;
-    };
+  enum Roles { Source = Qt::UserRole, Width, Height };
+  struct ImageTile {
+    QString source;
+    int width = 0;
+    int height = 0;
+  };
 
-    void setSourceSize(const QSizeF &newSourceSize);
+  void setSourceWidth(qreal newSourceWidth);
+  void setSourceHeight(qreal newSourceHeight);
 
-    std::vector<ImageTile> m_tiles;
-    QSizeF m_sourceSize;
-    QString m_sourcePrefix;
+  qreal m_sourceWidth = 0.0;
+  qreal m_sourceHeight = 0.0;
+  std::vector<ImageTile> m_tiles;
+  QString m_sourcePrefix;
 };
 
 } // namespace wsgui

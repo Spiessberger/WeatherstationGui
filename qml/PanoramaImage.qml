@@ -5,7 +5,9 @@ import WeatherstationGui 1.0
 Item {
     id : root
 
-    property TiledImageModel imageModel
+    property alias imageModel: repeater.model
+    property real sourceWidth: 0
+    property real sourceHeight: 0
 
     // values between 0 and 1, see Flickable::visibleArea
     property rect visibleArea
@@ -21,10 +23,12 @@ Item {
         Repeater {
             id: repeater
 
-            model: root.imageModel
-
-            Item {
+            Rectangle {
                 id: imageTile
+
+                color: "red"
+                border.color: "black"
+                border.width: 2
 
                 width: model.width * d.scaleFactor
                 height: model.height * d.scaleFactor
@@ -58,18 +62,20 @@ Item {
         id: d
 
         property real scaleFactor: {
-            if (!root.imageModel) {
+            if (!root.imageModel ||
+                    root.sourceWidth === 0 || root.sourceHeight === 0 ||
+                    root.height === 0 || root.width === 0) {
                 return 1.0
             }
 
-            const sourceAspectRatio = root.imageModel.sourceSize.width / root.imageModel.sourceSize.height
+            const sourceAspectRatio = root.sourceWidth / root.sourceHeight
             const rootItemAspectRatio = root.width / root.height
 
             if (rootItemAspectRatio > sourceAspectRatio) {
-                return root.height / root.imageModel.sourceSize.height
+                return root.height / root.sourceHeight
             }
             else {
-                return root.width / root.imageModel.sourceSize.width
+                return root.width / root.sourceWidth
             }
         }
     }
