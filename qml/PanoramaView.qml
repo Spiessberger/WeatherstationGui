@@ -9,8 +9,8 @@ Item {
 
     ImageWrapProxyModel {
         id: imageWrapModel
-        tiledImageModel: root.imageModel
-        sourceWidth: root.imageModel ? root.imageModel.sourceWidth : 0
+        sourceModel: root.imageModel
+        sourceWidth: root.imageModel ? root.imageModel.sourceWidth + root.width / d.scaleFactor / d.baseScaleFactor : 0
     }
 
     Flickable {
@@ -55,9 +55,9 @@ Item {
       id: d
 
       property real scaleFactor: 1.0
-      property real initialWidth: root.imageModel && root.imageModel.sourceHeight > 0 ?
-                                      flick.height / root.imageModel.sourceHeight * root.imageModel.sourceWidth :
-                                      0
-      property real initialHeight: flick.height
+
+      readonly property real baseScaleFactor: panoramaImage.sourceHeight > 0 ? flick.height / panoramaImage.sourceHeight : 1
+      readonly property real initialWidth: root.imageModel ? d.baseScaleFactor * panoramaImage.sourceWidth : 0
+      readonly property real initialHeight: flick.height
     }
 }
