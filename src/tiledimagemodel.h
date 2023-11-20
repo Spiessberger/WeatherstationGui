@@ -19,6 +19,8 @@ public:
   qreal sourceWidth() const;
   qreal sourceHeight() const;
 
+  int tileWidth(int index) const;
+  int tileHeight(int index) const;
   void updateTiles(const std::vector<QImage> &imageTiles,
                    const QDateTime &imageTime, const QString &resolution);
 

@@ -1,6 +1,7 @@
 #include "tiledimagemodel.h"
 
 #include <QImage>
+#include <QDateTime>
 
 namespace wsgui {
 
@@ -18,6 +19,22 @@ void TiledImageModel::setSourceWidth(qreal newSourceWidth) {
 }
 
 qreal TiledImageModel::sourceHeight() const { return m_sourceHeight; }
+
+int TiledImageModel::tileWidth(int index) const
+{
+    if (index >= 0 && index < m_tiles.size()) {
+        return m_tiles[index].width;
+    }
+    return 0;
+}
+
+int TiledImageModel::tileHeight(int index) const
+{
+    if (index >= 0 && index < m_tiles.size()) {
+        return m_tiles[index].height;
+    }
+    return 0;
+}
 
 void TiledImageModel::setSourceHeight(qreal newSourceHeight) {
   if (qFuzzyCompare(m_sourceHeight, newSourceHeight)) {

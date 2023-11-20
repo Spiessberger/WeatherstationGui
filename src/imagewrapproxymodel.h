@@ -9,19 +9,15 @@ namespace wsgui {
 
 class ImageWrapProxyModel : public QAbstractProxyModel {
   Q_OBJECT
-  Q_PROPERTY(wsgui::TiledImageModel *tiledImageModel READ tiledImageModel WRITE
-                 setTiledImageModel NOTIFY tiledImageModelChanged)
   Q_PROPERTY(qreal sourceWidth READ sourceWidth WRITE setSourceWidth NOTIFY
                  sourceWidthChanged)
   QML_ELEMENT
 public:
   ImageWrapProxyModel();
 
-  TiledImageModel *tiledImageModel() const;
-  void setTiledImageModel(TiledImageModel *newTiledImageModel);
-
+  void setSourceModel(QAbstractItemModel *sourceModel) override;
   QModelIndex index(int row, int column,
-                    const QModelIndex &parent) const override;
+                    const QModelIndex &parent = {}) const override;
   QModelIndex parent(const QModelIndex &child) const override;
   int rowCount(const QModelIndex &parent) const override;
   int columnCount(const QModelIndex &parent) const override;
@@ -33,12 +29,15 @@ public:
   void setSourceWidth(qreal newSourceWidth);
 
 signals:
-  void tiledImageModelChanged();
   void sourceWidthChanged();
 
 private:
+  void setTiledImageModel(TiledImageModel *newTiledImageModel);
+  void updateWrapedTiles();
+
   TiledImageModel *m_tiledImageModel = nullptr;
   qreal m_sourceWidth = 0.0;
+  int m_wrapedTiles = 0;
 };
 
 } // namespace wsgui
