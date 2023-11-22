@@ -5,29 +5,18 @@
 
 namespace wsgui {
 
-TiledImageModel::TiledImageModel(const QString& sourcePrefix, QObject* parent) :
-    QAbstractListModel(parent), m_sourcePrefix(sourcePrefix)
+TiledImageModel::TiledImageModel(QObject* parent) : QAbstractListModel(parent)
 {
 }
 
-qreal TiledImageModel::sourceWidth() const
+void TiledImageModel::setSourceSize(const QSizeF& newSourceSize)
 {
-  return m_sourceWidth;
-}
-
-void TiledImageModel::setSourceWidth(qreal newSourceWidth)
-{
-  if (qFuzzyCompare(m_sourceWidth, newSourceWidth))
+  if (m_sourceSize == newSourceSize)
   {
     return;
   }
-  m_sourceWidth = newSourceWidth;
-  emit sourceWidthChanged();
-}
-
-qreal TiledImageModel::sourceHeight() const
-{
-  return m_sourceHeight;
+  m_sourceSize = newSourceSize;
+  emit sourceSizeChanged();
 }
 
 int TiledImageModel::tileWidth(int index) const
@@ -48,14 +37,20 @@ int TiledImageModel::tileHeight(int index) const
   return 0;
 }
 
-void TiledImageModel::setSourceHeight(qreal newSourceHeight)
+void TiledImageModel::setTiles(const std::vector<ImageTile>& imageTiles)
 {
-  if (qFuzzyCompare(m_sourceHeight, newSourceHeight))
+  beginResetModel();
+  m_tiles = imageTiles;
+  endResetModel();
+
+  int sourceWidth = 0;
+  int sourceHeight = 0;
+  for (const auto& tile : m_tiles)
   {
-    return;
+    sourceWidth += tile.width;
+    sourceHeight = std::max(sourceHeight, tile.height);
   }
-  m_sourceHeight = newSourceHeight;
-  emit sourceHeightChanged();
+  setSourceSize({static_cast<qreal>(sourceWidth), static_cast<qreal>(sourceHeight)});
 }
 
 int TiledImageModel::rowCount(const QModelIndex& parent) const
@@ -90,39 +85,6 @@ QVariant TiledImageModel::data(const QModelIndex& index, int role) const
 QHash<int, QByteArray> TiledImageModel::roleNames() const
 {
   return {{Roles::Source, "source"}, {Roles::Width, "width"}, {Roles::Height, "height"}};
-}
-
-void TiledImageModel::updateTiles(const std::vector<QImage>& imageTiles,
-                                  const QDateTime& imageTime,
-                                  const QString& resolution)
-{
-  beginResetModel();
-  m_tiles.clear();
-
-  const QString source = m_sourcePrefix + "/" + imageTime.toString(Qt::ISODate) + "/" + resolution + "/%1";
-
-  qreal sourceWidth = 0.0;
-  qreal sourceHeight = 0.0;
-  for (const QImage& image : imageTiles)
-  {
-    ImageTile tile;
-
-    tile.width = image.width();
-    tile.height = image.height();
-    tile.source = source.arg(m_tiles.size());
-
-    sourceWidth += image.width();
-    if (image.height() > sourceHeight)
-    {
-      sourceHeight = image.height();
-    }
-
-    m_tiles.push_back(tile);
-  }
-  endResetModel();
-
-  setSourceWidth(sourceWidth);
-  setSourceHeight(sourceHeight);
 }
 
 } // namespace wsgui
