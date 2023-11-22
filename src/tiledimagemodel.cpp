@@ -1,63 +1,81 @@
 #include "tiledimagemodel.h"
 
-#include <QImage>
 #include <QDateTime>
+#include <QImage>
 
 namespace wsgui {
 
-TiledImageModel::TiledImageModel(const QString &sourcePrefix, QObject *parent)
-    : QAbstractListModel(parent), m_sourcePrefix(sourcePrefix) {}
+TiledImageModel::TiledImageModel(const QString& sourcePrefix, QObject* parent) :
+    QAbstractListModel(parent), m_sourcePrefix(sourcePrefix)
+{
+}
 
-qreal TiledImageModel::sourceWidth() const { return m_sourceWidth; }
+qreal TiledImageModel::sourceWidth() const
+{
+  return m_sourceWidth;
+}
 
-void TiledImageModel::setSourceWidth(qreal newSourceWidth) {
-  if (qFuzzyCompare(m_sourceWidth, newSourceWidth)) {
+void TiledImageModel::setSourceWidth(qreal newSourceWidth)
+{
+  if (qFuzzyCompare(m_sourceWidth, newSourceWidth))
+  {
     return;
   }
   m_sourceWidth = newSourceWidth;
   emit sourceWidthChanged();
 }
 
-qreal TiledImageModel::sourceHeight() const { return m_sourceHeight; }
+qreal TiledImageModel::sourceHeight() const
+{
+  return m_sourceHeight;
+}
 
 int TiledImageModel::tileWidth(int index) const
 {
-    if (index >= 0 && index < m_tiles.size()) {
-        return m_tiles[index].width;
-    }
-    return 0;
+  if (index >= 0 && index < m_tiles.size())
+  {
+    return m_tiles[index].width;
+  }
+  return 0;
 }
 
 int TiledImageModel::tileHeight(int index) const
 {
-    if (index >= 0 && index < m_tiles.size()) {
-        return m_tiles[index].height;
-    }
-    return 0;
+  if (index >= 0 && index < m_tiles.size())
+  {
+    return m_tiles[index].height;
+  }
+  return 0;
 }
 
-void TiledImageModel::setSourceHeight(qreal newSourceHeight) {
-  if (qFuzzyCompare(m_sourceHeight, newSourceHeight)) {
+void TiledImageModel::setSourceHeight(qreal newSourceHeight)
+{
+  if (qFuzzyCompare(m_sourceHeight, newSourceHeight))
+  {
     return;
   }
   m_sourceHeight = newSourceHeight;
   emit sourceHeightChanged();
 }
 
-int TiledImageModel::rowCount(const QModelIndex &parent) const {
-  if (parent.isValid()) {
+int TiledImageModel::rowCount(const QModelIndex& parent) const
+{
+  if (parent.isValid())
+  {
     return 0;
   }
   return static_cast<int>(m_tiles.size());
 }
 
-QVariant TiledImageModel::data(const QModelIndex &index, int role) const {
-  if (!index.isValid() || index.row() < 0 ||
-      index.row() >= static_cast<int>(m_tiles.size())) {
+QVariant TiledImageModel::data(const QModelIndex& index, int role) const
+{
+  if (!index.isValid() || index.row() < 0 || index.row() >= static_cast<int>(m_tiles.size()))
+  {
     return QVariant();
   }
 
-  switch (role) {
+  switch (role)
+  {
   case Roles::Source:
     return m_tiles[index.row()].source;
   case Roles::Width:
@@ -69,25 +87,24 @@ QVariant TiledImageModel::data(const QModelIndex &index, int role) const {
   }
 }
 
-QHash<int, QByteArray> TiledImageModel::roleNames() const {
-  return {{Roles::Source, "source"},
-          {Roles::Width, "width"},
-          {Roles::Height, "height"}};
+QHash<int, QByteArray> TiledImageModel::roleNames() const
+{
+  return {{Roles::Source, "source"}, {Roles::Width, "width"}, {Roles::Height, "height"}};
 }
 
-void TiledImageModel::updateTiles(const std::vector<QImage> &imageTiles,
-                                  const QDateTime &imageTime,
-                                  const QString &resolution) {
+void TiledImageModel::updateTiles(const std::vector<QImage>& imageTiles,
+                                  const QDateTime& imageTime,
+                                  const QString& resolution)
+{
   beginResetModel();
   m_tiles.clear();
 
-  const QString source = m_sourcePrefix + "/" +
-                         imageTime.toString(Qt::ISODate) + "/" + resolution +
-                         "/%1";
+  const QString source = m_sourcePrefix + "/" + imageTime.toString(Qt::ISODate) + "/" + resolution + "/%1";
 
   qreal sourceWidth = 0.0;
   qreal sourceHeight = 0.0;
-  for (const QImage &image : imageTiles) {
+  for (const QImage& image : imageTiles)
+  {
     ImageTile tile;
 
     tile.width = image.width();
@@ -95,7 +112,8 @@ void TiledImageModel::updateTiles(const std::vector<QImage> &imageTiles,
     tile.source = source.arg(m_tiles.size());
 
     sourceWidth += image.width();
-    if (image.height() > sourceHeight) {
+    if (image.height() > sourceHeight)
+    {
       sourceHeight = image.height();
     }
 

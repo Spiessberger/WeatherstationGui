@@ -4,19 +4,19 @@ import QtQuick.Window
 import WeatherstationGui 1.0
 
 Window {
-    id: window
+  id: window
 
-    title: "WeatherstationGui"
-    width: 1280
-    height: 800
-    visible: true
+  title: "WeatherstationGui"
+  width: 1280
+  height: 800
+  visible: true
 
-    PanomaxImages {
-        id: panomaxImages
-    }
+  PanomaxImages {
+    id: panomaxImages
+  }
 
-    PanoramaView {
-        anchors.fill: parent
-        imageModel: panomaxImages.recentImageModel
-    }
+  PanoramaView {
+    anchors.fill: parent
+    imageModel: panomaxImages.recentImageModel
+  }
 }

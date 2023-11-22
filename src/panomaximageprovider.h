@@ -1,28 +1,27 @@
 #pragma once
 
-#include <QQuickImageProvider>
 #include <QQmlEngine>
+#include <QQuickImageProvider>
 
 namespace wsgui {
 namespace panomax {
 
 class PanomaxImageProvider : public QQuickImageProvider
 {
-    Q_OBJECT
+  Q_OBJECT
 public:
-    static const QString providerId;
+  static const QString providerId;
 
-    PanomaxImageProvider();
+  PanomaxImageProvider();
 
-    // id: <ISO 8601 Datetime>/<resolution>/<tile>
-    QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize) override;
+  // id: <ISO 8601 Datetime>/<resolution>/<tile>
+  QImage requestImage(const QString& id, QSize* size, const QSize& requestedSize) override;
 
-    void setRecentImageTile(const std::vector<QImage> &imageTiles);
+  void setRecentImageTile(const std::vector<QImage>& imageTiles);
 
 private:
-    std::vector<QImage> m_recentImageTiles;
+  std::vector<QImage> m_recentImageTiles;
 };
 
 } // namespace panomax
 } // namespace wsgui
-

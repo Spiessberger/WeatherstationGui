@@ -5,27 +5,24 @@
 
 namespace wsgui {
 
-class TiledImageModel : public QAbstractListModel {
+class TiledImageModel : public QAbstractListModel
+{
   Q_OBJECT
-  Q_PROPERTY(qreal sourceWidth READ sourceWidth WRITE setSourceWidth NOTIFY
-                 sourceWidthChanged)
-  Q_PROPERTY(qreal sourceHeight READ sourceHeight WRITE setSourceHeight NOTIFY
-                 sourceHeightChanged)
+  Q_PROPERTY(qreal sourceWidth READ sourceWidth WRITE setSourceWidth NOTIFY sourceWidthChanged)
+  Q_PROPERTY(qreal sourceHeight READ sourceHeight WRITE setSourceHeight NOTIFY sourceHeightChanged)
   QML_ELEMENT
 public:
-  explicit TiledImageModel(const QString &sourcePrefix = "",
-                           QObject *parent = nullptr);
+  explicit TiledImageModel(const QString& sourcePrefix = "", QObject* parent = nullptr);
 
   qreal sourceWidth() const;
   qreal sourceHeight() const;
 
   int tileWidth(int index) const;
   int tileHeight(int index) const;
-  void updateTiles(const std::vector<QImage> &imageTiles,
-                   const QDateTime &imageTime, const QString &resolution);
+  void updateTiles(const std::vector<QImage>& imageTiles, const QDateTime& imageTime, const QString& resolution);
 
-  int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-  QVariant data(const QModelIndex &index, int role) const override;
+  int rowCount(const QModelIndex& parent = QModelIndex()) const override;
+  QVariant data(const QModelIndex& index, int role) const override;
   QHash<int, QByteArray> roleNames() const override;
 
 signals:
@@ -34,7 +31,8 @@ signals:
 
 private:
   enum Roles { Source = Qt::UserRole, Width, Height };
-  struct ImageTile {
+  struct ImageTile
+  {
     QString source;
     int width = 0;
     int height = 0;
