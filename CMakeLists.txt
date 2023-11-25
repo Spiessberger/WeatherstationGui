@@ -11,12 +11,8 @@ qt_standard_project_setup(REQUIRES 6.5)
 
 qt_add_executable(appWeatherstationGui
   src/main.cpp
-  src/panomaximageinfo.h
-  src/panomaximageinfo.cpp
-  src/panomaximageprovider.h
-  src/panomaximageprovider.cpp
-  src/panomaximagedownloader.h
-  src/panomaximagedownloader.cpp
+  src/panomaximage.h
+  src/panomaximage.cpp
 )
 
 include_directories(src)
