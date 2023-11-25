@@ -1,8 +1,13 @@
 #pragma once
 
+#include <QDateTime>
+#include <QImage>
 #include <QObject>
 
+#include <queue>
 #include <vector>
+
+#include "panomaximagesize.h"
 
 namespace wsgui {
 namespace panomax {
@@ -11,18 +16,37 @@ class PanomaxImage : public QObject
 {
   Q_OBJECT
 public:
-  enum Resolution { None, Optimized, Hd, Full, Original, Reduced, Small, Thumb, Default };
-  Q_ENUM(Resolution)
-
   explicit PanomaxImage(QObject* parent = nullptr);
 
-  static QString resolutionToString(Resolution resolution);
-  static Resolution stringToResolution(const QString& resolutionString);
+  QString camId() const;
+  void setCamId(const QString& newCamId);
+
+  QDateTime imageTime() const;
+  void setImageTime(const QDateTime& newImageTime);
+
+  std::vector<PanomaxImageSize> requestedImageSizes() const;
+  void setRequestedImageSizes(const std::vector<PanomaxImageSize>& newRequestedImageSizes);
+
+  bool isAvailable(PanomaxImageSize::Resolution resolution) const;
+  std::vector<PanomaxImageSize::Resolution> availableResolutions() const;
+
+  std::vector<QImage> image(PanomaxImageSize::Resolution resolution) const;
 
 signals:
+  void availableResolutionsChanged();
 
 private:
-  static const std::vector<std::pair<Resolution, QString>> m_resolutionStrings;
+  struct Image
+  {
+    PanomaxImageSize::Resolution resolution = PanomaxImageSize::None;
+    std::vector<QImage> tiles;
+  };
+
+  QString m_camId;
+  QDateTime m_imageTime;
+  std::vector<PanomaxImageSize> m_requestedImageSizes;
+  std::queue<PanomaxImageSize> m_downloadQueue;
+  std::vector<Image> m_images;
 };
 
 } // namespace panomax

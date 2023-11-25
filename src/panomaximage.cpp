@@ -3,42 +3,69 @@
 namespace wsgui {
 namespace panomax {
 
-const std::vector<std::pair<PanomaxImage::Resolution, QString>> PanomaxImage::m_resolutionStrings = {
-    {PanomaxImage::Optimized, "optimized"},
-    {PanomaxImage::Hd, "hd"},
-    {PanomaxImage::Full, "full"},
-    {PanomaxImage::Original, "original"},
-    {PanomaxImage::Reduced, "reduced"},
-    {PanomaxImage::Small, "small"},
-    {PanomaxImage::Thumb, "thumb"},
-    {PanomaxImage::Default, "default"}};
-
 PanomaxImage::PanomaxImage(QObject* parent) : QObject{parent}
 {
 }
 
-QString PanomaxImage::resolutionToString(Resolution resolution)
+QString PanomaxImage::camId() const
 {
-  for (const auto& pair : m_resolutionStrings)
-  {
-    if (pair.first == resolution)
-    {
-      return pair.second;
-    }
-  }
-  return QString{};
+  return m_camId;
 }
 
-PanomaxImage::Resolution PanomaxImage::stringToResolution(const QString& resolutionString)
+void PanomaxImage::setCamId(const QString& newCamId)
 {
-  for (const auto& pair : m_resolutionStrings)
+  m_camId = newCamId;
+}
+
+QDateTime PanomaxImage::imageTime() const
+{
+  return m_imageTime;
+}
+
+void PanomaxImage::setImageTime(const QDateTime& newImageTime)
+{
+  m_imageTime = newImageTime;
+}
+
+std::vector<PanomaxImageSize> PanomaxImage::requestedImageSizes() const
+{
+  return m_requestedImageSizes;
+}
+
+void PanomaxImage::setRequestedImageSizes(const std::vector<PanomaxImageSize>& newRequestedImageSizes)
+{
+  m_requestedImageSizes = newRequestedImageSizes;
+}
+
+bool PanomaxImage::isAvailable(PanomaxImageSize::Resolution resolution) const
+{
+  return std::find_if(m_images.cbegin(), m_images.cend(), [resolution](const auto& image) {
+           return image.resolution == resolution;
+         }) != m_images.cend();
+}
+
+std::vector<PanomaxImageSize::Resolution> PanomaxImage::availableResolutions() const
+{
+  std::vector<PanomaxImageSize::Resolution> ret;
+
+  for (const auto& image : m_images)
   {
-    if (pair.second == resolutionString)
+    ret.push_back(image.resolution);
+  }
+
+  return ret;
+}
+
+std::vector<QImage> PanomaxImage::image(PanomaxImageSize::Resolution resolution) const
+{
+  for (const auto& image : m_images)
+  {
+    if (image.resolution == resolution)
     {
-      return pair.first;
+      return image.tiles;
     }
   }
-  return Resolution::None;
+  return std::vector<QImage>{};
 }
 
 } // namespace panomax
