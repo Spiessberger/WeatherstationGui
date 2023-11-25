@@ -9,6 +9,11 @@ TiledImageModel::TiledImageModel(QObject* parent) : QAbstractListModel(parent)
 {
 }
 
+QSizeF TiledImageModel::sourceSize() const
+{
+  return m_sourceSize;
+}
+
 void TiledImageModel::setSourceSize(const QSizeF& newSourceSize)
 {
   if (m_sourceSize == newSourceSize)
