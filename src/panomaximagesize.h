@@ -25,10 +25,6 @@ public:
   int numTiles() const;
   void setNumTiles(int newNumTiles);
 
-signals:
-  void resolutionChanged();
-  void numTilesChanged();
-
 private:
   static const std::vector<std::pair<Resolution, QString>> m_resolutionStrings;
   Resolution m_resolution = Resolution::None;

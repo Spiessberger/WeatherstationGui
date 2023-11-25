@@ -44,12 +44,7 @@ PanomaxImageSize::Resolution PanomaxImageSize::resolution() const
 
 void PanomaxImageSize::setResolution(Resolution newResolution)
 {
-  if (m_resolution == newResolution)
-  {
-    return;
-  }
   m_resolution = newResolution;
-  emit resolutionChanged();
 }
 
 int PanomaxImageSize::numTiles() const
@@ -59,12 +54,7 @@ int PanomaxImageSize::numTiles() const
 
 void PanomaxImageSize::setNumTiles(int newNumTiles)
 {
-  if (m_numTiles == newNumTiles)
-  {
-    return;
-  }
   m_numTiles = newNumTiles;
-  emit numTilesChanged();
 }
 
 } // namespace panomax
