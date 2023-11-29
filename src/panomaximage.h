@@ -2,7 +2,10 @@
 
 #include <QDateTime>
 #include <QImage>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
 #include <QObject>
+#include <QPointer>
 
 #include <queue>
 #include <vector>
@@ -32,21 +35,32 @@ public:
 
   std::vector<QImage> image(PanomaxImageSize::Resolution resolution) const;
 
-signals:
-  void availableResolutionsChanged();
-
 private:
   struct Image
   {
     PanomaxImageSize::Resolution resolution = PanomaxImageSize::None;
     std::vector<QImage> tiles;
   };
+  struct ImageDownload
+  {
+    QPointer<QNetworkReply> reply = nullptr;
+    PanomaxImageSize imageSize;
+    std::vector<QByteArray> tilesData;
+    int failCounter = 0;
+  };
+
+  void updateImages();
+  void downloadFinished();
+  void downloadNextImage();
+  void downloadNextTile();
 
   QString m_camId;
   QDateTime m_imageTime;
   std::vector<PanomaxImageSize> m_requestedImageSizes;
   std::queue<PanomaxImageSize> m_downloadQueue;
   std::vector<Image> m_images;
+  ImageDownload m_currentDownload;
+  QNetworkAccessManager m_netManager;
 };
 
 } // namespace panomax
