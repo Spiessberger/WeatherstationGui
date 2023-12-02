@@ -13,6 +13,8 @@ qt_add_executable(appWeatherstationGui
   src/main.cpp
   src/panomaximage.h
   src/panomaximage.cpp
+  src/messagehandler.h
+  src/messagehandler.cpp
 )
 
 include_directories(src)
