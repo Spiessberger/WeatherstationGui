@@ -2,11 +2,12 @@
 #include <QQmlApplicationEngine>
 #include <QSettings>
 
-#include "panomaximageprovider.h"
-#include "panomaximages.h"
+
+#include "messagehandler.h"
 
 int main(int argc, char* argv[])
 {
+  qInstallMessageHandler(wsgui::messageHandler);
   QGuiApplication app(argc, argv);
 
   auto imageProvider = new wsgui::panomax::PanomaxImageProvider;
