@@ -90,107 +90,76 @@ void PanomaxImagesInfo::downloadFinished()
   else
   {
     m_failCounter = 0;
-    qDebug() << m_currentDownload->readAll();
+    parseImagesInfo(m_currentDownload->readAll());
   }
 }
 
-// bool PanomaxImagesInfo::parseImageInfo(const QByteArray& infoData)
-// {
-//   QJsonObject infoJson = QJsonDocument::fromJson(infoData).object();
+void PanomaxImagesInfo::parseImagesInfo(const QByteArray& data)
+{
 
-//   if (!infoJson.contains("date"))
-//   {
-//     qWarning() << "image info does not contain date";
-//     return false;
-//   }
-//   if (!infoJson.contains("sizes"))
-//   {
-//     qWarning() << "image info does not contain sizes";
-//     return false;
-//   }
-//   if (!infoJson.contains("images"))
-//   {
-//     qWarning() << "image info does not contain images";
-//     return false;
-//   }
-//   if (!infoJson.contains("imageAvailableCount"))
-//   {
-//     qWarning() << "image info does not contain imageAvailableCount";
-//     return false;
-//   }
+  QJsonObject infoJson = QJsonDocument::fromJson(data).object();
 
-//   int imageAvailableCount = infoJson["imageAvailableCount"].toInt(0);
+  if (infoJson.isEmpty())
+  {
+    qWarning() << "invalid image info json";
+    return;
+  }
+  if (!infoJson.contains("date"))
+  {
+    qWarning() << "image info does not contain date";
+    return;
+  }
+  if (!infoJson.contains("sizes"))
+  {
+    qWarning() << "image info does not contain sizes array";
+    return;
+  }
+  if (!infoJson.contains("images"))
+  {
+    qWarning() << "image info does not contain images";
+    return;
+  }
 
-//   if (imageAvailableCount <= 0)
-//   {
-//     qDebug() << "image info contains no available images";
-//     return false;
-//   }
+  QDate date = QDate::fromString(infoJson["date"].toString(), Qt::ISODate);
+  if (!date.isValid())
+  {
+    qWarning() << "image info contains invalid date" << date;
+    return;
+  }
 
-//   QDate date = QDate::fromString(infoJson["date"].toString(), Qt::ISODate);
-//   if (!date.isValid())
-//   {
-//     qWarning() << "image info contains invalid date";
-//     return false;
-//   }
+  m_imageSizes.clear();
+  m_imageTimes.clear();
 
-//   if (date != m_recentImage.date())
-//   {
-//     m_imageSizes.clear();
+  for (const QJsonValue& size : infoJson["sizes"].toArray())
+  {
+    QJsonObject sizeObj = size.toObject();
 
-//     for (const QJsonValue& size : infoJson["sizes"].toArray())
-//     {
-//       QJsonObject sizeObj = size.toObject();
+    PanomaxImageSize imageSize;
 
-//       ImageSize imageSize;
-//       QString resolution = sizeObj["resolution"].toString();
+    QString resolution = sizeObj["resolution"].toString();
+    imageSize.setResolution(PanomaxImageSize::stringToResolution(resolution));
+    imageSize.setNumTiles(sizeObj["cols"].toInt(0));
 
-//       if (resolution == "full")
-//       {
-//         imageSize.resolution = Resolution::Full;
-//       }
-//       else if (resolution == "default")
-//       {
-//         imageSize.resolution = Resolution::Default;
-//       }
+    if (imageSize.numTiles() > 0 && imageSize.resolution() != PanomaxImageSize::Resolution::None)
+    {
+      m_imageSizes.push_back(imageSize);
+    }
+  }
 
-//       imageSize.numTiles = sizeObj["cols"].toInt(0);
+  for (const QJsonValue& image : infoJson["images"].toArray())
+  {
+    QJsonObject imageObj = image.toObject();
 
-//       if (imageSize.numTiles > 0 && imageSize.resolution != Resolution::Invalid)
-//       {
-//         m_imageSizes.push_back(imageSize);
-//       }
-//     }
-//   }
-
-//   QJsonArray images = infoJson["images"].toArray();
-
-//   for (int i = images.size() - 1; i >= 0; i--)
-//   {
-//     QJsonObject image = images[i].toObject();
-
-//     if (image["available"].toBool(false))
-//     {
-//       QTime time = QTime::fromString(image["time"].toString(), Qt::ISODate);
-//       if (time.isValid())
-//       {
-//         QDateTime timestamp = QDateTime{date, time};
-//         if (timestamp > m_recentImage)
-//         {
-//           m_recentImage = timestamp;
-//           return true;
-//         }
-//         else
-//         {
-//           return false;
-//         }
-//       }
-//     }
-//   }
-
-//   qWarning() << "image info contains no available images";
-//   return false;
-// }
+    if (image["available"].toBool(false))
+    {
+      QTime time = QTime::fromString(image["time"].toString(), Qt::ISODate);
+      if (time.isValid())
+      {
+        m_imageTimes.push_back(QDateTime{date, time});
+      }
+    }
+  }
+}
 
 } // namespace panomax
 } // namespace wsgui

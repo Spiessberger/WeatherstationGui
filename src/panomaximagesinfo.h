@@ -30,6 +30,7 @@ public:
 
 private:
   void downloadFinished();
+  void parseImagesInfo(const QByteArray& data);
 
   QString m_camId;
   QDate m_imagesDate;
