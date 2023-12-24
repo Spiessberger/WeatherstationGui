@@ -48,8 +48,6 @@ void PanomaxImagesInfo::setImagesDate(const QDate& newImagesDate)
 
 void PanomaxImagesInfo::update()
 {
-  m_imageSizes.clear();
-  m_imageTimes.clear();
   m_failCounter = 0;
 
   if (m_camId.isEmpty())
@@ -102,21 +100,25 @@ void PanomaxImagesInfo::parseImagesInfo(const QByteArray& data)
   if (infoJson.isEmpty())
   {
     qWarning() << "invalid image info json";
+    emit updateFailed();
     return;
   }
   if (!infoJson.contains("date"))
   {
     qWarning() << "image info does not contain date";
+    emit updateFailed();
     return;
   }
   if (!infoJson.contains("sizes"))
   {
     qWarning() << "image info does not contain sizes array";
+    emit updateFailed();
     return;
   }
   if (!infoJson.contains("images"))
   {
     qWarning() << "image info does not contain images";
+    emit updateFailed();
     return;
   }
 
@@ -124,6 +126,7 @@ void PanomaxImagesInfo::parseImagesInfo(const QByteArray& data)
   if (!date.isValid())
   {
     qWarning() << "image info contains invalid date" << date;
+    emit updateFailed();
     return;
   }
 
@@ -159,6 +162,8 @@ void PanomaxImagesInfo::parseImagesInfo(const QByteArray& data)
       }
     }
   }
+
+  emit updated();
 }
 
 } // namespace panomax

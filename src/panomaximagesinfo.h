@@ -28,6 +28,10 @@ public:
 
   void update();
 
+signals:
+  void updated();
+  void updateFailed();
+
 private:
   void downloadFinished();
   void parseImagesInfo(const QByteArray& data);
