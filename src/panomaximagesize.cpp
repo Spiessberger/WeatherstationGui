@@ -57,5 +57,10 @@ void PanomaxImageSize::setNumTiles(int newNumTiles)
   m_numTiles = newNumTiles;
 }
 
+bool PanomaxImageSize::operator==(const PanomaxImageSize& other) const
+{
+  return m_resolution == other.m_resolution && m_numTiles == other.m_numTiles;
+}
+
 } // namespace panomax
 } // namespace wsgui

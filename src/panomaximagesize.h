@@ -25,6 +25,8 @@ public:
   int numTiles() const;
   void setNumTiles(int newNumTiles);
 
+  bool operator==(const PanomaxImageSize& other) const;
+
 private:
   static const std::vector<std::pair<Resolution, QString>> m_resolutionStrings;
   Resolution m_resolution = Resolution::None;
