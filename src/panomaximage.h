@@ -35,6 +35,8 @@ public:
 
   std::vector<QImage> image(PanomaxImageSize::Resolution resolution) const;
 
+  void updateImages();
+
 private:
   struct Image
   {
@@ -49,7 +51,6 @@ private:
     int failCounter = 0;
   };
 
-  void updateImages();
   void downloadFinished();
   void downloadNextImage();
   void downloadNextTile();

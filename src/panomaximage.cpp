@@ -24,7 +24,6 @@ void PanomaxImage::setCamId(const QString& newCamId)
     return;
   }
   m_camId = newCamId;
-  updateImages();
 }
 
 QDateTime PanomaxImage::imageTime() const
@@ -39,7 +38,6 @@ void PanomaxImage::setImageTime(const QDateTime& newImageTime)
     return;
   }
   m_imageTime = newImageTime;
-  updateImages();
 }
 
 std::vector<PanomaxImageSize> PanomaxImage::requestedImageSizes() const
