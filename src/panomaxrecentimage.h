@@ -25,8 +25,8 @@ public:
   QString camId() const;
   void setCamId(const QString& newCamId);
 
-  std::vector<wsgui::panomax::PanomaxImageSize::Resolution> resolutions() const;
-  void setResolutions(const std::vector<wsgui::panomax::PanomaxImageSize::Resolution>& newResolutions);
+  std::vector<PanomaxImageSize::Resolution> resolutions() const;
+  void setResolutions(const std::vector<PanomaxImageSize::Resolution>& newResolutions);
 
 signals:
   void camIdChanged();
@@ -38,7 +38,7 @@ private:
   PanomaxImage m_image;
   PanomaxImagesInfo m_imagesInfo;
   QString m_camId;
-  std::vector<wsgui::panomax::PanomaxImageSize::Resolution> m_resolutions;
+  std::vector<PanomaxImageSize::Resolution> m_resolutions;
   QTimer m_updateTimer;
   QDateTime m_recentImageTime;
 };

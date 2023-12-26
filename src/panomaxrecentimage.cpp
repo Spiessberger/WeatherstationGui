@@ -37,12 +37,12 @@ void PanomaxRecentImage::setCamId(const QString& newCamId)
   m_updateTimer.start();
 }
 
-std::vector<wsgui::panomax::PanomaxImageSize::Resolution> PanomaxRecentImage::resolutions() const
+std::vector<PanomaxImageSize::Resolution> PanomaxRecentImage::resolutions() const
 {
   return m_resolutions;
 }
 
-void PanomaxRecentImage::setResolutions(const std::vector<wsgui::panomax::PanomaxImageSize::Resolution>& newResolutions)
+void PanomaxRecentImage::setResolutions(const std::vector<PanomaxImageSize::Resolution>& newResolutions)
 {
   if (m_resolutions == newResolutions)
   {
