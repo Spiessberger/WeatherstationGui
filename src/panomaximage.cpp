@@ -82,6 +82,25 @@ std::vector<QImage> PanomaxImage::image(PanomaxImageSize::Resolution resolution)
   return std::vector<QImage>{};
 }
 
+QImage PanomaxImage::imageTile(PanomaxImageSize::Resolution resolution, int tileIdx) const
+{
+  for (const auto& image : m_images)
+  {
+    if (image.resolution == resolution)
+    {
+      if (tileIdx >= 0 && tileIdx < image.tiles.size())
+      {
+        return image.tiles[tileIdx];
+      }
+      else
+      {
+        return QImage{};
+      }
+    }
+  }
+  return QImage{};
+}
+
 void PanomaxImage::updateImages()
 {
   // reset everything

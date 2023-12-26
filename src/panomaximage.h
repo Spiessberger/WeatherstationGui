@@ -34,6 +34,7 @@ public:
   std::vector<PanomaxImageSize::Resolution> availableResolutions() const;
 
   std::vector<QImage> image(PanomaxImageSize::Resolution resolution) const;
+  QImage imageTile(PanomaxImageSize::Resolution resolution, int tileIdx) const;
 
   void updateImages();
 
