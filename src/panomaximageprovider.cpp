@@ -21,26 +21,53 @@ QImage PanomaxImageProvider::requestImage(const QString& id, QSize* size, const 
     return QImage{};
   }
 
-  bool ok = false;
-  int tile = idParts[2].toInt(&ok);
-
-  if (!ok || tile < 0 || tile >= m_recentImageTiles.size())
+  QDateTime imageTime = QDateTime::fromString(idParts[0], Qt::ISODate);
+  if (imageTime.isNull() || !imageTime.isValid())
   {
-    qWarning() << "invalid tile number" << idParts[2];
+    qWarning() << "invalid image time" << idParts[0];
     return QImage{};
   }
 
-  if (size)
+  auto iter = std::find_if(m_images.cbegin(), m_images.cend(), [imageTime](const PanomaxImage& image) {
+    return image.imageTime() == imageTime;
+  });
+
+  if (iter == m_images.cend())
   {
-    *size = m_recentImageTiles[tile].size();
+    qWarning() << "no image with time" << imageTime;
+    return QImage{};
   }
 
-  return m_recentImageTiles[tile];
-}
+  PanomaxImageSize::Resolution resolution = PanomaxImageSize::stringToResolution(idParts[1]);
+  if (resolution == PanomaxImageSize::None)
+  {
+    qWarning() << "invalid image resolution" << idParts[1];
+    return QImage{};
+  }
 
-void PanomaxImageProvider::setRecentImageTile(const std::vector<QImage>& imageTiles)
-{
-  m_recentImageTiles = imageTiles;
+  if (!iter->isAvailable(resolution))
+  {
+    qWarning() << "image with time" << imageTime << "not available in resolution" << idParts[1];
+    return QImage{};
+  }
+
+  bool ok = false;
+  int tile = idParts[2].toInt(&ok);
+
+  if (!ok || tile < 0)
+  {
+    qWarning() << "invalid tile index" << idParts[2];
+    return QImage{};
+  }
+
+  QImage image = iter->imageTile(resolution, tile);
+
+  if (!image.isNull() && size != nullptr)
+  {
+    *size = image.size();
+  }
+
+  return image;
 }
 
 } // namespace panomax

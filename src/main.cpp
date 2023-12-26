@@ -2,16 +2,13 @@
 #include <QQmlApplicationEngine>
 #include <QSettings>
 
-
 #include "messagehandler.h"
+#include "panomaximageprovider.h"
 
 int main(int argc, char* argv[])
 {
   qInstallMessageHandler(wsgui::messageHandler);
   QGuiApplication app(argc, argv);
-
-  auto imageProvider = new wsgui::panomax::PanomaxImageProvider;
-  wsgui::panomax::PanomaxImages::setPanomaxImageProvider(imageProvider);
 
   QQmlApplicationEngine engine;
   QObject::connect(
@@ -21,7 +18,9 @@ int main(int argc, char* argv[])
       []() { QCoreApplication::exit(-1); },
       Qt::QueuedConnection);
 
-  engine.addImageProvider(wsgui::panomax::PanomaxImageProvider::providerId, imageProvider);
+  auto panomaxProvider = new wsgui::panomax::PanomaxImageProvider;
+  engine.addImageProvider("panomax", panomaxProvider);
+
   engine.loadFromModule("WeatherstationGui", "Main");
 
   return app.exec();

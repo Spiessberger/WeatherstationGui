@@ -3,6 +3,8 @@
 #include <QQmlEngine>
 #include <QQuickImageProvider>
 
+#include "panomaximage.h"
+
 namespace wsgui {
 namespace panomax {
 
@@ -17,10 +19,8 @@ public:
   // id: <ISO 8601 Datetime>/<resolution>/<tile>
   QImage requestImage(const QString& id, QSize* size, const QSize& requestedSize) override;
 
-  void setRecentImageTile(const std::vector<QImage>& imageTiles);
-
 private:
-  std::vector<QImage> m_recentImageTiles;
+  std::vector<PanomaxImage> m_images;
 };
 
 } // namespace panomax
