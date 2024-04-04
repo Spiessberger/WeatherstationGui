@@ -58,28 +58,28 @@ Downloader::DownloadState DayInfoDownloader::downloadDone(const QByteArray& data
 
   try
   {
-    m_dayInfo.date = QDate::fromString(json["date"].get<QString>(), dateFormat);
+    m_dayInfo.date = QDate::fromString(json.at("date").get<QString>(), dateFormat);
 
-    const nlohmann::json sizes = json["sizes"];
+    const nlohmann::json sizes = json.at("sizes");
     for (const nlohmann::json& size: sizes)
     {
       ImageSize imageSize;
 
-      imageSize.columns = size["cols"].get<int>();
-      imageSize.resolution = size["resolution"].get<ImageResolution>();
+      imageSize.columns = size.at("cols").get<int>();
+      imageSize.resolution = size.at("resolution").get<ImageResolution>();
 
       m_dayInfo.imageSizes.push_back(imageSize);
     }
 
-    const nlohmann::json images = json["images"];
+    const nlohmann::json images = json.at("images");
     for (const nlohmann::json& image: images)
     {
-      if (!image["available"].get<bool>())
+      if (!image.at("available").get<bool>())
       {
         continue;
       }
 
-      const QString timeString = image["time"].get<QString>();
+      const QString timeString = image.at("time").get<QString>();
       QTime time = QTime::fromString(timeString, timeFormat);
       if (time.isValid() && !time.isNull())
       {
