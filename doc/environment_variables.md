@@ -1,0 +1,2 @@
+### WSGUI_SETTINGS_FILE
+Defines the path to the settings file. Can be an absolute or relative path. If an relative path is provided, the path used will be the application's current directory path. If the environment variable is not set, the default value is `wsgui_settings.json`.
