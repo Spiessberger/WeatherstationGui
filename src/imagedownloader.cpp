@@ -55,6 +55,8 @@ bool ImageDownloader::download(int camId, const ImageSize& imageSize, const QDat
   if (m_tilesToDownload > 1)
   {
     resolutionTemplate += QStringLiteral("_%3_0");
+    // for some reason there is one more image to download than specified in the info
+    m_tilesToDownload++;
   }
 
   m_urlTemplate =
@@ -75,12 +77,12 @@ Downloader::DownloadState ImageDownloader::downloadDone(const QByteArray& data)
 
   m_imageTiles.push_back(tile);
 
-  if (m_tilesToDownload == m_imageTiles.size())
+  if (m_imageTiles.size() < m_tilesToDownload)
   {
-    return DownloadState::Finished;
+    downloadNextTile();
+    return DownloadState::Continue;
   }
-  downloadNextTile();
-  return DownloadState::Continue;
+  return DownloadState::Finished;
 }
 
 void ImageDownloader::downloadProgress(qint64 bytesReceived, qint64 bytesTotal)
