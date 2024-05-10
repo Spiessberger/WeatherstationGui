@@ -28,6 +28,7 @@ qt_add_qml_module(appWeatherstationGui
   URI WeatherstationGui
   VERSION 1.0
   QML_FILES
+    src/qml/PanoramaView.qml
     src/qml/Main.qml
   SOURCES
     src/recentimage.h
