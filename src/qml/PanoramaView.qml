@@ -5,12 +5,20 @@ Item {
   id: root
 
   property alias images: _panoramaImage.images
+  property real scrollVelocity: 50
+  property bool autoScroll: false
 
   PanoramaImage {
     id: _panoramaImage
 
     anchors.fill: parent
     xOffset: _flick.contentX
+
+    onSourceSizeChanged: {
+      if (root.autoScroll) {
+        _scrollAnimation.startFromCurrentPosition()
+      }
+    }
   }
 
   Flickable {
@@ -43,6 +51,28 @@ Item {
       }
 
       _flick.flick(-horizontalVelocity, 0)
+    }
+
+    NumberAnimation on contentX {
+      id: _scrollAnimation
+
+      function startFromCurrentPosition() {
+        const pixelsToScroll = _scrollAnimation.to - _scrollAnimation.from
+
+        if (pixelsToScroll > 0) {
+          _scrollAnimation.duration = pixelsToScroll / root.scrollVelocity * 1000
+          _scrollAnimation.start()
+        }
+      }
+
+      from: 0
+      to: _flick.contentWidth - _flick.width
+      running: root.autoScroll
+
+      onFinished: {
+        from = 0
+        startFromCurrentPosition()
+      }
     }
   }
 
