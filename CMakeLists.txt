@@ -38,6 +38,8 @@ qt_add_qml_module(appWeatherstationGui
     src/settings.cpp
     src/panoramaimage.h
     src/panoramaimage.cpp
+    src/imagesdirectory.h
+    src/imagesdirectory.cpp
 )
 
 add_subdirectory(dependencies/nlohmann_json)
