@@ -18,7 +18,7 @@ Item {
 
     anchors.fill: parent
 
-    boundsBehavior: Flickable.StopAtBounds
+    boundsMovement: Flickable.StopAtBounds
 
     contentWidth: {
       if (_panoramaImage.sourceSize.width === 0) {
@@ -27,6 +27,23 @@ Item {
       return _panoramaImage.sourceSize.width * d.scale + _flick.width
     }
     contentHeight: _panoramaImage.sourceSize.height * d.scale
+
+    onHorizontalOvershootChanged: {
+      if (horizontalOvershoot === 0) {
+        return
+      }
+
+      const horizontalVelocity = _flick.horizontalVelocity
+
+      if (horizontalOvershoot > 0) {
+        _flick.contentX = 0
+      }
+      else if (horizontalOvershoot < 0) {
+        _flick.contentX = _flick.contentWidth - _flick.width
+      }
+
+      _flick.flick(-horizontalVelocity, 0)
+    }
   }
 
   QtObject {
