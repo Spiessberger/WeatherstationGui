@@ -4,9 +4,19 @@ import WeatherstationGui
 Item {
   id: root
 
+  // image tiles for panorama image
+  // std::vector<QImage>
   property alias images: _panoramaImage.images
+
+  // autoscroll speed in pixel/second
   property real scrollVelocity: 50
+
+  // defines if panoramaview scrolls through image
   property bool autoScroll: false
+
+  // delay in milliseconds after which the panoramaview starts scrolling after user interaction
+  // does nothing,if autoScroll is set to false
+  property int autoScrollDelay: 5000
 
   PanoramaImage {
     id: _panoramaImage
@@ -53,10 +63,21 @@ Item {
       _flick.flick(-horizontalVelocity, 0)
     }
 
+    onMovementEnded: {
+      if (root.autoScroll) {
+        _autoScrollTimer.start()
+      }
+    }
+    onMovementStarted: {
+      _autoScrollTimer.stop()
+      _scrollAnimation.stop()
+    }
+
     NumberAnimation on contentX {
       id: _scrollAnimation
 
       function startFromCurrentPosition() {
+        _scrollAnimation.from = _flick.contentX
         const pixelsToScroll = _scrollAnimation.to - _scrollAnimation.from
 
         if (pixelsToScroll > 0) {
@@ -72,6 +93,18 @@ Item {
       onFinished: {
         from = 0
         startFromCurrentPosition()
+      }
+    }
+  }
+
+  Timer {
+    id: _autoScrollTimer
+
+    interval: root.autoScrollDelay
+
+    onTriggered: {
+      if (root.autoScroll) {
+        _scrollAnimation.startFromCurrentPosition()
       }
     }
   }
