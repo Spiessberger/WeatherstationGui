@@ -20,6 +20,8 @@ int main(int argc, char* argv[])
   }
 
   wsgui::data::WeatherStationData weatherStationData{database};
+  wsgui::data::HomeScreenData homeScreenData(weatherStationData);
+  wsgui::data::HomeScreenData::setQmlInstance(&homeScreenData);
 
   QQmlApplicationEngine engine;
   QObject::connect(
