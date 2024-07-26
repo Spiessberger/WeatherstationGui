@@ -15,12 +15,12 @@ enum class Unit
   MilliMeter
 };
 
-template<typename T, Unit unit_>
+template<typename T, Unit u>
 struct Measurement
 {
   Measurement() = default;
-  explicit Measurement(const T& value_)
-      : value(value_)
+  explicit Measurement(const T& v)
+      : value(v)
   {
   }
 
@@ -32,7 +32,7 @@ struct Measurement
     return *this;
   }
 
-  static const Unit unit = unit_;
+  static const Unit unit = u;
 };
 
 } // namespace data
