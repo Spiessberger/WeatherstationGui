@@ -9,6 +9,8 @@ namespace wsgui
 namespace data
 {
 
+namespace
+{
 namespace dbfields
 {
 const char* table = "weatherstation";
@@ -20,6 +22,7 @@ const char* windGust = "wind_gust";
 const char* windDirection = "wind_direction";
 const char* rain = "rain";
 } // namespace dbfields
+} // namespace
 
 WeatherStationData::WeatherStationData(QSqlDatabase& database)
     : m_database(database)
@@ -124,8 +127,8 @@ void WeatherStationData::prepareDatabase()
 
 void WeatherStationData::insertWeatherData(const WeatherStationDataSet& weatherData)
 {
-  static const QString insertQuery = QStringLiteral("INSERT INTO %1(%2, %3, %4, %5, %6, %7, %8)"
-                                                    "VALUES:(?, ?, ?, ?, ?, ?, ?)")
+  static const QString insertQuery = QStringLiteral("INSERT INTO %1 (%2, %3, %4, %5, %6, %7, %8) "
+                                                    "VALUES (?, ?, ?, ?, ?, ?, ?)")
                                          .arg(dbfields::table)         // 1
                                          .arg(dbfields::timestamp)     // 2
                                          .arg(dbfields::temperature)   // 3
@@ -137,7 +140,7 @@ void WeatherStationData::insertWeatherData(const WeatherStationDataSet& weatherD
 
   QSqlQuery q{m_database};
 
-  if (!q.prepare(insertQuery))
+  if (q.prepare(insertQuery))
   {
     q.addBindValue(weatherData.timeStamp);
     q.addBindValue(weatherData.temperature.value);
