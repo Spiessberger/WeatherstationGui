@@ -51,6 +51,13 @@ qt_add_qml_module(appWeatherstationGui
 
 add_subdirectory(dependencies/nlohmann_json)
 
+target_compile_options(appWeatherstationGui
+  PRIVATE
+    -Wall
+    -Wextra
+    -Wpedantic
+    -Werror
+)
 set_target_properties(appWeatherstationGui PROPERTIES
   WIN32_EXECUTABLE TRUE
 )
