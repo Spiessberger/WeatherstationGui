@@ -27,7 +27,7 @@ private:
   void downloadProgress(qint64 bytesReceived, qint64 bytesTotal) override;
   bool downloadNextTile();
 
-  int m_tilesToDownload = 0;
+  size_t m_tilesToDownload = 0;
   QString m_urlTemplate;
   std::vector<QImage> m_imageTiles;
 };
