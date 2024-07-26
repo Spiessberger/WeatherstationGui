@@ -34,9 +34,12 @@ qt_add_executable(appWeatherstationGui
 qt_add_qml_module(appWeatherstationGui
   URI WeatherstationGui
   VERSION 1.0
+
   QML_FILES
     src/qml/PanoramaView.qml
+    src/qml/HomeScreen.qml
     src/qml/Main.qml
+
   SOURCES
     src/recentimage.h
     src/recentimage.cpp
@@ -55,7 +58,7 @@ qt_add_qml_module(appWeatherstationGui
     src/indoorclimatedatadisplay.cpp
     src/weatherstationdatadisplay.h
     src/weatherstationdatadisplay.cpp
-)
+  )
 
 add_subdirectory(dependencies/nlohmann_json)
 

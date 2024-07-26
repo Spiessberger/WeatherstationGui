@@ -19,6 +19,11 @@ Window {
 
     anchors.fill: parent
 
+    autoScroll: true
     images: _recentImage.imageTiles
+  }
+
+  HomeScreen {
+    anchors.fill: parent
   }
 }
