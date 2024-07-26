@@ -142,7 +142,7 @@ void PanoramaImage::setImages(const std::vector<QImage>& newImages)
 
   qreal width = 0;
   qreal height = m_images.front().height();
-  for (const QImage image: m_images)
+  for (const QImage& image: m_images)
   {
     width += image.width() * height / image.height();
   }
