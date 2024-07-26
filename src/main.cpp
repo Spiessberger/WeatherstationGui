@@ -3,6 +3,8 @@
 #include <QSqlDatabase>
 #include <QSqlError>
 
+#include "homescreendata.h"
+#include "indoorclimatedata.h"
 #include "weatherstationdata.h"
 
 int main(int argc, char* argv[])
@@ -10,18 +12,18 @@ int main(int argc, char* argv[])
   QGuiApplication app(argc, argv);
 
   QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
-  database.setDatabaseName(
-      "C:\\Users\\Daniel_\\Projects\\weatherstation\\CsvToSQLite\\build\\Desktop_Qt_6_7_0_MinGW_64_"
-      "bit-Debug\\weaterdata.sqlite");
+  database.setDatabaseName("weatherdata.sqlite");
   if (!database.open())
   {
     qWarning() << "failed to open database:" << database.lastError();
     return 1;
   }
 
+  wsgui::data::IndoorClimateData indoorClimateData{database};
   wsgui::data::WeatherStationData weatherStationData{database};
-  wsgui::data::HomeScreenData homeScreenData(weatherStationData);
+  wsgui::data::HomeScreenData homeScreenData(indoorClimateData, weatherStationData);
   wsgui::data::HomeScreenData::setQmlInstance(&homeScreenData);
+
 
   QQmlApplicationEngine engine;
   QObject::connect(
