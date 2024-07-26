@@ -26,7 +26,8 @@ Item {
 
     onSourceSizeChanged: {
       if (root.autoScroll) {
-        _scrollAnimation.startFromCurrentPosition()
+        _scrollAnimation.from = _flick.contentX
+        _scrollAnimation.startAnimation()
       }
     }
   }
@@ -76,8 +77,7 @@ Item {
     NumberAnimation on contentX {
       id: _scrollAnimation
 
-      function startFromCurrentPosition() {
-        _scrollAnimation.from = _flick.contentX
+      function startAnimation() {
         const pixelsToScroll = _scrollAnimation.to - _scrollAnimation.from
 
         if (pixelsToScroll > 0) {
@@ -92,7 +92,7 @@ Item {
 
       onFinished: {
         from = 0
-        startFromCurrentPosition()
+        startAnimation()
       }
     }
   }
@@ -104,7 +104,8 @@ Item {
 
     onTriggered: {
       if (root.autoScroll) {
-        _scrollAnimation.startFromCurrentPosition()
+        _scrollAnimation.from = _flick.contentX
+        _scrollAnimation.startAnimation()
       }
     }
   }
