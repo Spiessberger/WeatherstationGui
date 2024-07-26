@@ -51,6 +51,10 @@ qt_add_qml_module(appWeatherstationGui
     src/homescreendata.cpp
     src/displaydata.h
     src/displaydata.cpp
+    src/indoorclimatedatadisplay.h
+    src/indoorclimatedatadisplay.cpp
+    src/weatherstationdatadisplay.h
+    src/weatherstationdatadisplay.cpp
 )
 
 add_subdirectory(dependencies/nlohmann_json)
