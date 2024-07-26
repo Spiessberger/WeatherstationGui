@@ -7,6 +7,7 @@ namespace data
 
 enum class Unit
 {
+  None,
   KilometersPerHour,
   Percent,
   DegreeCelsius,
