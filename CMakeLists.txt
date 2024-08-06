@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 20)
 
 find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Sql)
+find_package(nlohmann_json CONFIG REQUIRED)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
@@ -59,8 +60,6 @@ qt_add_qml_module(appWeatherstationGui
     src/weatherstationdatadisplay.h
     src/weatherstationdatadisplay.cpp
   )
-
-add_subdirectory(dependencies/nlohmann_json)
 
 target_compile_options(appWeatherstationGui
   PRIVATE
