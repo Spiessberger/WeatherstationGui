@@ -44,17 +44,18 @@ void WeatherStationData::addWeatherData(const WeatherStationDataSet& dataSet)
 std::vector<WeatherStationDataSet> WeatherStationData::getWeatherData(const QDateTime& from,
                                                                       const QDateTime& to)
 {
-  static const QString selectQuery = QStringLiteral("SELECT * FROM %1 WHERE %2 >= ? AND %2 <= ?")
-                                         .arg(dbfields::table)
-                                         .arg(dbfields::timestamp);
+  static const QString selectQuery =
+      QStringLiteral("SELECT * FROM %1 WHERE %2 >= :from AND %2 <= :to")
+          .arg(dbfields::table)
+          .arg(dbfields::timestamp);
 
   std::vector<WeatherStationDataSet> ret;
 
   QSqlQuery q{m_database};
   q.prepare(selectQuery);
 
-  q.addBindValue(from);
-  q.addBindValue(to);
+  q.bindValue(":from", from);
+  q.bindValue(":to", to);
 
   if (!q.exec())
   {
@@ -62,13 +63,14 @@ std::vector<WeatherStationDataSet> WeatherStationData::getWeatherData(const QDat
     return ret;
   }
 
-  const int timestampIndex = q.record().indexOf(dbfields::timestamp);
-  const int temperatureIndex = q.record().indexOf(dbfields::temperature);
-  const int humidityIndex = q.record().indexOf(dbfields::humidity);
-  const int windSpeedIndex = q.record().indexOf(dbfields::windSpeed);
-  const int windGustIndex = q.record().indexOf(dbfields::windGust);
-  const int windDirectionIndex = q.record().indexOf(dbfields::windDirection);
-  const int rainIndex = q.record().indexOf(dbfields::rain);
+  const QSqlRecord record = q.record();
+  const int timestampIndex = record.indexOf(dbfields::timestamp);
+  const int temperatureIndex = record.indexOf(dbfields::temperature);
+  const int humidityIndex = record.indexOf(dbfields::humidity);
+  const int windSpeedIndex = record.indexOf(dbfields::windSpeed);
+  const int windGustIndex = record.indexOf(dbfields::windGust);
+  const int windDirectionIndex = record.indexOf(dbfields::windDirection);
+  const int rainIndex = record.indexOf(dbfields::rain);
 
   while (q.next())
   {
@@ -128,7 +130,7 @@ void WeatherStationData::prepareDatabase()
 void WeatherStationData::insertWeatherData(const WeatherStationDataSet& weatherData)
 {
   static const QString insertQuery = QStringLiteral("INSERT INTO %1 (%2, %3, %4, %5, %6, %7, %8) "
-                                                    "VALUES (?, ?, ?, ?, ?, ?, ?)")
+                                                    "VALUES (:%2, :%3, :%4, :%5, :%6, :%7, :%8)")
                                          .arg(dbfields::table)         // 1
                                          .arg(dbfields::timestamp)     // 2
                                          .arg(dbfields::temperature)   // 3
@@ -140,23 +142,23 @@ void WeatherStationData::insertWeatherData(const WeatherStationDataSet& weatherD
 
   QSqlQuery q{m_database};
 
-  if (q.prepare(insertQuery))
-  {
-    q.addBindValue(weatherData.timeStamp);
-    q.addBindValue(weatherData.temperature.value);
-    q.addBindValue(weatherData.humidity.value);
-    q.addBindValue(weatherData.windSpeed.value);
-    q.addBindValue(weatherData.windGust.value);
-    q.addBindValue(weatherData.windDirection.value);
-    q.addBindValue(weatherData.rain.value);
-    if (!q.exec())
-    {
-      qWarning() << "failed to execute insert:" << q.lastError();
-    }
-  }
-  else
+  if (!q.prepare(insertQuery))
   {
     qWarning() << "failed to prepare insert query:" << q.lastError();
+    return;
+  }
+
+  q.bindValue(QString{":"} + dbfields::timestamp, weatherData.timeStamp);
+  q.bindValue(QString{":"} + dbfields::temperature, weatherData.temperature.value);
+  q.bindValue(QString{":"} + dbfields::humidity, weatherData.humidity.value);
+  q.bindValue(QString{":"} + dbfields::windSpeed, weatherData.windSpeed.value);
+  q.bindValue(QString{":"} + dbfields::windGust, weatherData.windGust.value);
+  q.bindValue(QString{":"} + dbfields::windDirection, weatherData.windDirection.value);
+  q.bindValue(QString{":"} + dbfields::rain, weatherData.rain.value);
+
+  if (!q.exec())
+  {
+    qWarning() << "failed to execute insert:" << q.lastError();
   }
 }
 

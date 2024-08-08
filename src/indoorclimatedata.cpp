@@ -45,27 +45,28 @@ const IndoorClimateDataSet& IndoorClimateData::recentIndoorData() const
 std::vector<IndoorClimateDataSet> IndoorClimateData::getIndoorData(const QDateTime& from,
                                                                    const QDateTime& to)
 {
-  static const QString selectQuery = QStringLiteral("SELECT * FROM %1 WHERE %2 >= ? AND %2 <= ?")
-                                         .arg(dbfields::table)
-                                         .arg(dbfields::timestamp);
+  static const QString selectQuery =
+      QStringLiteral("SELECT * FROM %1 WHERE %2 >= :from AND %2 <= :to")
+          .arg(dbfields::table)
+          .arg(dbfields::timestamp);
 
   std::vector<IndoorClimateDataSet> ret;
 
   QSqlQuery q{m_database};
   q.prepare(selectQuery);
 
-  q.addBindValue(from);
-  q.addBindValue(to);
+  q.bindValue(":from", from);
+  q.bindValue(":to", to);
 
   if (!q.exec())
   {
     qWarning() << "failed to get weatherdata from" << from << "to" << to << ":" << q.lastError();
     return ret;
   }
-
-  const int timestampIndex = q.record().indexOf(dbfields::timestamp);
-  const int temperatureIndex = q.record().indexOf(dbfields::temperature);
-  const int humidityIndex = q.record().indexOf(dbfields::humidity);
+  const QSqlRecord record = q.record();
+  const int timestampIndex = record.indexOf(dbfields::timestamp);
+  const int temperatureIndex = record.indexOf(dbfields::temperature);
+  const int humidityIndex = record.indexOf(dbfields::humidity);
 
   while (q.next())
   {
@@ -113,7 +114,7 @@ void IndoorClimateData::prepareDatabase()
 void IndoorClimateData::insertIndoorData(const IndoorClimateDataSet& indoorData)
 {
   static const QString insertQuery = QStringLiteral("INSERT INTO %1 (%2, %3, %4) "
-                                                    "VALUES (?, ?, ?)")
+                                                    "VALUES (%2, %3, %4)")
                                          .arg(dbfields::table)       // 1
                                          .arg(dbfields::timestamp)   // 2
                                          .arg(dbfields::temperature) // 3
@@ -121,19 +122,19 @@ void IndoorClimateData::insertIndoorData(const IndoorClimateDataSet& indoorData)
 
   QSqlQuery q{m_database};
 
-  if (q.prepare(insertQuery))
-  {
-    q.addBindValue(indoorData.timeStamp);
-    q.addBindValue(indoorData.temperature.value);
-    q.addBindValue(indoorData.humidity.value);
-    if (!q.exec())
-    {
-      qWarning() << "failed to execute insert:" << q.lastError();
-    }
-  }
-  else
+  if (!q.prepare(insertQuery))
   {
     qWarning() << "failed to prepare insert query:" << q.lastError();
+    return;
+  }
+
+  q.bindValue(QString{":"} + dbfields::timestamp, indoorData.timeStamp);
+  q.bindValue(QString{":"} + dbfields::temperature, indoorData.temperature.value);
+  q.bindValue(QString{":"} + dbfields::humidity, indoorData.humidity.value);
+
+  if (!q.exec())
+  {
+    qWarning() << "failed to execute insert:" << q.lastError();
   }
 }
 
