@@ -2,8 +2,8 @@ import QtQuick
 import WeatherstationGui
 
 Window {
-  width: 640
-  height: 480
+  width: 1280
+  height: 800
   visible: true
   title: "Weatherstation Gui"
 
