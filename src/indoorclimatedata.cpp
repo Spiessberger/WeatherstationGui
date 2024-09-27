@@ -114,7 +114,7 @@ void IndoorClimateData::prepareDatabase()
 void IndoorClimateData::insertIndoorData(const IndoorClimateDataSet& indoorData)
 {
   static const QString insertQuery = QStringLiteral("INSERT INTO %1 (%2, %3, %4) "
-                                                    "VALUES (%2, %3, %4)")
+                                                    "VALUES (:%2, :%3, :%4)")
                                          .arg(dbfields::table)       // 1
                                          .arg(dbfields::timestamp)   // 2
                                          .arg(dbfields::temperature) // 3
