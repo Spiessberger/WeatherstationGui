@@ -6,7 +6,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 20)
 
 find_package(Qt6 6.7 REQUIRED COMPONENTS Quick Sql)
-find_package(nlohmann_json CONFIG REQUIRED)
+find_package(nlohmann_json REQUIRED)
+find_package(material_color_utilities REQUIRED)
 
 qt_standard_project_setup(REQUIRES 6.7)
 
@@ -77,6 +78,7 @@ target_link_libraries(appWeatherstationGui
     Qt6::Quick
     Qt6::Sql
     nlohmann_json::nlohmann_json
+    material_color_utilities::material_color_utilities
 )
 
 target_include_directories(appWeatherstationGui PUBLIC src)
