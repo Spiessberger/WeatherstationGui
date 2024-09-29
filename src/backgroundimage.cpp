@@ -19,13 +19,16 @@ namespace panomax
 BackgroundImage::BackgroundImage(QObject* parent)
     : QObject{parent}
 {
-  connect(&m_dayInfoUpdateTimer, &QTimer::timeout, this, &BackgroundImage::updateDayInfo);
+  connect(&m_dayInfoUpdateTimer,
+          &QTimer::timeout,
+          &m_recentImageInfo,
+          &RecentImageInfo::updateDayInfo);
   connect(&m_imageDownloader,
           &ImageDownloader::finished,
           this,
           &BackgroundImage::imageDownloadFinished);
   connect(&m_imageDownloader,
-          &DayInfoDownloader::failed,
+          &ImageDownloader::failed,
           this,
           [this]()
           {
@@ -36,12 +39,12 @@ BackgroundImage::BackgroundImage(QObject* parent)
           &ImageDownloader::progressChanged,
           this,
           &BackgroundImage::progressChanged);
-  connect(&m_dayInfoDownloader,
-          &DayInfoDownloader::finished,
+  connect(&m_recentImageInfo,
+          &RecentImageInfo::recentImageInfoChanged,
           this,
-          &BackgroundImage::dayInfoDownloadFinished);
-  connect(&m_dayInfoDownloader,
-          &DayInfoDownloader::failed,
+          &BackgroundImage::restartImageTilesDownload);
+  connect(&m_recentImageInfo,
+          &RecentImageInfo::dayInfoDownloadFailed,
           this,
           &BackgroundImage::dayInfoDownloadFailed);
 }
@@ -60,7 +63,8 @@ void BackgroundImage::setCamId(int newCamId)
   m_camId = newCamId;
   emit camIdChanged();
 
-  updateDayInfo();
+  m_recentImageInfo.setCamId(m_camId);
+  m_recentImageInfo.updateDayInfo();
   if (m_dayInfoUpdateTimer.isActive())
   {
     m_dayInfoUpdateTimer.start(m_updateInterval);
@@ -98,7 +102,15 @@ void BackgroundImage::setImageResolutions(const std::vector<ImageResolution>& ne
   m_imageResolutions = newImageResolutions;
   emit imageResolutionsChanged();
 
-  updateResolutionQueue();
+  if (!m_recentImageInfo.recentImageTime().isNull() && !m_recentImageInfo.imageSizes().empty())
+  {
+    restartImageTilesDownload();
+  }
+}
+
+const std::vector<QImage>& BackgroundImage::thumbImageTiles() const
+{
+  return m_thumbImageTiles;
 }
 
 const std::vector<QImage>& BackgroundImage::imageTiles() const
@@ -111,47 +123,36 @@ int BackgroundImage::progress() const
   return m_imageDownloader.progress();
 }
 
-void BackgroundImage::updateDayInfo()
-{
-  if (m_dayInfoDownloader.downloading())
-  {
-    qCDebug(log) << "aborting running day info download";
-    m_dayInfoDownloader.abort();
-  }
-  m_dayInfoDownloader.download(m_camId);
-}
-
 void BackgroundImage::imageDownloadFinished()
 {
-  m_imageTiles = m_imageDownloader.imageTiles();
+  qCDebug(log) << "finished image tiles download of resolution" << m_downloadInfo.resolution;
+
+  if (m_downloadInfo.resolution == m_thumbResolution)
+  {
+    m_thumbImageTiles = m_imageDownloader.imageTiles();
+    emit thumbImageTilesChanged();
+    qCDebug(log) << "updated thumb tiles";
+  }
+
+  if (m_downloadInfo.resolution != m_thumbResolution
+      || std::ranges::find(m_imageResolutions, m_thumbResolution) != m_imageResolutions.end())
+  {
+    m_imageTiles = m_imageDownloader.imageTiles();
+    emit imageTilesChanged();
+    qCDebug(log) << "updated image tiles";
+  }
+
   m_tilesInfo = m_downloadInfo;
   m_downloadInfo = {};
-  emit imageTilesChanged();
   if (!m_imageResolutionQueue.empty())
   {
     downloadImageTiles();
   }
 }
 
-void BackgroundImage::dayInfoDownloadFinished()
+void BackgroundImage::restartImageTilesDownload()
 {
-  const DayInfo& dayInfo = m_dayInfoDownloader.dayInfo();
-
-  if (dayInfo.imageTimes.empty())
-  {
-    qCWarning(log) << "no image times";
-    return;
-  }
-
-  const QDateTime imageTime{dayInfo.date, dayInfo.imageTimes.back()};
-  if (imageTime <= m_tilesInfo.time
-      || (imageTime <= m_downloadInfo.time && m_imageDownloader.downloading()))
-  {
-    qCDebug(log) << "no new image to download";
-    return;
-  }
   m_imageDownloader.abort();
-
   updateResolutionQueue();
   downloadImageTiles();
 }
@@ -159,11 +160,25 @@ void BackgroundImage::dayInfoDownloadFinished()
 void BackgroundImage::updateResolutionQueue()
 {
   // clear current resolution queue
-  while (!m_imageResolutionQueue.empty())
-  {
-    m_imageResolutionQueue.pop();
-  }
+  m_imageResolutionQueue = {};
   std::unordered_set<ImageResolution> resolutions;
+
+  if (m_thumbResolution != ImageResolution::None)
+  {
+    auto thumbIter = std::ranges::find_if(m_recentImageInfo.imageSizes(),
+                                          [this](const ImageSize& imageSize)
+                                          { return imageSize.resolution == m_thumbResolution; });
+
+    if (thumbIter != m_recentImageInfo.imageSizes().end())
+    {
+      resolutions.insert(m_thumbResolution);
+      m_imageResolutionQueue.push(m_thumbResolution);
+    }
+    else
+    {
+      qCWarning(log) << "reqested thumbnail resolution" << m_thumbResolution << "is not available";
+    }
+  }
 
   for (ImageResolution resolution: m_imageResolutions)
   {
@@ -177,8 +192,7 @@ void BackgroundImage::updateResolutionQueue()
 
 void BackgroundImage::downloadImageTiles()
 {
-  const DayInfo& dayInfo = m_dayInfoDownloader.dayInfo();
-  if (dayInfo.date.isNull() || dayInfo.imageTimes.empty())
+  if (m_recentImageInfo.recentImageTime().isNull())
   {
     qCWarning(log) << "no image time to download";
     return;
@@ -196,10 +210,10 @@ void BackgroundImage::downloadImageTiles()
   {
     const ImageResolution resolution = m_imageResolutionQueue.front();
     m_imageResolutionQueue.pop();
-    auto iter = std::ranges::find_if(dayInfo.imageSizes,
+    auto iter = std::ranges::find_if(m_recentImageInfo.imageSizes(),
                                      [resolution](const ImageSize& imageSize)
                                      { return imageSize.resolution == resolution; });
-    if (iter != dayInfo.imageSizes.end())
+    if (iter != m_recentImageInfo.imageSizes().end())
     {
       imageSize = *iter;
     }
@@ -215,8 +229,7 @@ void BackgroundImage::downloadImageTiles()
     return;
   }
 
-  const QDateTime imageTime{dayInfo.date, dayInfo.imageTimes.back()};
-  m_downloadInfo.time = imageTime;
+  m_downloadInfo.time = m_recentImageInfo.recentImageTime();
   m_downloadInfo.resolution = imageSize.resolution;
 
   if (m_imageDownloader.downloading())
@@ -225,7 +238,22 @@ void BackgroundImage::downloadImageTiles()
     m_imageDownloader.abort();
   }
 
-  m_imageDownloader.download(m_camId, imageSize, imageTime);
+  m_imageDownloader.download(m_camId, imageSize, m_recentImageInfo.recentImageTime());
+}
+
+wsgui::panomax::ImageResolution BackgroundImage::thumbResolution() const
+{
+  return m_thumbResolution;
+}
+
+void BackgroundImage::setThumbResolution(const wsgui::panomax::ImageResolution& newThumbResolution)
+{
+  if (m_thumbResolution == newThumbResolution)
+  {
+    return;
+  }
+  m_thumbResolution = newThumbResolution;
+  emit thumbResolutionChanged();
 }
 
 } // namespace panomax
