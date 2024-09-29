@@ -29,6 +29,8 @@ qt_add_executable(appWeatherstationGui
   src/indoorclimatedataset.h
   src/indoorclimatedata.h
   src/indoorclimatedata.cpp
+  src/recentimageinfo.h
+  src/recentimageinfo.cpp
 
   src/main.cpp
 )
