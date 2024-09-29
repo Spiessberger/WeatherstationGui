@@ -43,8 +43,8 @@ qt_add_qml_module(appWeatherstationGui
     src/qml/Main.qml
 
   SOURCES
-    src/recentimage.h
-    src/recentimage.cpp
+    src/backgroundimage.h
+    src/backgroundimage.cpp
     src/imageresolution.h
     src/settings.h
     src/settings.cpp

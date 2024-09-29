@@ -16,7 +16,7 @@ namespace wsgui
 namespace panomax
 {
 
-class RecentImage : public QObject
+class BackgroundImage : public QObject
 {
   Q_OBJECT
   Q_PROPERTY(int camId READ camId WRITE setCamId NOTIFY camIdChanged FINAL)
@@ -28,7 +28,7 @@ class RecentImage : public QObject
   Q_PROPERTY(int progress READ progress NOTIFY progressChanged FINAL)
   QML_ELEMENT
 public:
-  explicit RecentImage(QObject* parent = nullptr);
+  explicit BackgroundImage(QObject* parent = nullptr);
 
   int camId() const;
   void setCamId(int newCamId);

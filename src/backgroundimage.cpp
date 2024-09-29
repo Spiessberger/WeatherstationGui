@@ -1,4 +1,4 @@
-#include "recentimage.h"
+#include "backgroundimage.h"
 
 #include <QLoggingCategory>
 
@@ -8,7 +8,7 @@
 
 namespace
 {
-Q_LOGGING_CATEGORY(log, "wsgui::panomax::RecentImage")
+Q_LOGGING_CATEGORY(log, "wsgui::panomax::BackgroundImage")
 }
 
 namespace wsgui
@@ -16,14 +16,14 @@ namespace wsgui
 namespace panomax
 {
 
-RecentImage::RecentImage(QObject* parent)
+BackgroundImage::BackgroundImage(QObject* parent)
     : QObject{parent}
 {
-  connect(&m_dayInfoUpdateTimer, &QTimer::timeout, this, &RecentImage::updateDayInfo);
+  connect(&m_dayInfoUpdateTimer, &QTimer::timeout, this, &BackgroundImage::updateDayInfo);
   connect(&m_imageDownloader,
           &ImageDownloader::finished,
           this,
-          &RecentImage::imageDownloadFinished);
+          &BackgroundImage::imageDownloadFinished);
   connect(&m_imageDownloader,
           &DayInfoDownloader::failed,
           this,
@@ -35,23 +35,23 @@ RecentImage::RecentImage(QObject* parent)
   connect(&m_imageDownloader,
           &ImageDownloader::progressChanged,
           this,
-          &RecentImage::progressChanged);
+          &BackgroundImage::progressChanged);
   connect(&m_dayInfoDownloader,
           &DayInfoDownloader::finished,
           this,
-          &RecentImage::dayInfoDownloadFinished);
+          &BackgroundImage::dayInfoDownloadFinished);
   connect(&m_dayInfoDownloader,
           &DayInfoDownloader::failed,
           this,
-          &RecentImage::dayInfoDownloadFailed);
+          &BackgroundImage::dayInfoDownloadFailed);
 }
 
-int RecentImage::camId() const
+int BackgroundImage::camId() const
 {
   return m_camId;
 }
 
-void RecentImage::setCamId(int newCamId)
+void BackgroundImage::setCamId(int newCamId)
 {
   if (m_camId == newCamId)
   {
@@ -67,12 +67,12 @@ void RecentImage::setCamId(int newCamId)
   }
 }
 
-int RecentImage::updateIntervalMs() const
+int BackgroundImage::updateIntervalMs() const
 {
   return m_updateInterval.count();
 }
 
-void RecentImage::setUpdateIntervalMs(int newUpdateIntervalMs)
+void BackgroundImage::setUpdateIntervalMs(int newUpdateIntervalMs)
 {
   if (m_updateInterval.count() == newUpdateIntervalMs)
   {
@@ -84,12 +84,12 @@ void RecentImage::setUpdateIntervalMs(int newUpdateIntervalMs)
   m_dayInfoUpdateTimer.start(m_updateInterval);
 }
 
-std::vector<ImageResolution> RecentImage::imageResolutions() const
+std::vector<ImageResolution> BackgroundImage::imageResolutions() const
 {
   return m_imageResolutions;
 }
 
-void RecentImage::setImageResolutions(const std::vector<ImageResolution>& newImageResolutions)
+void BackgroundImage::setImageResolutions(const std::vector<ImageResolution>& newImageResolutions)
 {
   if (m_imageResolutions == newImageResolutions)
   {
@@ -101,17 +101,17 @@ void RecentImage::setImageResolutions(const std::vector<ImageResolution>& newIma
   updateResolutionQueue();
 }
 
-const std::vector<QImage>& RecentImage::imageTiles() const
+const std::vector<QImage>& BackgroundImage::imageTiles() const
 {
   return m_imageTiles;
 }
 
-int RecentImage::progress() const
+int BackgroundImage::progress() const
 {
   return m_imageDownloader.progress();
 }
 
-void RecentImage::updateDayInfo()
+void BackgroundImage::updateDayInfo()
 {
   if (m_dayInfoDownloader.downloading())
   {
@@ -121,7 +121,7 @@ void RecentImage::updateDayInfo()
   m_dayInfoDownloader.download(m_camId);
 }
 
-void RecentImage::imageDownloadFinished()
+void BackgroundImage::imageDownloadFinished()
 {
   m_imageTiles = m_imageDownloader.imageTiles();
   m_tilesInfo = m_downloadInfo;
@@ -133,7 +133,7 @@ void RecentImage::imageDownloadFinished()
   }
 }
 
-void RecentImage::dayInfoDownloadFinished()
+void BackgroundImage::dayInfoDownloadFinished()
 {
   const DayInfo& dayInfo = m_dayInfoDownloader.dayInfo();
 
@@ -156,7 +156,7 @@ void RecentImage::dayInfoDownloadFinished()
   downloadImageTiles();
 }
 
-void RecentImage::updateResolutionQueue()
+void BackgroundImage::updateResolutionQueue()
 {
   // clear current resolution queue
   while (!m_imageResolutionQueue.empty())
@@ -175,7 +175,7 @@ void RecentImage::updateResolutionQueue()
   }
 }
 
-void RecentImage::downloadImageTiles()
+void BackgroundImage::downloadImageTiles()
 {
   const DayInfo& dayInfo = m_dayInfoDownloader.dayInfo();
   if (dayInfo.date.isNull() || dayInfo.imageTimes.empty())
