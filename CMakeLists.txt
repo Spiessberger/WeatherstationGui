@@ -40,6 +40,7 @@ qt_add_qml_module(appWeatherstationGui
   VERSION 1.0
 
   QML_FILES
+    src/qml/Background.qml
     src/qml/PanoramaView.qml
     src/qml/HomeScreen.qml
     src/qml/Main.qml

@@ -7,20 +7,8 @@ Window {
   visible: true
   title: "Weatherstation Gui"
 
-  RecentImage {
-    id: _recentImage
-
-    camId: Settings.backgroundCamId
-    imageResolutions: [ ImageResolution.Default, ImageResolution.Full ]
-  }
-
-  PanoramaView {
-    id: _panoramaView
-
+  Background{
     anchors.fill: parent
-
-    autoScroll: true
-    images: _recentImage.imageTiles
   }
 
   HomeScreen {
