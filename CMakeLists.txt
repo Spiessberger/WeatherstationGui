@@ -31,6 +31,7 @@ qt_add_executable(appWeatherstationGui
   src/indoorclimatedata.cpp
   src/recentimageinfo.h
   src/recentimageinfo.cpp
+  src/colorschemedata.h
 
   src/main.cpp
 )
@@ -63,6 +64,12 @@ qt_add_qml_module(appWeatherstationGui
     src/indoorclimatedatadisplay.cpp
     src/weatherstationdatadisplay.h
     src/weatherstationdatadisplay.cpp
+    src/colorschemeprovider.h
+    src/colorschemeprovider.cpp
+    src/colorscheme.h
+    src/colorscheme.cpp
+    src/theme.h
+    src/theme.cpp
   )
 
 target_compile_options(appWeatherstationGui
