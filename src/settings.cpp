@@ -19,8 +19,13 @@ namespace wsgui
 
 namespace keys
 {
+namespace
+{
 const char* const backgroundCamId = "backgroundCamId";
-}
+const char* const isDarkScheme = "isDarkScheme";
+const char* const schemeContrastLevel = "schemeContrastLevel";
+} // namespace
+} // namespace keys
 
 Settings::Settings(QObject* parent)
     : QObject{parent}
@@ -65,6 +70,36 @@ void Settings::setBackgroundCamId(int newBackgroundCamId)
   emit backgroundCamIdChanged();
 }
 
+bool Settings::isDarkScheme() const
+{
+  return m_isDarkScheme;
+}
+
+void Settings::setIsDarkScheme(bool newIsDarkScheme)
+{
+  if (m_isDarkScheme == newIsDarkScheme)
+  {
+    return;
+  }
+  m_isDarkScheme = newIsDarkScheme;
+  emit isDarkSchemeChanged();
+}
+
+double Settings::schemeContrastLevel() const
+{
+  return m_schemeContrastLevel;
+}
+
+void Settings::setSchemeContrastLevel(double newSchemeContrastLevel)
+{
+  if (qFuzzyCompare(m_schemeContrastLevel, newSchemeContrastLevel))
+  {
+    return;
+  }
+  m_schemeContrastLevel = newSchemeContrastLevel;
+  emit schemeContrastLevelChanged();
+}
+
 void Settings::save()
 {
   nlohmann::json j = *this;
@@ -92,11 +127,21 @@ void Settings::read()
   {
     setBackgroundCamId(j.at(keys::backgroundCamId).get<int>());
   }
+  if (j.contains(keys::isDarkScheme))
+  {
+    setIsDarkScheme(j.at(keys::isDarkScheme).get<bool>());
+  }
+  if (j.contains(keys::schemeContrastLevel))
+  {
+    setSchemeContrastLevel(j.at(keys::schemeContrastLevel).get<double>());
+  }
 }
 
 void to_json(nlohmann::json& j, const Settings& settings)
 {
-  j = json{{keys::backgroundCamId, settings.backgroundCamId()}};
+  j = json{{keys::backgroundCamId, settings.backgroundCamId()},
+           {keys::isDarkScheme, settings.isDarkScheme()},
+           {keys::schemeContrastLevel, settings.schemeContrastLevel()}};
 }
 
 } // namespace wsgui
