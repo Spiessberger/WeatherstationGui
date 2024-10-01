@@ -48,7 +48,8 @@ HomeScreenData* HomeScreenData::create(QQmlEngine*, QJSEngine*)
 
 QString HomeScreenData::date() const
 {
-  return m_date.toString();
+  QLocale locale;
+  return locale.toString(m_date, "ddd, ") + locale.toString(m_date, QLocale::ShortFormat);
 }
 
 void HomeScreenData::setDate(const QDate& newDate)
