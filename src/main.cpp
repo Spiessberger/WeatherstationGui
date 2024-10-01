@@ -4,6 +4,7 @@
 #include <QSqlError>
 
 #include "homescreendata.h"
+#include "iconprovider.h"
 #include "indoorclimatedata.h"
 #include "weatherstationdata.h"
 
@@ -32,6 +33,7 @@ int main(int argc, char* argv[])
       &app,
       []() { QCoreApplication::exit(-1); },
       Qt::QueuedConnection);
+  engine.addImageProvider(wsgui::IconProviderHelper::ImageProviderId, new wsgui::IconProvider());
   engine.loadFromModule("WeatherstationGui", "Main");
 
   return app.exec();

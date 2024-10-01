@@ -70,6 +70,8 @@ qt_add_qml_module(appWeatherstationGui
     src/colorscheme.cpp
     src/theme.h
     src/theme.cpp
+    src/iconprovider.h
+    src/iconprovider.cpp
   )
 
 target_compile_options(appWeatherstationGui
