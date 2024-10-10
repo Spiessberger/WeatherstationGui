@@ -143,7 +143,7 @@ Item {
       SettingsListEntry {
         text: "Erscheinungsbild"
         icon: "qrc:/icons/palette.svg"
-        component: _placeholderComponent
+        component: AppearanceSettings {}
       },
       SettingsListEntry {
         text: "Netzwerk"
