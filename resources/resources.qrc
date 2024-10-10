@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/air.svg</file>
+        <file>icons/arrow_back.svg</file>
+        <file>icons/dark_mode.svg</file>
+        <file>icons/humidity_percentage.svg</file>
+        <file>icons/light_mode.svg</file>
+        <file>icons/north.svg</file>
+        <file>icons/palette.svg</file>
+        <file>icons/rainy.svg</file>
+        <file>icons/thermometer.svg</file>
+        <file>icons/troubleshoot.svg</file>
+        <file>icons/wifi.svg</file>
+    </qresource>
+</RCC>
