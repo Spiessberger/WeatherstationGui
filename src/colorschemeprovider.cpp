@@ -46,15 +46,16 @@ void ColorSchemeProvider::loadSeedColorsFromImage(const QImage& image)
   }
 
   emit seedColorsChanged();
+
+  reloadColorSchemeFromSeedColors();
 }
 
-void ColorSchemeProvider::loadSchemeFromColor(const QColor& seedColor,
-                                              bool isDark,
-                                              double contrastLevel)
+void ColorSchemeProvider::loadSchemeFromColor(const QColor& seedColor)
 {
+  qDebug() << __func__;
   const material_color_utilities::Hct hctColor{seedColor.rgb()};
   const material_color_utilities::DynamicScheme dynamicScheme =
-      material_color_utilities::SchemeTonalSpot{hctColor, isDark, contrastLevel};
+      material_color_utilities::SchemeTonalSpot{hctColor, m_isDark, m_contrast};
 
   ColorSchemeData scheme;
 
@@ -130,6 +131,66 @@ ColorScheme* ColorSchemeProvider::colorScheme()
 {
   QQmlEngine::setObjectOwnership(&m_colorScheme, QQmlEngine::CppOwnership);
   return &m_colorScheme;
+}
+
+void ColorSchemeProvider::reloadColorSchemeFromSeedColors()
+{
+  if (!m_seedColors.empty() && m_preferedSeedColorIndex >= 0
+      && m_preferedSeedColorIndex < static_cast<int>(m_seedColors.size()))
+  {
+    loadSchemeFromColor(m_seedColors[m_preferedSeedColorIndex]);
+  }
+}
+
+bool ColorSchemeProvider::isDark() const
+{
+  return m_isDark;
+}
+
+void ColorSchemeProvider::setIsDark(bool newIsDark)
+{
+  if (m_isDark == newIsDark)
+  {
+    return;
+  }
+  m_isDark = newIsDark;
+  emit isDarkChanged();
+
+  reloadColorSchemeFromSeedColors();
+}
+
+double ColorSchemeProvider::contrast() const
+{
+  return m_contrast;
+}
+
+void ColorSchemeProvider::setContrast(double newContrast)
+{
+  if (qFuzzyCompare(m_contrast, newContrast))
+  {
+    return;
+  }
+  m_contrast = newContrast;
+  emit contrastChanged();
+
+  reloadColorSchemeFromSeedColors();
+}
+
+int ColorSchemeProvider::preferedSeedColorIndex() const
+{
+  return m_preferedSeedColorIndex;
+}
+
+void ColorSchemeProvider::setPreferedSeedColorIndex(int newPreferedSeedColorIndex)
+{
+  if (m_preferedSeedColorIndex == newPreferedSeedColorIndex)
+  {
+    return;
+  }
+  m_preferedSeedColorIndex = newPreferedSeedColorIndex;
+  emit preferedSeedColorIndexChanged();
+
+  reloadColorSchemeFromSeedColors();
 }
 
 } // namespace colors
