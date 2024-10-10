@@ -65,9 +65,13 @@ void BackgroundImage::setCamId(int newCamId)
 
   m_recentImageInfo.setCamId(m_camId);
   m_recentImageInfo.updateDayInfo();
-  if (m_dayInfoUpdateTimer.isActive())
+  if (m_camId != 0)
   {
     m_dayInfoUpdateTimer.start(m_updateInterval);
+  }
+  else
+  {
+    m_dayInfoUpdateTimer.stop();
   }
 }
 
@@ -85,7 +89,10 @@ void BackgroundImage::setUpdateIntervalMs(int newUpdateIntervalMs)
   m_updateInterval = std::chrono::milliseconds{newUpdateIntervalMs};
   emit updateIntervalChanged();
 
-  m_dayInfoUpdateTimer.start(m_updateInterval);
+  if (m_camId != 0)
+  {
+    m_dayInfoUpdateTimer.start(m_updateInterval);
+  }
 }
 
 std::vector<ImageResolution> BackgroundImage::imageResolutions() const
