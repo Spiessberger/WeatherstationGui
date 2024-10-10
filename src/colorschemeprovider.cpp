@@ -52,7 +52,6 @@ void ColorSchemeProvider::loadSeedColorsFromImage(const QImage& image)
 
 void ColorSchemeProvider::loadSchemeFromColor(const QColor& seedColor)
 {
-  qDebug() << __func__;
   const material_color_utilities::Hct hctColor{seedColor.rgb()};
   const material_color_utilities::DynamicScheme dynamicScheme =
       material_color_utilities::SchemeTonalSpot{hctColor, m_isDark, m_contrast};
