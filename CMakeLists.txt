@@ -49,6 +49,7 @@ qt_add_qml_module(appWeatherstationGui
     src/qml/HomeScreen.qml
     src/qml/Main.qml
     src/qml/ValueControl.qml
+    src/qml/WindControl.qml
     src/qml/DigitalClock.qml
 
   SOURCES
