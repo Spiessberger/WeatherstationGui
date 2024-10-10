@@ -81,6 +81,7 @@ Item {
         const pixelsToScroll = _scrollAnimation.to - _scrollAnimation.from
 
         if (pixelsToScroll > 0) {
+          _scrollAnimation.stop()
           _scrollAnimation.duration = pixelsToScroll / root.scrollVelocity * 1000
           _scrollAnimation.start()
         }
