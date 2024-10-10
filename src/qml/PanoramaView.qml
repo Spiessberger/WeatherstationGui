@@ -18,6 +18,8 @@ Item {
   // does nothing,if autoScroll is set to false
   property int autoScrollDelay: 5000
 
+  readonly property bool scrolling: _scrollAnimation.running
+
   PanoramaImage {
     id: _panoramaImage
 

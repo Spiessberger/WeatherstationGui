@@ -6,6 +6,8 @@ Item {
 
   required property ColorSchemeProvider applicationSchemeProvider
 
+  readonly property bool scrolling: _panoramaView.scrolling
+
   BackgroundImage {
     id: _backgroundImage
 
