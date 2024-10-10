@@ -52,6 +52,7 @@ qt_add_qml_module(appWeatherstationGui
     src/qml/WindControl.qml
     src/qml/DigitalClock.qml
     src/qml/SettingsScreen.qml
+    src/qml/AppearanceSettings.qml
 
   SOURCES
     src/backgroundimage.h
@@ -79,7 +80,7 @@ qt_add_qml_module(appWeatherstationGui
     src/theme.cpp
     src/iconprovider.h
     src/iconprovider.cpp
-  )
+)
 
 target_compile_options(appWeatherstationGui
   PRIVATE
