@@ -1,4 +1,6 @@
 import QtQuick
+import QtQuick.Controls
+
 import WeatherstationGui
 
 Window {
@@ -23,16 +25,20 @@ Window {
 
     applicationSchemeProvider: _applicationSchemeProvider
   }
-  
-  HomeScreen {
+
+  StackView {
     anchors.fill: parent
 
-    opacity: _background.scrolling ? 1.0 : 0.0
+    initialItem: HomeScreen {
+      id: _homeScreen
 
-    Behavior on opacity {
-      NumberAnimation {
-        easing.type: Easing.InOutQuad
-        duration: 1000
+      opacity: _background.scrolling ? 1.0 : 0.0
+
+      Behavior on opacity {
+        NumberAnimation {
+          easing.type: Easing.InOutQuad
+          duration: 1000
+        }
       }
     }
   }
