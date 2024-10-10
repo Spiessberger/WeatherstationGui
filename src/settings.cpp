@@ -5,8 +5,6 @@
 #include <QFileInfo>
 #include <QLoggingCategory>
 
-#include "adlserializerqstring.h"
-
 using json = nlohmann::json;
 
 namespace
@@ -24,6 +22,7 @@ namespace
 const char* const backgroundCamId = "backgroundCamId";
 const char* const isDarkScheme = "isDarkScheme";
 const char* const schemeContrastLevel = "schemeContrastLevel";
+const char* const homeScreenControlOpacity = "homeScreenControlOpacity";
 } // namespace
 } // namespace keys
 
@@ -100,6 +99,21 @@ void Settings::setSchemeContrastLevel(double newSchemeContrastLevel)
   emit schemeContrastLevelChanged();
 }
 
+double Settings::homeScreenControlOpacity() const
+{
+  return m_homeScreenControlOpacity;
+}
+
+void Settings::setHomeScreenControlOpacity(double newHomeScreenControlOpacity)
+{
+  if (qFuzzyCompare(m_homeScreenControlOpacity, newHomeScreenControlOpacity))
+  {
+    return;
+  }
+  m_homeScreenControlOpacity = newHomeScreenControlOpacity;
+  emit homeScreenControlOpacityChanged();
+}
+
 void Settings::save()
 {
   nlohmann::json j = *this;
@@ -135,13 +149,18 @@ void Settings::read()
   {
     setSchemeContrastLevel(j.at(keys::schemeContrastLevel).get<double>());
   }
+  if (j.contains(keys::homeScreenControlOpacity))
+  {
+    setHomeScreenControlOpacity(j.at(keys::homeScreenControlOpacity).get<double>());
+  }
 }
 
 void to_json(nlohmann::json& j, const Settings& settings)
 {
   j = json{{keys::backgroundCamId, settings.backgroundCamId()},
            {keys::isDarkScheme, settings.isDarkScheme()},
-           {keys::schemeContrastLevel, settings.schemeContrastLevel()}};
+           {keys::schemeContrastLevel, settings.schemeContrastLevel()},
+           {keys::homeScreenControlOpacity, settings.homeScreenControlOpacity()}};
 }
 
 } // namespace wsgui

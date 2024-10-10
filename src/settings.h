@@ -20,6 +20,8 @@ class Settings : public QObject
       bool isDarkScheme READ isDarkScheme WRITE setIsDarkScheme NOTIFY isDarkSchemeChanged FINAL)
   Q_PROPERTY(double schemeContrastLevel READ schemeContrastLevel WRITE setSchemeContrastLevel NOTIFY
                  schemeContrastLevelChanged FINAL)
+  Q_PROPERTY(double homeScreenControlOpacity READ homeScreenControlOpacity WRITE
+                 setHomeScreenControlOpacity NOTIFY homeScreenControlOpacityChanged FINAL)
 public:
   explicit Settings(QObject* parent = nullptr);
 
@@ -35,16 +37,21 @@ public:
   Q_INVOKABLE void save();
   Q_INVOKABLE void read();
 
+  double homeScreenControlOpacity() const;
+  void setHomeScreenControlOpacity(double newHomeScreenControlOpacity);
+
 signals:
   void backgroundCamIdChanged();
   void isDarkSchemeChanged();
   void schemeContrastLevelChanged();
+  void homeScreenControlOpacityChanged();
 
 private:
   QString m_settingsFileName;
   int m_backgroundCamId = 0;
   bool m_isDarkScheme = false;
   double m_schemeContrastLevel = 0.0;
+  double m_homeScreenControlOpacity = 0.2;
 };
 
 void to_json(nlohmann::json& j, const Settings& settings);
