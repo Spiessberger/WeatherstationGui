@@ -27,6 +27,8 @@ Window {
   }
 
   StackView {
+    id: _stackView
+
     anchors.fill: parent
 
     initialItem: HomeScreen {
@@ -40,6 +42,14 @@ Window {
           duration: 1000
         }
       }
+
+      onOpenSettings: _stackView.push(_settingsScreen)
     }
+  }
+
+  Component {
+    id: _settingsScreen
+
+    SettingsScreen {}
   }
 }

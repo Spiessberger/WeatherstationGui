@@ -51,6 +51,7 @@ qt_add_qml_module(appWeatherstationGui
     src/qml/ValueControl.qml
     src/qml/WindControl.qml
     src/qml/DigitalClock.qml
+    src/qml/SettingsScreen.qml
 
   SOURCES
     src/backgroundimage.h
