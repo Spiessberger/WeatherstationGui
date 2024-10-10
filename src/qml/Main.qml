@@ -1,7 +1,8 @@
 import QtQuick
 import QtQuick.Controls
 
-import WeatherstationGui
+import wsgui
+import wsgui.colors
 
 Window {
   id: _window

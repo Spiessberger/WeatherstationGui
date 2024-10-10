@@ -1,5 +1,6 @@
 import QtQuick
-import WeatherstationGui
+
+import wsgui
 
 Item {
   id: root

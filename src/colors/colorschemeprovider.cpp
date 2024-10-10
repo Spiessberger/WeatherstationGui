@@ -1,7 +1,5 @@
 #include "colorschemeprovider.h"
 
-#include <QImage>
-
 #include <material_color_utilities/dynamiccolor/material_dynamic_colors.h>
 #include <material_color_utilities/quantize/celebi.h>
 #include <material_color_utilities/scheme/scheme_tonal_spot.h>

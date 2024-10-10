@@ -3,7 +3,8 @@ import QtQuick.Controls
 import QtQuick.Controls.Material
 import QtQuick.Layouts
 
-import WeatherstationGui
+import wsgui
+import wsgui.colors
 
 Control {
   id: control

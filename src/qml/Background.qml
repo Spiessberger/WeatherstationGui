@@ -1,5 +1,8 @@
 import QtQuick
-import WeatherstationGui
+
+import wsgui
+import wsgui.colors
+import wsgui.panomax
 
 Item {
   id: root
