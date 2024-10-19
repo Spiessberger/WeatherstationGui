@@ -10,6 +10,7 @@
 
 int main(int argc, char* argv[])
 {
+  Q_INIT_RESOURCE(resources);
   QGuiApplication app(argc, argv);
 
   QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
