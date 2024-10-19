@@ -24,13 +24,15 @@ qt_add_qml_module(weatherstation_gui
     qml/AppearanceSettings.qml
 )
 
-target_compile_options(weatherstation_gui
-  PRIVATE
-    -Wall
-    -Wextra
-    -Wpedantic
-    -Werror
-)
+if (NOT MSVC)
+  target_compile_options(weatherstation_gui
+    PRIVATE
+      -Wall
+      -Wextra
+      -Wpedantic
+      -Werror
+  )
+endif()
 
 set_target_properties(weatherstation_gui PROPERTIES
   WIN32_EXECUTABLE TRUE

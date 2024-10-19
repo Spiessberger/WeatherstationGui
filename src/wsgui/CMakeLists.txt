@@ -61,13 +61,15 @@ qt_add_qml_module(wsgui
     panomax/imageresolution.h
 )
 
-target_compile_options(wsgui
-  PRIVATE
-    -Wall
-    -Wextra
-    -Wpedantic
-    -Werror
-)
+if (NOT MSVC)
+  target_compile_options(wsgui
+    PRIVATE
+      -Wall
+      -Wextra
+      -Wpedantic
+      -Werror
+  )
+endif()
 
 target_compile_definitions(wsgui PRIVATE WSGUI_LIBRARY)
 
