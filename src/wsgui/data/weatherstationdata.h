@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QSqlDatabase>
 
+#include <wsgui_global.h>
+
 #include "weatherstationdataset.h"
 
 namespace wsgui
@@ -11,7 +13,7 @@ namespace wsgui
 namespace data
 {
 
-class WeatherStationData : public QObject
+class WSGUI_EXPORT WeatherStationData : public QObject
 {
   Q_OBJECT
 public:

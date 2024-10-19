@@ -4,6 +4,8 @@
 #include <QQmlEngine>
 #include <QTimer>
 
+#include <wsgui_global.h>
+
 #include "indoorclimatedata.h"
 #include "indoorclimatedatadisplay.h"
 #include "weatherstationdata.h"
@@ -14,7 +16,7 @@ namespace wsgui
 namespace data
 {
 
-class HomeScreenData : public QObject
+class WSGUI_EXPORT HomeScreenData : public QObject
 {
   Q_OBJECT
   QML_ELEMENT

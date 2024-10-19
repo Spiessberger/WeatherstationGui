@@ -3,6 +3,8 @@
 #include <QObject>
 #include <QQmlEngine>
 
+#include <wsgui_global.h>
+
 #include "measurement.h"
 
 namespace wsgui
@@ -10,7 +12,7 @@ namespace wsgui
 namespace data
 {
 
-class DisplayData : public QObject
+class WSGUI_EXPORT DisplayData : public QObject
 {
   Q_OBJECT
   QML_ANONYMOUS

@@ -1,10 +1,12 @@
 qt_add_library(wsgui
+  wsgui_global.h
+
   colors/colorschemedata.h
 
   core/adlserializerqstring.h
   core/downloader.h
   core/downloader.cpp
-  
+
   data/indoorclimatedata.cpp
   data/indoorclimatedata.h
   data/indoorclimatedataset.h
@@ -66,6 +68,8 @@ target_compile_options(wsgui
     -Wpedantic
     -Werror
 )
+
+target_compile_definitions(wsgui PRIVATE WSGUI_LIBRARY)
 
 find_package(Qt6 REQUIRED COMPONENTS Quick Sql)
 find_package(nlohmann_json REQUIRED)

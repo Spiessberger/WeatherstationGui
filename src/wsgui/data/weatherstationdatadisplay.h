@@ -3,6 +3,8 @@
 #include <QObject>
 #include <QQmlEngine>
 
+#include <wsgui_global.h>
+
 #include "displaydata.h"
 #include "weatherstationdataset.h"
 
@@ -11,7 +13,7 @@ namespace wsgui
 namespace data
 {
 
-class WeatherStationDataDisplay : public QObject
+class WSGUI_EXPORT WeatherStationDataDisplay : public QObject
 {
   Q_OBJECT
   QML_ANONYMOUS

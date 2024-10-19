@@ -2,12 +2,14 @@
 
 #include <QQuickImageProvider>
 
+#include <wsgui_global.h>
+
 namespace wsgui
 {
 namespace core
 {
 
-class IconProviderHelper : public QObject
+class WSGUI_EXPORT IconProviderHelper : public QObject
 {
   Q_OBJECT
   QML_NAMED_ELEMENT(IconProvider)
@@ -27,7 +29,7 @@ public:
   static Icon getIconFromIdentifier(const QString& id);
 };
 
-class IconProvider : public QQuickImageProvider
+class WSGUI_EXPORT IconProvider : public QQuickImageProvider
 {
 public:
   IconProvider();
