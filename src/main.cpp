@@ -3,10 +3,10 @@
 #include <QSqlDatabase>
 #include <QSqlError>
 
-#include "homescreendata.h"
-#include "iconprovider.h"
-#include "indoorclimatedata.h"
-#include "weatherstationdata.h"
+#include <core/iconprovider.h>
+#include <data/homescreendata.h>
+#include <data/indoorclimatedata.h>
+#include <data/weatherstationdata.h>
 
 int main(int argc, char* argv[])
 {
@@ -24,7 +24,6 @@ int main(int argc, char* argv[])
   wsgui::data::WeatherStationData weatherStationData{database};
   wsgui::data::HomeScreenData homeScreenData(indoorClimateData, weatherStationData);
   wsgui::data::HomeScreenData::setQmlInstance(&homeScreenData);
-
 
   QQmlApplicationEngine engine;
   QObject::connect(

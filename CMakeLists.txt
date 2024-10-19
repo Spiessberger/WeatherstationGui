@@ -4,13 +4,16 @@ project(WeatherstationGui VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 20)
+
+find_package(Qt6 REQUIRED COMPONENTS Core)
+
 set(CMAKE_AUTORCC ON)
-
-find_package(Qt6 REQUIRED COMPONENTS Quick Sql)
-find_package(nlohmann_json REQUIRED)
-find_package(material_color_utilities REQUIRED)
-
-qt_standard_project_setup(REQUIRES 6.7)
+qt_add_library(wsgui_resources
+    resources/resources.qrc
+)
+target_link_libraries(wsgui_resources
+  PRIVATE 
+    Qt6::Core
+)
 
 add_subdirectory(src)
-

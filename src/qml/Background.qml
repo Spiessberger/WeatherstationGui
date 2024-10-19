@@ -1,8 +1,6 @@
 import QtQuick
 
 import wsgui
-import wsgui.colors
-import wsgui.panomax
 
 Item {
   id: root

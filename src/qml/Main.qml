@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Controls
 
 import wsgui
-import wsgui.colors
 
 Window {
   id: _window

@@ -4,8 +4,8 @@
 
 #include <vector>
 
-#include "downloader.h"
 #include "imagesize.h"
+#include <core/downloader.h>
 
 namespace wsgui
 {

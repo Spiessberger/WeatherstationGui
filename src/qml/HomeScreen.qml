@@ -4,8 +4,6 @@ import QtQuick.Controls.Material
 import QtQuick.Layouts
 
 import wsgui
-import wsgui.colors
-import wsgui.data
 
 Control {
   id: root

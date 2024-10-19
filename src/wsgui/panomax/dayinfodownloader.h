@@ -3,7 +3,7 @@
 #include <QDate>
 
 #include "dayinfo.h"
-#include "downloader.h"
+#include <core/downloader.h>
 
 namespace wsgui
 {

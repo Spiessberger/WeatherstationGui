@@ -1,10 +1,10 @@
+find_package(Qt6 REQUIRED COMPONENTS Quick Sql)
+
+qt_standard_project_setup(REQUIRES 6.7)
+
 add_subdirectory(wsgui)
-add_subdirectory(panomax)
-add_subdirectory(colors)
-add_subdirectory(data)
 
 qt_add_executable(weatherstation_gui
-  ../resources/resources.qrc
   main.cpp
 )
 
@@ -40,9 +40,6 @@ target_link_libraries(weatherstation_gui
   PRIVATE 
     Qt6::Quick
     Qt6::Sql
-    nlohmann_json::nlohmann_json
     wsgui
-    wsgui_panomax
-    wsgui_colors
-    wsgui_data
+    wsgui_resources
 )
