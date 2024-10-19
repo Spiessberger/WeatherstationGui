@@ -6,6 +6,8 @@
 
 namespace wsgui
 {
+namespace core
+{
 
 class PanoramaImageNode : public QSGNode
 {
@@ -230,4 +232,5 @@ void PanoramaImage::geometryChange(const QRectF& newGeometry, const QRectF& oldG
   QQuickItem::geometryChange(newGeometry, oldGeometry);
 }
 
+} // namespace core
 } // namespace wsgui

@@ -4,6 +4,8 @@
 
 namespace wsgui
 {
+namespace core
+{
 
 class IconProviderHelper : public QObject
 {
@@ -33,4 +35,5 @@ public:
   QImage requestImage(const QString& id, QSize* size, const QSize& requestedSize) override;
 };
 
+} // namespace core
 } // namespace wsgui

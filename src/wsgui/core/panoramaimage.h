@@ -5,6 +5,8 @@
 
 namespace wsgui
 {
+namespace core
+{
 
 class PanoramaImage : public QQuickItem
 {
@@ -46,4 +48,5 @@ private:
   bool m_updateImageNodeScaling = false;
 };
 
+} // namespace core
 } // namespace wsgui

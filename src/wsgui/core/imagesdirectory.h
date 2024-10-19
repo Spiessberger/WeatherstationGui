@@ -6,6 +6,8 @@
 
 namespace wsgui
 {
+namespace core
+{
 
 class ImagesDirectory : public QObject
 {
@@ -34,4 +36,5 @@ private:
   std::vector<QImage> m_images;
 };
 
+} // namespace core
 } // namespace wsgui

@@ -32,7 +32,8 @@ int main(int argc, char* argv[])
       &app,
       []() { QCoreApplication::exit(-1); },
       Qt::QueuedConnection);
-  engine.addImageProvider(wsgui::IconProviderHelper::ImageProviderId, new wsgui::IconProvider());
+  engine.addImageProvider(wsgui::core::IconProviderHelper::ImageProviderId,
+                          new wsgui::core::IconProvider());
   engine.loadFromModule("WeatherstationGui", "Main");
 
   return app.exec();

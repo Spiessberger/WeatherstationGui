@@ -41,7 +41,7 @@ const DayInfo& DayInfoDownloader::dayInfo() const
   return m_dayInfo;
 }
 
-Downloader::DownloadState DayInfoDownloader::downloadDone(const QByteArray& data)
+core::Downloader::DownloadState DayInfoDownloader::downloadDone(const QByteArray& data)
 {
   m_dayInfo = DayInfo{};
 

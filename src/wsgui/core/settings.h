@@ -7,6 +7,8 @@
 
 namespace wsgui
 {
+namespace core
+{
 
 class Settings : public QObject
 {
@@ -56,4 +58,5 @@ private:
 
 void to_json(nlohmann::json& j, const Settings& settings);
 
+} // namespace core
 } // namespace wsgui

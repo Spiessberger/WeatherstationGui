@@ -13,6 +13,8 @@ Q_LOGGING_CATEGORY(log, "wsgui::IconProvider")
 
 namespace wsgui
 {
+namespace core
+{
 
 IconProvider::IconProvider()
     : QQuickImageProvider(QQuickImageProvider::Image)
@@ -71,4 +73,5 @@ QImage IconProvider::requestImage(const QString& id, QSize* size, const QSize& r
   return image;
 }
 
+} // namespace core
 } // namespace wsgui

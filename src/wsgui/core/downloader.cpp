@@ -10,6 +10,8 @@ Q_LOGGING_CATEGORY(log, "wsgui::Downloader")
 
 namespace wsgui
 {
+namespace core
+{
 
 Downloader::Downloader(QObject* parent)
     : QObject{parent}
@@ -137,4 +139,5 @@ void Downloader::downloadFinished()
   }
 }
 
+} // namespace core
 } // namespace wsgui

@@ -14,6 +14,8 @@ Q_LOGGING_CATEGORY(log, "wsgui::Settings")
 
 namespace wsgui
 {
+namespace core
+{
 
 namespace keys
 {
@@ -163,4 +165,5 @@ void to_json(nlohmann::json& j, const Settings& settings)
            {keys::homeScreenControlOpacity, settings.homeScreenControlOpacity()}};
 }
 
+} // namespace core
 } // namespace wsgui

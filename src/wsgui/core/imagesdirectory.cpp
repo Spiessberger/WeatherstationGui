@@ -5,6 +5,8 @@
 
 namespace wsgui
 {
+namespace core
+{
 
 ImagesDirectory::ImagesDirectory(QObject* parent)
     : QObject{parent}
@@ -57,4 +59,5 @@ void ImagesDirectory::loadImages()
   setImages(images);
 }
 
+} // namespace core
 } // namespace wsgui

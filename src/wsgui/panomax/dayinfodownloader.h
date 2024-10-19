@@ -10,7 +10,7 @@ namespace wsgui
 namespace panomax
 {
 
-class DayInfoDownloader : public Downloader
+class DayInfoDownloader : public core::Downloader
 {
   Q_OBJECT
 public:

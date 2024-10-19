@@ -12,7 +12,7 @@ namespace wsgui
 namespace panomax
 {
 
-class ImageDownloader : public Downloader
+class ImageDownloader : public core::Downloader
 {
   Q_OBJECT
 public:

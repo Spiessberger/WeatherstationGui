@@ -7,6 +7,8 @@
 
 namespace wsgui
 {
+namespace core
+{
 
 class Downloader : public QObject
 {
@@ -66,4 +68,5 @@ private:
   QElapsedTimer m_downloadTimer;
 };
 
+} // namespace core
 } // namespace wsgui

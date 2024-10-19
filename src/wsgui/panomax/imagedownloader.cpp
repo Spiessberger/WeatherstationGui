@@ -65,7 +65,7 @@ bool ImageDownloader::download(int camId, const ImageSize& imageSize, const QDat
   return downloadNextTile();
 }
 
-Downloader::DownloadState ImageDownloader::downloadDone(const QByteArray& data)
+core::Downloader::DownloadState ImageDownloader::downloadDone(const QByteArray& data)
 {
   QImage tile = QImage::fromData(data);
 
