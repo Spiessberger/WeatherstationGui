@@ -28,8 +28,7 @@ const char* const homeScreenControlOpacity = "homeScreenControlOpacity";
 } // namespace
 } // namespace keys
 
-Settings::Settings(QObject* parent)
-    : QObject{parent}
+Settings::Settings()
 {
   m_settingsFileName = qEnvironmentVariable("WSGUI_SETTINGS_FILE");
   if (m_settingsFileName.isEmpty())

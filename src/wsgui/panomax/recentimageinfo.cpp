@@ -12,8 +12,7 @@ namespace wsgui
 namespace panomax
 {
 
-RecentImageInfo::RecentImageInfo(QObject* parent)
-    : QObject{parent}
+RecentImageInfo::RecentImageInfo()
 {
   connect(&m_dayInfoDownloader,
           &DayInfoDownloader::finished,

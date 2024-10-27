@@ -5,11 +5,6 @@ namespace wsgui
 namespace data
 {
 
-DisplayData::DisplayData(QObject* parent)
-    : QObject(parent)
-{
-}
-
 const QString& DisplayData::value() const
 {
   return m_value;

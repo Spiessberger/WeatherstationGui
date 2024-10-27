@@ -21,7 +21,7 @@ class WSGUI_EXPORT IndoorClimateDataDisplay : public QObject
   Q_PROPERTY(DisplayData* temperature READ temperature CONSTANT FINAL)
   Q_PROPERTY(DisplayData* humidity READ humidity CONSTANT FINAL)
 public:
-  explicit IndoorClimateDataDisplay(QObject* parent = nullptr);
+  IndoorClimateDataDisplay() = default;
 
   DisplayData* temperature();
   DisplayData* humidity();

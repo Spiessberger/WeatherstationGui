@@ -5,11 +5,6 @@ namespace wsgui
 namespace data
 {
 
-WeatherStationDataDisplay::WeatherStationDataDisplay(QObject* parent)
-    : QObject{parent}
-{
-}
-
 DisplayData* WeatherStationDataDisplay::temperature()
 {
   return &m_temperature;

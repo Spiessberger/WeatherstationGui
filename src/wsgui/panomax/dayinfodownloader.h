@@ -14,7 +14,7 @@ class DayInfoDownloader : public core::Downloader
 {
   Q_OBJECT
 public:
-  explicit DayInfoDownloader(QObject* parent = nullptr);
+  DayInfoDownloader() = default;
 
   bool download(int camId, const QDate& date = {});
 

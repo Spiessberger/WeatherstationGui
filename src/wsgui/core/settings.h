@@ -25,7 +25,7 @@ class Settings : public QObject
   Q_PROPERTY(double homeScreenControlOpacity READ homeScreenControlOpacity WRITE
                  setHomeScreenControlOpacity NOTIFY homeScreenControlOpacityChanged FINAL)
 public:
-  explicit Settings(QObject* parent = nullptr);
+  Settings();
 
   int backgroundCamId() const;
   void setBackgroundCamId(int newBackgroundCamId);

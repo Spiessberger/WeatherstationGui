@@ -25,7 +25,7 @@ class WSGUI_EXPORT WeatherStationDataDisplay : public QObject
   Q_PROPERTY(DisplayData* rain READ rain CONSTANT FINAL)
   Q_PROPERTY(int windDirection READ windDirection NOTIFY windDirectionChanged FINAL)
 public:
-  explicit WeatherStationDataDisplay(QObject* parent = nullptr);
+  WeatherStationDataDisplay() = default;
 
   DisplayData* temperature();
   DisplayData* humidity();

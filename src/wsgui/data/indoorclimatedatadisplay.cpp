@@ -5,11 +5,6 @@ namespace wsgui
 namespace data
 {
 
-IndoorClimateDataDisplay::IndoorClimateDataDisplay(QObject* parent)
-    : QObject(parent)
-{
-}
-
 DisplayData* IndoorClimateDataDisplay::temperature()
 {
   return &m_temperature;

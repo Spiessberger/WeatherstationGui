@@ -8,11 +8,6 @@ namespace wsgui
 namespace core
 {
 
-ImagesDirectory::ImagesDirectory(QObject* parent)
-    : QObject{parent}
-{
-}
-
 const QString& ImagesDirectory::directoryPath() const
 {
   return m_directoryPath;

@@ -14,11 +14,6 @@ namespace wsgui
 namespace panomax
 {
 
-ImageDownloader::ImageDownloader(QObject* parent)
-    : Downloader(parent)
-{
-}
-
 bool ImageDownloader::download(int camId, const ImageSize& imageSize, const QDateTime& imageTime)
 {
   // %1 = camId

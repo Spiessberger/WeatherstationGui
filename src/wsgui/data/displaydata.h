@@ -21,7 +21,7 @@ class WSGUI_EXPORT DisplayData : public QObject
   Q_PROPERTY(QString unit READ unit NOTIFY unitChanged FINAL)
 
 public:
-  explicit DisplayData(QObject* parent = nullptr);
+  DisplayData() = default;
 
   template<Unit unit>
   void setMeasurement(const Measurement<float, unit>& measurement);

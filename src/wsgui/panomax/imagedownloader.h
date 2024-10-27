@@ -16,7 +16,7 @@ class ImageDownloader : public core::Downloader
 {
   Q_OBJECT
 public:
-  explicit ImageDownloader(QObject* parent = nullptr);
+  ImageDownloader() = default;
 
   bool download(int camId, const ImageSize& imageSize, const QDateTime& imageTime);
 

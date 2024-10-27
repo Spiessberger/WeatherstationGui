@@ -12,10 +12,8 @@ namespace data
 HomeScreenData* HomeScreenData::qmlInstance = nullptr;
 
 HomeScreenData::HomeScreenData(const IndoorClimateData& indoorClimateData,
-                               const WeatherStationData& weatherStationData,
-                               QObject* parent)
-    : QObject(parent)
-    , m_indoorClimateData(indoorClimateData)
+                               const WeatherStationData& weatherStationData)
+    : m_indoorClimateData(indoorClimateData)
     , m_weatherStationData(weatherStationData)
 {
   connect(&m_dateTimeUpdateTimer, &QTimer::timeout, this, &HomeScreenData::updateDateTime);

@@ -30,8 +30,7 @@ class WSGUI_EXPORT HomeScreenData : public QObject
 
 public:
   explicit HomeScreenData(const IndoorClimateData& indoorClimateData,
-                          const WeatherStationData& weatherStationData,
-                          QObject* parent = nullptr);
+                          const WeatherStationData& weatherStationData);
 
   static void setQmlInstance(HomeScreenData* qmlInstance);
   static HomeScreenData* create(QQmlEngine*, QJSEngine*);

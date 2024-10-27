@@ -5,11 +5,6 @@ namespace wsgui
 namespace colors
 {
 
-ColorScheme::ColorScheme(QObject* parent)
-    : QObject{parent}
-{
-}
-
 const ColorSchemeData& ColorScheme::colors() const
 {
   return m_colors;

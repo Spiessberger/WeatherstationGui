@@ -12,11 +12,6 @@ namespace wsgui
 namespace colors
 {
 
-ColorSchemeProvider::ColorSchemeProvider(QObject* parent)
-    : QObject{parent}
-{
-}
-
 void ColorSchemeProvider::loadSeedColorsFromImage(const QImage& image)
 {
   std::vector<material_color_utilities::Argb> pixels;

@@ -17,7 +17,7 @@ class ImagesDirectory : public QObject
   Q_PROPERTY(std::vector<QImage> images READ images NOTIFY imagesChanged FINAL)
   QML_ELEMENT
 public:
-  explicit ImagesDirectory(QObject* parent = nullptr);
+  ImagesDirectory() = default;
 
   const QString& directoryPath() const;
   void setDirectoryPath(const QString& newDirectoryPath);

@@ -14,7 +14,7 @@ class Downloader : public QObject
 {
   Q_OBJECT
 public:
-  explicit Downloader(QObject* parent = nullptr);
+  Downloader() = default;
 
   bool downloading() const;
 

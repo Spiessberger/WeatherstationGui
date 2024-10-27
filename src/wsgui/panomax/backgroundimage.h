@@ -32,7 +32,7 @@ class BackgroundImage : public QObject
   Q_PROPERTY(int progress READ progress NOTIFY progressChanged FINAL)
   QML_ELEMENT
 public:
-  explicit BackgroundImage(QObject* parent = nullptr);
+  BackgroundImage();
 
   int camId() const;
   void setCamId(int newCamId);

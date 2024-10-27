@@ -22,7 +22,7 @@ class ColorSchemeProvider : public QObject
                  NOTIFY preferedSeedColorIndexChanged FINAL)
   QML_ELEMENT
 public:
-  explicit ColorSchemeProvider(QObject* parent = nullptr);
+  ColorSchemeProvider() = default;
 
   Q_INVOKABLE void loadSeedColorsFromImage(const QImage& image);
   Q_INVOKABLE void loadSchemeFromColor(const QColor& seedColor);

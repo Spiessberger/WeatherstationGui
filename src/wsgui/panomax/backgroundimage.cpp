@@ -16,8 +16,7 @@ namespace wsgui
 namespace panomax
 {
 
-BackgroundImage::BackgroundImage(QObject* parent)
-    : QObject{parent}
+BackgroundImage::BackgroundImage()
 {
   connect(&m_dayInfoUpdateTimer,
           &QTimer::timeout,

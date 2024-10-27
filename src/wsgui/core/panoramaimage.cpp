@@ -110,8 +110,7 @@ private:
   std::vector<std::unique_ptr<QSGImageNode>> m_nodes;
 };
 
-PanoramaImage::PanoramaImage(QQuickItem* parent)
-    : QQuickItem(parent)
+PanoramaImage::PanoramaImage()
 {
   setFlag(QQuickItem::ItemHasContents);
 }

@@ -20,11 +20,6 @@ namespace wsgui
 namespace panomax
 {
 
-DayInfoDownloader::DayInfoDownloader(QObject* parent)
-    : Downloader(parent)
-{
-}
-
 bool DayInfoDownloader::download(int camId, const QDate& date)
 {
   // %1 = camId

@@ -71,7 +71,7 @@ class ColorScheme : public QObject
   // clang-format on
   QML_ELEMENT
 public:
-  explicit ColorScheme(QObject* parent = nullptr);
+  ColorScheme() = default;
 
   const ColorSchemeData& colors() const;
   void setColors(const ColorSchemeData& colors);

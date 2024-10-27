@@ -17,7 +17,7 @@ class PanoramaImage : public QQuickItem
 
   QML_ELEMENT
 public:
-  PanoramaImage(QQuickItem* parent = nullptr);
+  PanoramaImage();
 
   const std::vector<QImage>& images() const;
   void setImages(const std::vector<QImage>& newImages);

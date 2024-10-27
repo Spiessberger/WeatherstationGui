@@ -13,7 +13,7 @@ class RecentImageInfo : public QObject
 {
   Q_OBJECT
 public:
-  explicit RecentImageInfo(QObject* parent = nullptr);
+  RecentImageInfo();
 
   int camId() const;
   void setCamId(int camId);

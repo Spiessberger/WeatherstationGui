@@ -13,11 +13,6 @@ namespace wsgui
 namespace core
 {
 
-Downloader::Downloader(QObject* parent)
-    : QObject{parent}
-{
-}
-
 bool Downloader::downloading() const
 {
   return !m_currentDownload.isNull();
