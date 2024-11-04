@@ -1,30 +1,36 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <QSqlDatabase>
-#include <QSqlError>
 
 #include <core/iconprovider.h>
-#include <data/homescreendata.h>
-#include <data/indoorclimatedata.h>
-#include <data/weatherstationdata.h>
+
+#include <data/sqlitedatabase.h>
+#include <data/sqliteroomclimatedao.h>
+#include <data/sqliteweatherdatadao.h>
+#include <data/weatherdatamodel.h>
 
 int main(int argc, char* argv[])
 {
   Q_INIT_RESOURCE(resources);
   QGuiApplication app(argc, argv);
 
-  QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
-  database.setDatabaseName("weatherdata.sqlite");
-  if (!database.open())
+  wsgui::data::SQLiteDatabase database;
+  if (!database.initialize("weather_data.sqlite"))
   {
-    qWarning() << "failed to open database:" << database.lastError();
     return 1;
   }
 
-  wsgui::data::IndoorClimateData indoorClimateData{database};
-  wsgui::data::WeatherStationData weatherStationData{database};
-  wsgui::data::HomeScreenData homeScreenData(indoorClimateData, weatherStationData);
-  wsgui::data::HomeScreenData::setQmlInstance(&homeScreenData);
+  wsgui::data::SQLiteRoomClimateDAO roomClimateDAO{database};
+  if (!roomClimateDAO.initialize())
+  {
+    return 1;
+  }
+  wsgui::data::SQLiteWeatherDataDAO weatherDataDAO{database};
+  if (!weatherDataDAO.initialize())
+  {
+    return 1;
+  }
+
+  wsgui::data::WeatherDataModel::setDataAccessObject(&weatherDataDAO);
 
   QQmlApplicationEngine engine;
   QObject::connect(

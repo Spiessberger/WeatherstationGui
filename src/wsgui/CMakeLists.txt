@@ -14,6 +14,9 @@ qt_add_library(wsgui
   data/weatherstationdata.cpp
   data/weatherstationdata.h
   data/weatherstationdataset.h
+  data/roomclimatedao.h
+  data/sqliteroomclimatedao.cpp
+  data/sqliteroomclimatedao.h
   
   panomax/imagesize.h
   panomax/dayinfo.h
@@ -55,7 +58,16 @@ qt_add_qml_module(wsgui
     data/indoorclimatedatadisplay.h
     data/weatherstationdatadisplay.cpp
     data/weatherstationdatadisplay.h
-    
+    data/roomclimatedata.h
+    data/sqlitedatabase.cpp
+    data/sqlitedatabase.h
+    data/weatherdata.h
+    data/weatherdatadao.h
+    data/sqliteweatherdatadao.cpp
+    data/sqliteweatherdatadao.h
+    data/weatherdatamodel.cpp
+    data/weatherdatamodel.h
+
     panomax/backgroundimage.h
     panomax/backgroundimage.cpp
     panomax/imageresolution.h
@@ -78,7 +90,7 @@ find_package(nlohmann_json REQUIRED)
 find_package(material_color_utilities REQUIRED)
 
 target_link_libraries(wsgui
-  PRIVATE 
+  PUBLIC
     Qt6::Quick
     Qt6::Sql
     nlohmann_json::nlohmann_json
