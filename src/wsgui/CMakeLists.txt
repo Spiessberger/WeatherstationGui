@@ -49,6 +49,8 @@ qt_add_qml_module(wsgui
     core/panoramaimage.cpp
     core/settings.h
     core/settings.cpp
+    core/navigationitem.h
+    core/navigationitem.cpp
     
     data/displaydata.cpp
     data/displaydata.h

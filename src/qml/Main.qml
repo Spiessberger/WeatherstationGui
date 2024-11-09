@@ -17,6 +17,7 @@ Window {
     contrast: Settings.schemeContrastLevel
 
     onColorsChanged: Theme.updateThemeColors(colorScheme)
+    Component.onCompleted: loadSchemeFromColor("white")
   }
 
   Background {
@@ -45,6 +46,7 @@ Window {
       }
 
       onOpenSettings: _stackView.push(_settingsScreen)
+      onOpenWeatherData: _stackView.push(_weatherDataScreen)
     }
   }
 
@@ -52,5 +54,13 @@ Window {
     id: _settingsScreen
 
     SettingsScreen {}
+  }
+
+  Component {
+    id: _weatherDataScreen
+
+    WeatherDataScreen {
+      onBackClicked: _stackView.pop()
+    }
   }
 }

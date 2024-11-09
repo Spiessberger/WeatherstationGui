@@ -84,7 +84,7 @@ QVariant WeatherDataModel::data(const QModelIndex& index, int role) const
   switch (index.column())
   {
     case Columns::Timestamp:
-      return weatherData.timestamp.toString();
+      return QLocale{}.toString(weatherData.timestamp, QLocale::ShortFormat);
     case Columns::Temperature:
       return QString::number(weatherData.temperature, 'f', 1);
     case Columns::Humidity:

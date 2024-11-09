@@ -22,6 +22,9 @@ qt_add_qml_module(weatherstation_gui
     qml/DigitalClock.qml
     qml/SettingsScreen.qml
     qml/AppearanceSettings.qml
+    qml/WeatherDataScreen.qml
+    qml/NavigationDrawer.qml
+    qml/WeatherDataTable.qml
 )
 
 if (NOT MSVC)

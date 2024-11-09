@@ -11,5 +11,9 @@
         <file>icons/thermometer.svg</file>
         <file>icons/troubleshoot.svg</file>
         <file>icons/wifi.svg</file>
+        <file>icons/sunny.svg</file>
+        <file>icons/map.svg</file>
+        <file>icons/insert_chart.svg</file>
+        <file>icons/table.svg</file>
     </qresource>
 </RCC>
