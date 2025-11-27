@@ -19,7 +19,6 @@ qt_add_qml_module(panorama_view
     tiles/tile_6.png
     tiles/tile_7.png
     tiles/tile_8.png
-    tiles/tile_9.png
 )
 
 target_link_libraries(panorama_view
