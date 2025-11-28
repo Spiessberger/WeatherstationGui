@@ -83,8 +83,7 @@ void PanoramaView::componentComplete()
   QQuickItem::componentComplete();
 }
 
-QSGNode* PanoramaView::updatePaintNode(QSGNode* oldNode,
-                                          UpdatePaintNodeData*)
+QSGNode* PanoramaView::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
 {
   if (size().isEmpty() || m_imageTiles.resolution().isEmpty() ||
       m_contentRect.isEmpty())
@@ -128,7 +127,7 @@ QSGNode* PanoramaView::updatePaintNode(QSGNode* oldNode,
 }
 
 void PanoramaView::geometryChange(const QRectF& newGeometry,
-                                     const QRectF& oldGeometry)
+                                  const QRectF& oldGeometry)
 {
   QQuickItem::geometryChange(newGeometry, oldGeometry);
 
@@ -231,8 +230,8 @@ void PanoramaView::wheelEvent(QWheelEvent* event)
 }
 
 void PanoramaView::updateContentSize(const QSizeF& newSize,
-                                        const QPointF& contentAnchorPoint,
-                                        const QPointF& itemAnchorPoint)
+                                     const QPointF& contentAnchorPoint,
+                                     const QPointF& itemAnchorPoint)
 {
   if (m_contentRect.isEmpty())
   {
@@ -261,7 +260,7 @@ void PanoramaView::setContentRect(const QRectF& contentRect)
 }
 
 void PanoramaView::setContentRect(double xPosition, double yPosition,
-                                     double width, double height)
+                                  double width, double height)
 {
   const QRectF contentRect =
       sanitizedContentRect(xPosition, yPosition, width, height);
@@ -283,7 +282,7 @@ void PanoramaView::setContentRect(double xPosition, double yPosition,
 }
 
 QRectF PanoramaView::sanitizedContentRect(double xPosition, double yPosition,
-                                             double width, double height)
+                                          double width, double height)
 {
   const QSizeF itemSize = size();
 

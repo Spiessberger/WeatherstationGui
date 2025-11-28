@@ -63,7 +63,8 @@ void ImageTiles::setImageTiles(std::vector<std::vector<QImage>> imageTiles)
   {
     if (row.size() != columnCount)
     {
-      qWarning() << "column count mismatch" << row.size() << "!=" << columnCount;
+      qWarning() << "column count mismatch" << row.size()
+                 << "!=" << columnCount;
       return;
     }
 
@@ -79,7 +80,8 @@ void ImageTiles::setImageTiles(std::vector<std::vector<QImage>> imageTiles)
       }
       if (tile.height() != rowHeight)
       {
-        qWarning() << "row height mismatch" << tile.height() << "!=" << rowHeight;
+        qWarning() << "row height mismatch" << tile.height()
+                   << "!=" << rowHeight;
         return;
       }
       rowWidth += tile.width();
@@ -91,7 +93,8 @@ void ImageTiles::setImageTiles(std::vector<std::vector<QImage>> imageTiles)
     }
     else if (resolution.width() != rowWidth)
     {
-      qWarning() << "row width mismatch" << rowWidth << "!=" << resolution.width();
+      qWarning() << "row width mismatch" << rowWidth
+                 << "!=" << resolution.width();
       return;
     }
 

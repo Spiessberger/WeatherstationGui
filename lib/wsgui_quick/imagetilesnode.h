@@ -1,9 +1,9 @@
 #pragma once
 
+#include "imagetiles.h"
+
 #include <QSGImageNode>
 #include <QSGNode>
-
-#include "imagetiles.h"
 
 class ImageNode : public QSGNode
 {
