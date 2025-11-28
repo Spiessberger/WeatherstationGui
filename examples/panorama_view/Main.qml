@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Controls.Material
 
-import lib.wsgui_core
+import lib.wsgui_quick
 
 Window {
   width: 640

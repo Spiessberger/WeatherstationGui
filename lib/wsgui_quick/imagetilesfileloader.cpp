@@ -1,14 +1,13 @@
-#include "qmlimagetilesfileloader.h"
+#include "imagetilesfileloader.h"
 
 #include <QQmlFile>
 
-const std::vector<QString>& QmlImageTilesFileLoader::fileNames() const
+const std::vector<QString>& ImageTilesFileLoader::fileNames() const
 {
   return m_fileNames;
 }
 
-void QmlImageTilesFileLoader::setFileNames(
-    const std::vector<QString>& fileNames)
+void ImageTilesFileLoader::setFileNames(const std::vector<QString>& fileNames)
 {
   if (m_fileNames == fileNames)
   {
@@ -20,12 +19,12 @@ void QmlImageTilesFileLoader::setFileNames(
   loadImageTiles();
 }
 
-const ImageTiles& QmlImageTilesFileLoader::imageTiles() const
+const ImageTiles& ImageTilesFileLoader::imageTiles() const
 {
   return m_imageTiles;
 }
 
-void QmlImageTilesFileLoader::loadImageTiles()
+void ImageTilesFileLoader::loadImageTiles()
 {
   if (m_rows < 1 || m_fileNames.size() % m_rows != 0)
   {
@@ -71,12 +70,12 @@ void QmlImageTilesFileLoader::loadImageTiles()
   emit imageTilesChanged();
 }
 
-int QmlImageTilesFileLoader::rows() const
+int ImageTilesFileLoader::rows() const
 {
   return m_rows;
 }
 
-void QmlImageTilesFileLoader::setRows(int rows)
+void ImageTilesFileLoader::setRows(int rows)
 {
   if (m_rows == rows)
   {

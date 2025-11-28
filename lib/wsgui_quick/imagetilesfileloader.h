@@ -1,20 +1,22 @@
 #pragma once
 
+#include "imagetiles.h"
+
 #include <QObject>
 #include <QQmlEngine>
 
-#include "imagetiles.h"
-
-class QmlImageTilesFileLoader : public QObject
+class ImageTilesFileLoader : public QObject
 {
   Q_OBJECT
-  QML_NAMED_ELEMENT(ImageTilesFileLoader)
-  Q_PROPERTY(std::vector<QString> fileNames READ fileNames WRITE setFileNames NOTIFY fileNamesChanged FINAL)
-  Q_PROPERTY(ImageTiles imageTiles READ imageTiles NOTIFY imageTilesChanged FINAL)
+  QML_ELEMENT
+  Q_PROPERTY(std::vector<QString> fileNames READ fileNames WRITE setFileNames
+                 NOTIFY fileNamesChanged FINAL)
+  Q_PROPERTY(
+      ImageTiles imageTiles READ imageTiles NOTIFY imageTilesChanged FINAL)
   Q_PROPERTY(int rows READ rows WRITE setRows NOTIFY rowsChanged FINAL)
 
 public:
-  explicit QmlImageTilesFileLoader() = default;
+  explicit ImageTilesFileLoader() = default;
 
   const std::vector<QString>& fileNames() const;
   void setFileNames(const std::vector<QString>& fileNames);

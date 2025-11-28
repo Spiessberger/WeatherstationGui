@@ -1,4 +1,4 @@
-#include "qmlpanoramaview.h"
+#include "panoramaview.h"
 
 #include "imagetilesnode.h"
 
@@ -11,7 +11,7 @@ QSizeF scaleToHeight(const QSizeF& size, double height)
   return size.scaled(1, height, Qt::KeepAspectRatioByExpanding);
 }
 
-QmlPanoramaView::QmlPanoramaView() : m_contentRect(0, 0, 0, 0)
+PanoramaView::PanoramaView() : m_contentRect(0, 0, 0, 0)
 {
   setFlags(QQuickItem::ItemHasContents);
   setAcceptTouchEvents(true);
@@ -35,12 +35,12 @@ QmlPanoramaView::QmlPanoramaView() : m_contentRect(0, 0, 0, 0)
   // &QmlPanoramaView::startAutoScrollAnimation);
 }
 
-const ImageTiles& QmlPanoramaView::imageTiles() const
+const ImageTiles& PanoramaView::imageTiles() const
 {
   return m_imageTiles;
 }
 
-void QmlPanoramaView::setImageTiles(const ImageTiles& imageTiles)
+void PanoramaView::setImageTiles(const ImageTiles& imageTiles)
 {
   const QSize oldRes = m_imageTiles.resolution();
   const QSize newRes = imageTiles.resolution();
@@ -62,12 +62,12 @@ void QmlPanoramaView::setImageTiles(const ImageTiles& imageTiles)
   update();
 }
 
-bool QmlPanoramaView::autoScroll() const
+bool PanoramaView::autoScroll() const
 {
   return m_autoScroll;
 }
 
-void QmlPanoramaView::setAutoScroll(bool autoScroll)
+void PanoramaView::setAutoScroll(bool autoScroll)
 {
   if (m_autoScroll == autoScroll)
   {
@@ -78,12 +78,12 @@ void QmlPanoramaView::setAutoScroll(bool autoScroll)
   emit autoScrollChanged();
 }
 
-void QmlPanoramaView::componentComplete()
+void PanoramaView::componentComplete()
 {
   QQuickItem::componentComplete();
 }
 
-QSGNode* QmlPanoramaView::updatePaintNode(QSGNode* oldNode,
+QSGNode* PanoramaView::updatePaintNode(QSGNode* oldNode,
                                           UpdatePaintNodeData*)
 {
   if (size().isEmpty() || m_imageTiles.resolution().isEmpty() ||
@@ -127,7 +127,7 @@ QSGNode* QmlPanoramaView::updatePaintNode(QSGNode* oldNode,
   return node;
 }
 
-void QmlPanoramaView::geometryChange(const QRectF& newGeometry,
+void PanoramaView::geometryChange(const QRectF& newGeometry,
                                      const QRectF& oldGeometry)
 {
   QQuickItem::geometryChange(newGeometry, oldGeometry);
@@ -159,7 +159,7 @@ void QmlPanoramaView::geometryChange(const QRectF& newGeometry,
   updateContentSize(scaledImageSize, contentCenter, itemCenter);
 }
 
-void QmlPanoramaView::touchEvent(QTouchEvent* event)
+void PanoramaView::touchEvent(QTouchEvent* event)
 {
   if (event->pointCount() == 0)
   {
@@ -190,13 +190,13 @@ void QmlPanoramaView::touchEvent(QTouchEvent* event)
   }
 }
 
-void QmlPanoramaView::mousePressEvent(QMouseEvent* event)
+void PanoramaView::mousePressEvent(QMouseEvent* event)
 {
   m_dragStartPosition = event->position();
   m_dragInitialContentPosition = m_contentRect.topLeft();
 }
 
-void QmlPanoramaView::mouseMoveEvent(QMouseEvent* event)
+void PanoramaView::mouseMoveEvent(QMouseEvent* event)
 {
   const double xDiff = m_dragStartPosition.x() - event->position().x();
   const double yDiff = m_dragStartPosition.y() - event->position().y();
@@ -204,12 +204,12 @@ void QmlPanoramaView::mouseMoveEvent(QMouseEvent* event)
                      m_dragInitialContentPosition.y() + yDiff);
 }
 
-void QmlPanoramaView::mouseReleaseEvent(QMouseEvent* event)
+void PanoramaView::mouseReleaseEvent(QMouseEvent* event)
 {
   Q_UNUSED(event)
 }
 
-void QmlPanoramaView::wheelEvent(QWheelEvent* event)
+void PanoramaView::wheelEvent(QWheelEvent* event)
 {
   const double zoomLevel =
       std::clamp<double>(m_zoomLevel + event->angleDelta().y() / 1000.0, 1, 10);
@@ -230,7 +230,7 @@ void QmlPanoramaView::wheelEvent(QWheelEvent* event)
                     event->position());
 }
 
-void QmlPanoramaView::updateContentSize(const QSizeF& newSize,
+void PanoramaView::updateContentSize(const QSizeF& newSize,
                                         const QPointF& contentAnchorPoint,
                                         const QPointF& itemAnchorPoint)
 {
@@ -254,13 +254,13 @@ void QmlPanoramaView::updateContentSize(const QSizeF& newSize,
   setContentRect(contentRect);
 }
 
-void QmlPanoramaView::setContentRect(const QRectF& contentRect)
+void PanoramaView::setContentRect(const QRectF& contentRect)
 {
   setContentRect(contentRect.x(), contentRect.y(), contentRect.width(),
                  contentRect.height());
 }
 
-void QmlPanoramaView::setContentRect(double xPosition, double yPosition,
+void PanoramaView::setContentRect(double xPosition, double yPosition,
                                      double width, double height)
 {
   const QRectF contentRect =
@@ -282,7 +282,7 @@ void QmlPanoramaView::setContentRect(double xPosition, double yPosition,
   }
 }
 
-QRectF QmlPanoramaView::sanitizedContentRect(double xPosition, double yPosition,
+QRectF PanoramaView::sanitizedContentRect(double xPosition, double yPosition,
                                              double width, double height)
 {
   const QSizeF itemSize = size();
@@ -315,7 +315,7 @@ QRectF QmlPanoramaView::sanitizedContentRect(double xPosition, double yPosition,
   return {xPosition, yPosition, width, height};
 }
 
-void QmlPanoramaView::setContentPosition(double xPosition, double yPosition)
+void PanoramaView::setContentPosition(double xPosition, double yPosition)
 {
   setContentRect(xPosition, yPosition, m_contentRect.width(),
                  m_contentRect.height());

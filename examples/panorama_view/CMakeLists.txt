@@ -24,7 +24,7 @@ qt_add_qml_module(panorama_view
 target_link_libraries(panorama_view
   PRIVATE
     Qt6::Quick
-    wsgui_coreplugin
+    wsgui_quickplugin
 )
 
 include(GNUInstallDirs)

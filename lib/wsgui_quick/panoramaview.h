@@ -1,20 +1,22 @@
 #pragma once
 
+#include "imagetiles.h"
+
 #include <QQuickItem>
 #include <QTimer>
 #include <QVariantAnimation>
 
-#include "imagetiles.h"
-
-class QmlPanoramaView : public QQuickItem
+class PanoramaView : public QQuickItem
 {
   Q_OBJECT
-  QML_NAMED_ELEMENT(PanoramaView)
+  QML_ELEMENT
 
-  Q_PROPERTY(ImageTiles imageTiles READ imageTiles WRITE setImageTiles NOTIFY imageTilesChanged FINAL)
-  Q_PROPERTY(bool autoScroll READ autoScroll WRITE setAutoScroll NOTIFY autoScrollChanged FINAL)
+  Q_PROPERTY(ImageTiles imageTiles READ imageTiles WRITE setImageTiles NOTIFY
+                 imageTilesChanged FINAL)
+  Q_PROPERTY(bool autoScroll READ autoScroll WRITE setAutoScroll NOTIFY
+                 autoScrollChanged FINAL)
 public:
-  QmlPanoramaView();
+  PanoramaView();
 
   const ImageTiles& imageTiles() const;
   void setImageTiles(const ImageTiles& imageTiles);
@@ -29,7 +31,8 @@ signals:
 protected:
   void componentComplete() override;
   QSGNode* updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*) override;
-  void geometryChange(const QRectF& newGeometry, const QRectF& oldGeometry) override;
+  void geometryChange(const QRectF& newGeometry,
+                      const QRectF& oldGeometry) override;
 
   void mousePressEvent(QMouseEvent* event) override;
   void mouseMoveEvent(QMouseEvent* event) override;
@@ -38,10 +41,14 @@ protected:
   void touchEvent(QTouchEvent* event) override;
 
 private:
-  void updateContentSize(const QSizeF& newSize, const QPointF& contentAnchorPoint, const QPointF& itemAnchorPoint);
+  void updateContentSize(const QSizeF& newSize,
+                         const QPointF& contentAnchorPoint,
+                         const QPointF& itemAnchorPoint);
   void setContentRect(const QRectF& contentRect);
-  void setContentRect(double xPosition, double yPosition, double width, double height);
-  QRectF sanitizedContentRect(double xPosition, double yPosition, double width, double height);
+  void setContentRect(double xPosition, double yPosition, double width,
+                      double height);
+  QRectF sanitizedContentRect(double xPosition, double yPosition, double width,
+                              double height);
   void setContentPosition(double xPosition, double yPosition);
   void startAutoScrollAnimation();
   void updateContentXPosition(const QVariant& xPosition);

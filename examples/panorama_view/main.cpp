@@ -1,4 +1,3 @@
-#include <QDirIterator>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
