@@ -37,7 +37,6 @@ BreakConstructorInitializers: BeforeColon
 ConstructorInitializerIndentWidth: 2
 
 SortIncludes: true
-IncludeBlocks: Regroup
 
 # Additional formatting options
 AlignAfterOpenBracket: Align
