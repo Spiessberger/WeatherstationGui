@@ -1,8 +1,6 @@
 #pragma once
 
-#include <QFuture>
 #include <QNetworkAccessManager>
-#include <QObject>
 #include <QPromise>
 
 #include <downloader.h>
@@ -11,9 +9,8 @@
 namespace wsgui::core::panomax
 {
 
-class DayImageDataDownloader : public QObject
+class DayImageDataDownloader
 {
-  Q_OBJECT
 public:
   explicit DayImageDataDownloader(Downloader& downloader);
 

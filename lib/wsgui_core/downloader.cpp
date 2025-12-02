@@ -13,33 +13,33 @@ QtPromise::QPromise<QByteArray> Downloader::startDownload(const QUrl& url)
         const QNetworkRequest request{url};
         QNetworkReply* reply = m_net.get(request);
 
-        connect(reply, &QNetworkReply::errorOccurred,
-                [=](QNetworkReply::NetworkError error)
-                {
-                  reject(error);
-                  reply->deleteLater();
-                });
-        connect(reply, &QNetworkReply::sslErrors,
-                [=](const QList<QSslError>& errors)
-                {
-                  reject(errors);
-                  reply->deleteLater();
-                });
+        QObject::connect(reply, &QNetworkReply::errorOccurred,
+                         [=](QNetworkReply::NetworkError error)
+                         {
+                           reject(error);
+                           reply->deleteLater();
+                         });
+        QObject::connect(reply, &QNetworkReply::sslErrors,
+                         [=](const QList<QSslError>& errors)
+                         {
+                           reject(errors);
+                           reply->deleteLater();
+                         });
 
-        connect(reply, &QNetworkReply::finished,
-                [=]()
-                {
-                  if (reply->error() == QNetworkReply::NoError)
-                  {
-                    resolve(reply->readAll());
-                  }
-                  else
-                  {
-                    reject(reply->error());
-                  }
+        QObject::connect(reply, &QNetworkReply::finished,
+                         [=]()
+                         {
+                           if (reply->error() == QNetworkReply::NoError)
+                           {
+                             resolve(reply->readAll());
+                           }
+                           else
+                           {
+                             reject(reply->error());
+                           }
 
-                  reply->deleteLater();
-                });
+                           reply->deleteLater();
+                         });
       }};
 }
 

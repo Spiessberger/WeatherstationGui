@@ -1,16 +1,13 @@
 #pragma once
 
 #include <QNetworkAccessManager>
-#include <QObject>
-
 #include <QtPromise>
 
 namespace wsgui::core
 {
 
-class Downloader : public QObject
+class Downloader
 {
-  Q_OBJECT
 public:
   explicit Downloader() = default;
 

@@ -80,7 +80,7 @@ DayImageDataDownloader::startDownload(int camId, const QUrl& url)
         if (error)
         {
           std::string error_msg = glz::format_error(error, data.constData());
-          throw error;
+          throw error.ec;
         }
         dayData.camId = camId;
         return dayData;
