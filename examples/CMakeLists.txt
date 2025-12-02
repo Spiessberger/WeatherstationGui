@@ -1,1 +1,3 @@
+add_subdirectory(downloader)
 add_subdirectory(panorama_view)
+add_subdirectory(panomax_day_image_data)
