@@ -1,17 +1,17 @@
 find_package(Qt6 REQUIRED COMPONENTS Core)
 
-qt_add_executable(panomax_day_image_data
+qt_add_executable(panomax_image
   main.cpp
 )
 
-target_link_libraries(panomax_day_image_data
+target_link_libraries(panomax_image
   PRIVATE
     Qt6::Core
     wsgui_core
 )
 
 include(GNUInstallDirs)
-install(TARGETS panomax_day_image_data
+install(TARGETS panomax_image
   BUNDLE DESTINATION .
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}

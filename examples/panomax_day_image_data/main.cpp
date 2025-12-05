@@ -5,9 +5,6 @@
 #include <panomax/dayimagedata.h>
 #include <panomax/dayimagedatadownloader.h>
 
-// https://panodata8.panomax.com/cams/10040/2025/11/28/12-50-00_small.jpg
-// https://api.panomax.com/1.0/cams/10040/images/day
-
 using namespace wsgui::core;
 using namespace wsgui::core::panomax;
 
@@ -71,16 +68,6 @@ int main(int argc, char* argv[])
                   .fail([date](const QList<QSslError>& errors)
                         { qWarning() << date << "ssl errors:" << errors; })
                   .fail([date]() { qWarning() << date << "unhandled error"; });
-
-  dayImageDataDownloader.setApiUrlTemplate("invalid_url");
-  promises << dayImageDataDownloader.getDayImageData(camId)
-                  .then(dumpData)
-                  .fail(
-                      [](QNetworkReply::NetworkError error)
-                      { qWarning() << "invalid_url download error:" << error; })
-                  .fail([](const QList<QSslError>& errors)
-                        { qWarning() << "invalid_url ssl errors:" << errors; })
-                  .fail([]() { qWarning() << "invalid_url unhandled error"; });
 
   QtPromise::all(promises).then([&app]() { app.quit(); });
 
