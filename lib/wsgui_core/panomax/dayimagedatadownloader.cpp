@@ -29,45 +29,32 @@ template <> struct from<JSON, QDate>
 
 namespace wsgui::core::panomax
 {
+namespace
+{
+const QString ApiUrlTemplate =
+    QStringLiteral("https://api.panomax.com/1.0/cams/%1/images/day/%2");
+const QString ApiDateTemplate = QStringLiteral("yyyy-MM-dd");
+} // namespace
 
 DayImageDataDownloader::DayImageDataDownloader(Downloader& downloader)
   : m_downloader(downloader)
 {
 }
 
-QString DayImageDataDownloader::apiUrlTemplate() const
-{
-  return m_apiUrlTemplate;
-}
-
-void DayImageDataDownloader::setApiUrlTemplate(const QString& apiUrlTemplate)
-{
-  m_apiUrlTemplate = apiUrlTemplate;
-}
-
-QString DayImageDataDownloader::apiDateTemplate() const
-{
-  return m_apiDateTemplate;
-}
-
-void DayImageDataDownloader::setApiDateTemplate(const QString& apiDateTemplate)
-{
-  m_apiDateTemplate = apiDateTemplate;
-}
-
 QtPromise::QPromise<DayImageData>
 DayImageDataDownloader::getDayImageData(int camId)
 {
-  return startDownload(camId, m_apiUrlTemplate.arg(camId).arg(""));
+  return startDownload(camId, ApiUrlTemplate.arg(camId).arg(""));
 }
 
 QtPromise::QPromise<DayImageData>
 DayImageDataDownloader::getDayImageData(int camId, const QDate& date)
 {
   return startDownload(
-      camId, m_apiUrlTemplate.arg(camId).arg(date.toString(m_apiDateTemplate)));
+      camId, ApiUrlTemplate.arg(camId).arg(date.toString(ApiDateTemplate)));
 }
 
+// https://api.panomax.com/1.0/cams/10040/images/day
 QtPromise::QPromise<DayImageData>
 DayImageDataDownloader::startDownload(int camId, const QUrl& url)
 {

@@ -2,6 +2,11 @@
 
 #include <QDebug>
 
+ImageTiles::ImageTiles(std::vector<std::vector<QImage>> imageTiles)
+{
+  setImageTiles(std::move(imageTiles));
+}
+
 bool ImageTiles::isNull() const
 {
   return m_imageTiles.empty();

@@ -7,6 +7,7 @@ class ImageTiles
 {
 public:
   ImageTiles() = default;
+  ImageTiles(std::vector<std::vector<QImage>> imageTiles);
 
   bool isNull() const;
 
