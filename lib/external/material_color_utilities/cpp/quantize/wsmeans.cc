@@ -21,13 +21,10 @@
 #include <cstdint>
 #include <cstdlib>
 #include <map>
-#include <set>
 #include <string>
-#include <unordered_map>
-#include <unordered_set>
+#include <flat_map>
 #include <vector>
 
-#include "absl/container/flat_hash_map.h"
 #include <material_color_utilities/quantize/lab.h>
 
 constexpr int kMaxIterations = 100;
@@ -64,18 +61,13 @@ QuantizerResult QuantizeWsmeans(const std::vector<Argb>& input_pixels,
   }
 
   uint32_t pixel_count = input_pixels.size();
-  absl::flat_hash_map<Argb, int> pixel_to_count;
+  std::flat_map<Argb, int> pixel_to_count;
   std::vector<uint32_t> pixels;
   pixels.reserve(pixel_count);
   std::vector<Lab> points;
   points.reserve(pixel_count);
   for (Argb pixel : input_pixels) {
-    // tested over 1000 runs with 128 colors, 12544 (112 x 112)
-    // std::map 10.9 ms
-    // std::unordered_map 10.2 ms
-    // absl::btree_map 9.0 ms
-    // absl::flat_hash_map 8.0 ms
-    absl::flat_hash_map<Argb, int>::iterator it = pixel_to_count.find(pixel);
+    auto it = pixel_to_count.find(pixel);
     if (it != pixel_to_count.end()) {
       it->second++;
 
