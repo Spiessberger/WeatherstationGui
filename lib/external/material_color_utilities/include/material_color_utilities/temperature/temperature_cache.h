@@ -18,6 +18,7 @@
 #define CPP_TEMPERATURE_TEMPERATURE_CACHE_H_
 
 #include <map>
+#include <optional>
 #include <vector>
 
 #include <material_color_utilities/cam/hct.h>
