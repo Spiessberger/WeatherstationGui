@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-#include "cpp/scheme/scheme_tonal_spot.h"
+#include <material_color_utilities/scheme/scheme_tonal_spot.h>
 
-#include "cpp/cam/hct.h"
-#include "cpp/dynamiccolor/dynamic_scheme.h"
-#include "cpp/dynamiccolor/variant.h"
-#include "cpp/palettes/tones.h"
+#include <material_color_utilities/cam/hct.h>
+#include <material_color_utilities/dynamiccolor/dynamic_scheme.h>
+#include <material_color_utilities/dynamiccolor/variant.h>
+#include <material_color_utilities/palettes/tones.h>
 
 namespace material_color_utilities {
 

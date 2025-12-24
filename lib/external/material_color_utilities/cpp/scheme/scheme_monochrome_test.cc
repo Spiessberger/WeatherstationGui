@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-#include "cpp/scheme/scheme_monochrome.h"
+#include <material_color_utilities/scheme/scheme_monochrome.h>
 
 #include "testing/base/public/gunit.h"
-#include "cpp/cam/hct.h"
-#include "cpp/dynamiccolor/material_dynamic_colors.h"
+#include <material_color_utilities/cam/hct.h>
+#include <material_color_utilities/dynamiccolor/material_dynamic_colors.h>
 
 namespace material_color_utilities {
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#include "cpp/quantize/wu.h"
+#include <material_color_utilities/quantize/wu.h>
 
 #include <cstdint>
 #include <vector>

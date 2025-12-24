@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-#include "cpp/quantize/celebi.h"
+#include <material_color_utilities/quantize/celebi.h>
 
 #include <cstddef>
 #include <cstdio>
 #include <cstdlib>
 #include <vector>
 
-#include "cpp/quantize/wsmeans.h"
-#include "cpp/quantize/wu.h"
-#include "cpp/utils/utils.h"
+#include <material_color_utilities/quantize/wsmeans.h>
+#include <material_color_utilities/quantize/wu.h>
+#include <material_color_utilities/utils/utils.h>
 
 namespace material_color_utilities {
 

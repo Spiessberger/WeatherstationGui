@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-#include "cpp/quantize/lab.h"
+#include <material_color_utilities/quantize/lab.h>
 
 #include <math.h>
 
-#include "cpp/utils/utils.h"
+#include <material_color_utilities/utils/utils.h>
 
 namespace material_color_utilities {
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#include "cpp/quantize/wsmeans.h"
+#include <material_color_utilities/quantize/wsmeans.h>
 
 #include <algorithm>
 #include <cmath>
@@ -28,7 +28,7 @@
 #include <vector>
 
 #include "absl/container/flat_hash_map.h"
-#include "cpp/quantize/lab.h"
+#include <material_color_utilities/quantize/lab.h>
 
 constexpr int kMaxIterations = 100;
 constexpr double kMinDeltaE = 3.0;

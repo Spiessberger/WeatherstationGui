@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#include "cpp/contrast/contrast.h"
+#include <material_color_utilities/contrast/contrast.h>
 
 #include "testing/base/public/gunit.h"
 

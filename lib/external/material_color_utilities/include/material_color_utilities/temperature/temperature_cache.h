@@ -20,7 +20,7 @@
 #include <map>
 #include <vector>
 
-#include "cpp/cam/hct.h"
+#include <material_color_utilities/cam/hct.h>
 
 namespace material_color_utilities {
 

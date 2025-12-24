@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#include "cpp/quantize/celebi.h"
+#include <material_color_utilities/quantize/celebi.h>
 
 #include <cstdint>
 #include <vector>

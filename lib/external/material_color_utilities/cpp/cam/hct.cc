@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-#include "cpp/cam/hct.h"
+#include <material_color_utilities/cam/hct.h>
 
-#include "cpp/cam/hct_solver.h"
-#include "cpp/utils/utils.h"
+#include <material_color_utilities/cam/hct_solver.h>
+#include <material_color_utilities/utils/utils.h>
 
 namespace material_color_utilities {
 Hct::Hct(double hue, double chroma, double tone) {

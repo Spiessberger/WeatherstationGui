@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-#include "cpp/cam/hct_solver.h"
+#include <material_color_utilities/cam/hct_solver.h>
 
 #include "testing/base/public/gmock.h"
 #include "testing/base/public/gunit.h"
-#include "cpp/cam/cam.h"
-#include "cpp/utils/utils.h"
+#include <material_color_utilities/cam/cam.h>
+#include <material_color_utilities/utils/utils.h>
 
 namespace material_color_utilities {
 

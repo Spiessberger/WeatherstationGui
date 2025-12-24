@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#include "cpp/quantize/wsmeans.h"
+#include <material_color_utilities/quantize/wsmeans.h>
 
 #include <vector>
 

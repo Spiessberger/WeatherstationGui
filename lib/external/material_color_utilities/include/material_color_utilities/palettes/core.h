@@ -17,7 +17,7 @@
 #ifndef CPP_PALETTES_CORE_H_
 #define CPP_PALETTES_CORE_H_
 
-#include "cpp/palettes/tones.h"
+#include <material_color_utilities/palettes/tones.h>
 
 namespace material_color_utilities {
 

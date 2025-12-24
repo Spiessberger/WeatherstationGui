@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-#include "cpp/temperature/temperature_cache.h"
+#include <material_color_utilities/temperature/temperature_cache.h>
 
 #include <algorithm>
 #include <map>
 #include <vector>
 
-#include "cpp/cam/hct.h"
-#include "cpp/quantize/lab.h"
-#include "cpp/utils/utils.h"
+#include <material_color_utilities/cam/hct.h>
+#include <material_color_utilities/quantize/lab.h>
+#include <material_color_utilities/utils/utils.h>
 
 namespace material_color_utilities {
 

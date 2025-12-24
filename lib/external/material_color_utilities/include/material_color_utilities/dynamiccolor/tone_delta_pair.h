@@ -17,7 +17,7 @@
 #ifndef CPP_DYNAMICCOLOR_TONE_DELTA_PAIR_H_
 #define CPP_DYNAMICCOLOR_TONE_DELTA_PAIR_H_
 
-#include "cpp/dynamiccolor/dynamic_color.h"
+#include <material_color_utilities/dynamiccolor/dynamic_color.h>
 
 namespace material_color_utilities {
 

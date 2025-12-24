@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-#include "cpp/score/score.h"
+#include <material_color_utilities/score/score.h>
 
 #include <cstdint>
 #include <map>
 #include <vector>
 
 #include "testing/base/public/gunit.h"
-#include "cpp/utils/utils.h"
+#include <material_color_utilities/utils/utils.h>
 
 namespace material_color_utilities {
 

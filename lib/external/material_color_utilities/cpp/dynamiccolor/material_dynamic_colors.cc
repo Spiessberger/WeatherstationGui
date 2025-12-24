@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-#include "cpp/dynamiccolor/material_dynamic_colors.h"
+#include <material_color_utilities/dynamiccolor/material_dynamic_colors.h>
 
 #include <cmath>
 
-#include "cpp/cam/cam.h"
-#include "cpp/cam/hct.h"
-#include "cpp/dislike/dislike.h"
-#include "cpp/dynamiccolor/contrast_curve.h"
-#include "cpp/dynamiccolor/dynamic_color.h"
-#include "cpp/dynamiccolor/dynamic_scheme.h"
-#include "cpp/dynamiccolor/tone_delta_pair.h"
-#include "cpp/dynamiccolor/variant.h"
-#include "cpp/utils/utils.h"
+#include <material_color_utilities/cam/cam.h>
+#include <material_color_utilities/cam/hct.h>
+#include <material_color_utilities/dislike/dislike.h>
+#include <material_color_utilities/dynamiccolor/contrast_curve.h>
+#include <material_color_utilities/dynamiccolor/dynamic_color.h>
+#include <material_color_utilities/dynamiccolor/dynamic_scheme.h>
+#include <material_color_utilities/dynamiccolor/tone_delta_pair.h>
+#include <material_color_utilities/dynamiccolor/variant.h>
+#include <material_color_utilities/utils/utils.h>
 
 namespace material_color_utilities {
 

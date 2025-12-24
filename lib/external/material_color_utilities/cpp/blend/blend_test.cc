@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-#include "cpp/blend/blend.h"
+#include <material_color_utilities/blend/blend.h>
 
 #include "testing/base/public/gunit.h"
-#include "cpp/utils/utils.h"
+#include <material_color_utilities/utils/utils.h>
 
 namespace material_color_utilities {
 

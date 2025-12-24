@@ -28,7 +28,7 @@
 #include <unordered_set>
 #include <vector>
 
-#include "cpp/utils/utils.h"
+#include <material_color_utilities/utils/utils.h>
 
 namespace material_color_utilities {
 

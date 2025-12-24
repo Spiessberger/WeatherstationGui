@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-#include "cpp/temperature/temperature_cache.h"
+#include <material_color_utilities/temperature/temperature_cache.h>
 
 #include <vector>
 
 #include "testing/base/public/gunit.h"
-#include "cpp/cam/hct.h"
+#include <material_color_utilities/cam/hct.h>
 
 namespace material_color_utilities {
 

@@ -17,7 +17,7 @@
 #ifndef CPP_DYNAMICCOLOR_MATERIAL_DYNAMIC_COLORS_H_
 #define CPP_DYNAMICCOLOR_MATERIAL_DYNAMIC_COLORS_H_
 
-#include "cpp/dynamiccolor/dynamic_color.h"
+#include <material_color_utilities/dynamiccolor/dynamic_color.h>
 
 namespace material_color_utilities {
 
