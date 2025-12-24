@@ -1,10 +1,3 @@
-find_package(Qt6 REQUIRED COMPONENTS 
-  Core
-  Gui
-  Network
-)
-find_package(Qt6 REQUIRED COMPONENTS Core)
-
 qt_add_library(wsgui_core
   STATIC
     imagetiles.h

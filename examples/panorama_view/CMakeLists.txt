@@ -1,5 +1,3 @@
-find_package(Qt6 REQUIRED COMPONENTS Quick)
-
 qt_add_executable(panorama_view
   main.cpp
 )

@@ -1,8 +1,3 @@
-find_package(Qt6 REQUIRED COMPONENTS 
-  Core
-  Quick
-)
-
 qt_add_qml_module(wsgui_quick
   URI lib.wsgui_quick
   VERSION 1.0
