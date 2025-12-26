@@ -9,6 +9,8 @@ qt_add_qml_module(wsgui_quick
     panoramaview.cpp
     imagetilesfileloader.h
     imagetilesfileloader.cpp
+    colorscheme.h
+    colorscheme.cpp
 )
 
 target_include_directories(wsgui_quick INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
