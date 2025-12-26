@@ -7,11 +7,21 @@ namespace wsgui::core
 
 QtPromise::QPromise<QByteArray> Downloader::startDownload(const QUrl& url)
 {
+  return startDownload(url, std::chrono::milliseconds::zero());
+}
+
+QtPromise::QPromise<QByteArray>
+Downloader::startDownload(const QUrl& url, std::chrono::milliseconds timeout)
+{
   return QtPromise::QPromise<QByteArray>{
-      [this, url](const auto& resolve, const auto& reject)
+      [this, url, timeout](const auto& resolve, const auto& reject)
       {
         qDebug() << "starting download" << url;
-        const QNetworkRequest request{url};
+        QNetworkRequest request{url};
+        if (timeout > timeout.zero())
+        {
+          request.setTransferTimeout(timeout);
+        }
         QNetworkReply* reply = m_net.get(request);
 
         QObject::connect(reply, &QNetworkReply::errorOccurred,
