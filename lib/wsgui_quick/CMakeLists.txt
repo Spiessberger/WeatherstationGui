@@ -11,6 +11,8 @@ qt_add_qml_module(wsgui_quick
     imagetilesfileloader.cpp
     colorscheme.h
     colorscheme.cpp
+    colorschemeloader.h
+    colorschemeloader.cpp
 )
 
 target_include_directories(wsgui_quick INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})

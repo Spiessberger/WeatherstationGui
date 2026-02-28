@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QQmlEngine>
 
-#include <material_color_utilities/dynamiccolor/dynamic_scheme.h>
+#include <colorschemedata.h>
 
 class ColorScheme : public QObject
 {
@@ -70,8 +70,7 @@ class ColorScheme : public QObject
 public:
   explicit ColorScheme() = default;
 
-  void
-  setColorScheme(const material_color_utilities::DynamicScheme& colorScheme);
+  void setColorScheme(const ColorSchemeData& colorScheme);
 
   QColor primaryPaletteKeyColor() const;
   QColor secondaryPaletteKeyColor() const;
@@ -132,5 +131,5 @@ signals:
   void colorSchemeChanged();
 
 private:
-  std::optional<material_color_utilities::DynamicScheme> m_colorScheme;
+  ColorSchemeData m_colorScheme;
 };

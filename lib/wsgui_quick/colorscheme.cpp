@@ -1,7 +1,7 @@
 #include "colorscheme.h"
 
 void ColorScheme::setColorScheme(
-    const material_color_utilities::DynamicScheme& colorScheme)
+    const ColorSchemeData& colorScheme)
 {
   m_colorScheme = colorScheme;
   emit colorSchemeChanged();
@@ -9,486 +9,270 @@ void ColorScheme::setColorScheme(
 
 QColor ColorScheme::primaryPaletteKeyColor() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetPrimaryPaletteKeyColor());
-  }
-  return {};
+  return m_colorScheme.primaryPaletteKeyColor;
 }
 
 QColor ColorScheme::secondaryPaletteKeyColor() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetSecondaryPaletteKeyColor());
-  }
-  return {};
+  return m_colorScheme.secondaryPaletteKeyColor;
 }
 
 QColor ColorScheme::tertiaryPaletteKeyColor() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetTertiaryPaletteKeyColor());
-  }
-  return {};
+  return m_colorScheme.tertiaryPaletteKeyColor;
 }
 
 QColor ColorScheme::neutralPaletteKeyColor() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetNeutralPaletteKeyColor());
-  }
-  return {};
+  return m_colorScheme.neutralPaletteKeyColor;
 }
 
 QColor ColorScheme::neutralVariantPaletteKeyColor() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetNeutralVariantPaletteKeyColor());
-  }
-  return {};
+  return m_colorScheme.neutralVariantPaletteKeyColor;
 }
 
 QColor ColorScheme::background() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetBackground());
-  }
-  return {};
+  return m_colorScheme.background;
 }
 
 QColor ColorScheme::onBackground() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetOnBackground());
-  }
-  return {};
+  return m_colorScheme.onBackground;
 }
 
 QColor ColorScheme::surface() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetSurface());
-  }
-  return {};
+  return m_colorScheme.surface;
 }
 
 QColor ColorScheme::surfaceDim() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetSurfaceDim());
-  }
-  return {};
+  return m_colorScheme.surfaceDim;
 }
 
 QColor ColorScheme::surfaceBright() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetSurfaceBright());
-  }
-  return {};
+  return m_colorScheme.surfaceBright;
 }
 
 QColor ColorScheme::surfaceContainerLowest() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetSurfaceContainerLowest());
-  }
-  return {};
+  return m_colorScheme.surfaceContainerLowest;
 }
 
 QColor ColorScheme::surfaceContainerLow() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetSurfaceContainerLow());
-  }
-  return {};
+  return m_colorScheme.surfaceContainerLow;
 }
 
 QColor ColorScheme::surfaceContainer() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetSurfaceContainer());
-  }
-  return {};
+  return m_colorScheme.surfaceContainer;
 }
 
 QColor ColorScheme::surfaceContainerHigh() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetSurfaceContainerHigh());
-  }
-  return {};
+  return m_colorScheme.surfaceContainerHigh;
 }
 
 QColor ColorScheme::surfaceContainerHighest() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetSurfaceContainerHighest());
-  }
-  return {};
+  return m_colorScheme.surfaceContainerHighest;
 }
 
 QColor ColorScheme::onSurface() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetOnSurface());
-  }
-  return {};
+  return m_colorScheme.onSurface;
 }
 
 QColor ColorScheme::surfaceVariant() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetSurfaceVariant());
-  }
-  return {};
+  return m_colorScheme.surfaceVariant;
 }
 
 QColor ColorScheme::onSurfaceVariant() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetOnSurfaceVariant());
-  }
-  return {};
+  return m_colorScheme.onSurfaceVariant;
 }
 
 QColor ColorScheme::inverseSurface() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetInverseSurface());
-  }
-  return {};
+  return m_colorScheme.inverseSurface;
 }
 
 QColor ColorScheme::inverseOnSurface() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetInverseOnSurface());
-  }
-  return {};
+  return m_colorScheme.inverseOnSurface;
 }
 
 QColor ColorScheme::outline() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetOutline());
-  }
-  return {};
+  return m_colorScheme.outline;
 }
 
 QColor ColorScheme::outlineVariant() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetOutlineVariant());
-  }
-  return {};
+  return m_colorScheme.outlineVariant;
 }
 
 QColor ColorScheme::shadow() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetShadow());
-  }
-  return {};
+  return m_colorScheme.shadow;
 }
 
 QColor ColorScheme::scrim() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetScrim());
-  }
-  return {};
+  return m_colorScheme.scrim;
 }
 
 QColor ColorScheme::surfaceTint() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetSurfaceTint());
-  }
-  return {};
+  return m_colorScheme.surfaceTint;
 }
 
 QColor ColorScheme::primary() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetPrimary());
-  }
-  return {};
+  return m_colorScheme.primary;
 }
 
 QColor ColorScheme::onPrimary() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetOnPrimary());
-  }
-  return {};
+  return m_colorScheme.onPrimary;
 }
 
 QColor ColorScheme::primaryContainer() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetPrimaryContainer());
-  }
-  return {};
+  return m_colorScheme.primaryContainer;
 }
 
 QColor ColorScheme::onPrimaryContainer() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetOnPrimaryContainer());
-  }
-  return {};
+  return m_colorScheme.onPrimaryContainer;
 }
 
 QColor ColorScheme::inversePrimary() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetInversePrimary());
-  }
-  return {};
+  return m_colorScheme.inversePrimary;
 }
 
 QColor ColorScheme::secondary() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetSecondary());
-  }
-  return {};
+  return m_colorScheme.secondary;
 }
 
 QColor ColorScheme::onSecondary() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetOnSecondary());
-  }
-  return {};
+  return m_colorScheme.onSecondary;
 }
 
 QColor ColorScheme::secondaryContainer() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetSecondaryContainer());
-  }
-  return {};
+  return m_colorScheme.secondaryContainer;
 }
 
 QColor ColorScheme::onSecondaryContainer() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetOnSecondaryContainer());
-  }
-  return {};
+  return m_colorScheme.onSecondaryContainer;
 }
 
 QColor ColorScheme::tertiary() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetTertiary());
-  }
-  return {};
+  return m_colorScheme.tertiary;
 }
 
 QColor ColorScheme::onTertiary() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetOnTertiary());
-  }
-  return {};
+  return m_colorScheme.onTertiary;
 }
 
 QColor ColorScheme::tertiaryContainer() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetTertiaryContainer());
-  }
-  return {};
+  return m_colorScheme.tertiaryContainer;
 }
 
 QColor ColorScheme::onTertiaryContainer() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetOnTertiaryContainer());
-  }
-  return {};
+  return m_colorScheme.onTertiaryContainer;
 }
 
 QColor ColorScheme::error() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetError());
-  }
-  return {};
+  return m_colorScheme.error;
 }
 
 QColor ColorScheme::onError() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetOnError());
-  }
-  return {};
+  return m_colorScheme.onError;
 }
 
 QColor ColorScheme::errorContainer() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetErrorContainer());
-  }
-  return {};
+  return m_colorScheme.errorContainer;
 }
 
 QColor ColorScheme::onErrorContainer() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetOnErrorContainer());
-  }
-  return {};
+  return m_colorScheme.onErrorContainer;
 }
 
 QColor ColorScheme::primaryFixed() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetPrimaryFixed());
-  }
-  return {};
+  return m_colorScheme.primaryFixed;
 }
 
 QColor ColorScheme::primaryFixedDim() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetPrimaryFixedDim());
-  }
-  return {};
+  return m_colorScheme.primaryFixedDim;
 }
 
 QColor ColorScheme::onPrimaryFixed() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetOnPrimaryFixed());
-  }
-  return {};
+  return m_colorScheme.onPrimaryFixed;
 }
 
 QColor ColorScheme::onPrimaryFixedVariant() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetOnPrimaryFixedVariant());
-  }
-  return {};
+  return m_colorScheme.onPrimaryFixedVariant;
 }
 
 QColor ColorScheme::secondaryFixed() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetSecondaryFixed());
-  }
-  return {};
+  return m_colorScheme.secondaryFixed;
 }
 
 QColor ColorScheme::secondaryFixedDim() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetSecondaryFixedDim());
-  }
-  return {};
+  return m_colorScheme.secondaryFixedDim;
 }
 
 QColor ColorScheme::onSecondaryFixed() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetOnSecondaryFixed());
-  }
-  return {};
+  return m_colorScheme.onSecondaryFixed;
 }
 
 QColor ColorScheme::onSecondaryFixedVariant() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetOnSecondaryFixedVariant());
-  }
-  return {};
+  return m_colorScheme.onSecondaryFixedVariant;
 }
 
 QColor ColorScheme::tertiaryFixed() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetTertiaryFixed());
-  }
-  return {};
+  return m_colorScheme.tertiaryFixed;
 }
 
 QColor ColorScheme::tertiaryFixedDim() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetTertiaryFixedDim());
-  }
-  return {};
+  return m_colorScheme.tertiaryFixedDim;
 }
 
 QColor ColorScheme::onTertiaryFixed() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetOnTertiaryFixed());
-  }
-  return {};
+  return m_colorScheme.onTertiaryFixed;
 }
 
 QColor ColorScheme::onTertiaryFixedVariant() const
 {
-  if (m_colorScheme)
-  {
-    return QColor::fromRgb(m_colorScheme->GetOnTertiaryFixedVariant());
-  }
-  return {};
+  return m_colorScheme.onTertiaryFixedVariant;
 }

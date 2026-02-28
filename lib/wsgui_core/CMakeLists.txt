@@ -1,12 +1,15 @@
 qt_add_library(wsgui_core
   STATIC
+    colorschemedata.h
     imagetiles.h
     imagetiles.cpp
+    loadcolorscheme.h
+    loadcolorscheme.cpp
+    downloader.h
+    downloader.cpp
     panomax/dayimagedata.h
     panomax/dayimagedatadownloader.h
     panomax/dayimagedatadownloader.cpp
-    downloader.h
-    downloader.cpp
     panomax/imagedownloader.h
     panomax/imagedownloader.cpp
 )
@@ -18,8 +21,8 @@ target_link_libraries(wsgui_core
     Qt6::Core
     Qt6::Gui
     Qt6::Network
-    glaze::glaze
     qtpromise
+  PRIVATE
+    glaze::glaze
+    material_color_utilities
 )
-target_link_libraries(wsgui_core PRIVATE Qt6::Core)
-target_link_libraries(wsgui_core PRIVATE Qt6::Core)
