@@ -17,7 +17,7 @@ find_package(Qt6 REQUIRED COMPONENTS
 
 option(WSGUI_BUILD_EXAMPLES OFF)
 
-add_subdirectory(app)
+# add_subdirectory(app)
 add_subdirectory(lib)
 
 if(${WSGUI_BUILD_EXAMPLES})
