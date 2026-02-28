@@ -22,6 +22,7 @@ target_link_libraries(wsgui_core
     Qt6::Gui
     Qt6::Network
     qtpromise
+    mp-units::mp-units
   PRIVATE
     glaze::glaze
     material_color_utilities
