@@ -28,7 +28,16 @@ Window {
     id: imageDialog
 
     currentFolder: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
-    onAccepted: d.imageColors = colorSchemeLoader.colorsFromImage(imageDialog.selectedFile)
+    onAccepted: {
+      image.source = imageDialog.currentFile
+      d.imageColors = colorSchemeLoader.colorsFromImage(imageDialog.currentFile)
+    }
+  }
+
+  Image {
+    id: image
+    anchors.fill: parent
+    fillMode: Image.PreserveAspectCrop
   }
 
   ColumnLayout {
