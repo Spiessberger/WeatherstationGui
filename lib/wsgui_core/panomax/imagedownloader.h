@@ -11,6 +11,12 @@ namespace wsgui::core::panomax
 class ImageDownloader
 {
 public:
+  enum class Error
+  {
+    InvalidTileLayout,
+    ImageDataLoadingFailed
+  };
+
   ImageDownloader(Downloader& downloader);
 
   QtPromise::QPromise<ImageTiles> download(int camId, const QDateTime& dateTime,

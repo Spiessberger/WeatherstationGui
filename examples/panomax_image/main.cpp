@@ -50,62 +50,74 @@ int main(int argc, char* argv[])
   invalidSize.cols = 2;
 
   /* Successful Downloads */
-  promises << imageDownloader
-                  .download(camId,
-                            QDateTime{QDate{2025, 12, 2}, QTime{21, 0, 0}},
-                            smallSize)
-                  .then(dumpImageData)
-                  .fail([](QNetworkReply::NetworkError error)
-                        { qWarning() << "download error:" << error; })
-                  .fail([]() { qWarning() << "unhandled error"; });
+  promises
+      << imageDownloader
+             .download(camId, QDateTime{QDate{2025, 12, 2}, QTime{21, 0, 0}},
+                       smallSize)
+             .then(dumpImageData)
+             .fail([](QNetworkReply::NetworkError error)
+                   { qWarning() << "download error:" << error; })
+             .fail([](ImageDownloader::Error error)
+                   { qWarning() << "image error:" << static_cast<int>(error); })
+             .fail([]() { qWarning() << "unhandled error"; });
 
-  promises << imageDownloader
-                  .download(camId,
-                            QDateTime{QDate{2025, 12, 2}, QTime{21, 0, 0}},
-                            defaultSize)
-                  .then(dumpImageData)
-                  .fail([](QNetworkReply::NetworkError error)
-                        { qWarning() << "download error:" << error; })
-                  .fail([]() { qWarning() << "unhandled error"; });
+  promises
+      << imageDownloader
+             .download(camId, QDateTime{QDate{2025, 12, 2}, QTime{21, 0, 0}},
+                       defaultSize)
+             .then(dumpImageData)
+             .fail([](QNetworkReply::NetworkError error)
+                   { qWarning() << "download error:" << error; })
+             .fail([](ImageDownloader::Error error)
+                   { qWarning() << "image error:" << static_cast<int>(error); })
+             .fail([]() { qWarning() << "unhandled error"; });
 
-  promises << imageDownloader
-                  .download(camId,
-                            QDateTime{QDate{2025, 12, 2}, QTime{21, 0, 0}},
-                            hdSize)
-                  .then(dumpImageData)
-                  .fail([](QNetworkReply::NetworkError error)
-                        { qWarning() << "download error:" << error; })
-                  .fail([]() { qWarning() << "unhandled error"; });
+  promises
+      << imageDownloader
+             .download(camId, QDateTime{QDate{2025, 12, 2}, QTime{21, 0, 0}},
+                       hdSize)
+             .then(dumpImageData)
+             .fail([](QNetworkReply::NetworkError error)
+                   { qWarning() << "download error:" << error; })
+             .fail([](ImageDownloader::Error error)
+                   { qWarning() << "image error:" << static_cast<int>(error); })
+             .fail([]() { qWarning() << "unhandled error"; });
 
-  promises << imageDownloader
-                  .download(camId,
-                            QDateTime{QDate{2025, 12, 2}, QTime{21, 0, 0}},
-                            fullSize)
-                  .then(dumpImageData)
-                  .fail([](QNetworkReply::NetworkError error)
-                        { qWarning() << "download error:" << error; })
-                  .fail([]() { qWarning() << "unhandled error"; });
+  promises
+      << imageDownloader
+             .download(camId, QDateTime{QDate{2025, 12, 2}, QTime{21, 0, 0}},
+                       fullSize)
+             .then(dumpImageData)
+             .fail([](QNetworkReply::NetworkError error)
+                   { qWarning() << "download error:" << error; })
+             .fail([](ImageDownloader::Error error)
+                   { qWarning() << "image error:" << static_cast<int>(error); })
+             .fail([]() { qWarning() << "unhandled error"; });
 
   /* Invalid Downloads */
   // invalid size
-  promises << imageDownloader
-                  .download(camId,
-                            QDateTime{QDate{2025, 12, 2}, QTime{21, 0, 0}},
-                            invalidSize)
-                  .then(dumpImageData)
-                  .fail([](QNetworkReply::NetworkError error)
-                        { qWarning() << "download error:" << error; })
-                  .fail([]() { qWarning() << "unhandled error"; });
+  promises
+      << imageDownloader
+             .download(camId, QDateTime{QDate{2025, 12, 2}, QTime{21, 0, 0}},
+                       invalidSize)
+             .then(dumpImageData)
+             .fail([](QNetworkReply::NetworkError error)
+                   { qWarning() << "download error:" << error; })
+             .fail([](ImageDownloader::Error error)
+                   { qWarning() << "image error:" << static_cast<int>(error); })
+             .fail([]() { qWarning() << "unhandled error"; });
 
   // invalid date
-  promises << imageDownloader
-                  .download(camId,
-                            QDateTime{QDate{3025, 12, 2}, QTime{21, 0, 0}},
-                            hdSize)
-                  .then(dumpImageData)
-                  .fail([](QNetworkReply::NetworkError error)
-                        { qWarning() << "download error:" << error; })
-                  .fail([]() { qWarning() << "unhandled error"; });
+  promises
+      << imageDownloader
+             .download(camId, QDateTime{QDate{3025, 12, 2}, QTime{21, 0, 0}},
+                       hdSize)
+             .then(dumpImageData)
+             .fail([](QNetworkReply::NetworkError error)
+                   { qWarning() << "download error:" << error; })
+             .fail([](ImageDownloader::Error error)
+                   { qWarning() << "image error:" << static_cast<int>(error); })
+             .fail([]() { qWarning() << "unhandled error"; });
 
   // invalid cam id
   promises << imageDownloader
@@ -114,6 +126,11 @@ int main(int argc, char* argv[])
                   .then(dumpImageData)
                   .fail([](QNetworkReply::NetworkError error)
                         { qWarning() << "download error:" << error; })
+                  .fail(
+                      [](ImageDownloader::Error error)
+                      {
+                        qWarning() << "image error:" << static_cast<int>(error);
+                      })
                   .fail([]() { qWarning() << "unhandled error"; });
 
   QtPromise::all(promises).then([&app]() { app.quit(); });

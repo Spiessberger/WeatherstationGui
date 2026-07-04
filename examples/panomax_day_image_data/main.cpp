@@ -37,6 +37,8 @@ int main(int argc, char* argv[])
                   .then(dumpData)
                   .fail([](QNetworkReply::NetworkError error)
                         { qWarning() << "download error:" << error; })
+                  .fail([](DayImageDataDownloader::Error)
+                        { qWarning() << "parsing error"; })
                   .fail([]() { qWarning() << "unhandled error"; });
 
   QDate date = QDate{2025, 11, 28};
@@ -44,6 +46,8 @@ int main(int argc, char* argv[])
                   .then(dumpData)
                   .fail([date](QNetworkReply::NetworkError error)
                         { qWarning() << date << "download error:" << error; })
+                  .fail([date](DayImageDataDownloader::Error)
+                        { qWarning() << date << "parsing error"; })
                   .fail([date]() { qWarning() << date << "unhandled error"; });
 
   promises << dayImageDataDownloader.download(-1, date)
@@ -53,6 +57,8 @@ int main(int argc, char* argv[])
                       {
                         qWarning() << "invalid cam id download error:" << error;
                       })
+                  .fail([date](DayImageDataDownloader::Error)
+                        { qWarning() << "invalid cam id parsing error"; })
                   .fail([date]()
                         { qWarning() << "invalid cam id unhandled error"; });
 
@@ -61,6 +67,8 @@ int main(int argc, char* argv[])
                   .then(dumpData)
                   .fail([date](QNetworkReply::NetworkError error)
                         { qWarning() << date << "download error:" << error; })
+                  .fail([date](DayImageDataDownloader::Error)
+                        { qWarning() << date << "parsing error"; })
                   .fail([date]() { qWarning() << date << "unhandled error"; });
 
   QtPromise::all(promises).then([&app]() { app.quit(); });

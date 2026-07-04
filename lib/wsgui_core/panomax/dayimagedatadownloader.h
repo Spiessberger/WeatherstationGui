@@ -11,6 +11,11 @@ namespace wsgui::core::panomax
 class DayImageDataDownloader
 {
 public:
+  enum class Error
+  {
+    ParsingFailed
+  };
+
   explicit DayImageDataDownloader(Downloader& downloader);
 
   QtPromise::QPromise<DayImageData> download(int camId);

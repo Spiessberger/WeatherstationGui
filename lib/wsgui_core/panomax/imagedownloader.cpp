@@ -24,7 +24,8 @@ ImageDownloader::download(int camId, const QDateTime& dateTime,
 
   if (columns < 1 || rows < 1)
   {
-    return QtPromise::QPromise<ImageTiles>::reject("");
+    qWarning() << "invalid tile layout" << size.rows << "x" << size.cols;
+    return QtPromise::QPromise<ImageTiles>::reject(Error::InvalidTileLayout);
   }
 
   std::vector<QtPromise::QPromise<QByteArray>> promises;
@@ -64,8 +65,8 @@ ImageDownloader::download(int camId, const QDateTime& dateTime,
           QImage image = QImage::fromData(imageData);
           if (image.isNull())
           {
-            qWarning() << "failed to load iamge tile";
-            throw "";
+            qWarning() << "failed to load image data";
+            throw Error::ImageDataLoadingFailed;
           }
           row.push_back(image);
           column++;

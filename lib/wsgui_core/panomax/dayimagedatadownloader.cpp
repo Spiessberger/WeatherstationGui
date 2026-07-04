@@ -65,8 +65,10 @@ DayImageDataDownloader::downloadAndParse(int camId, const QUrl& url)
             dayData, data.constData());
         if (error)
         {
-          std::string error_msg = glz::format_error(error, data.constData());
-          throw error.ec;
+          qWarning() << "failed to parse day image data:"
+                     << QString::fromStdString(
+                            glz::format_error(error, data.constData()));
+          throw Error::ParsingFailed;
         }
         dayData.camId = camId;
         return dayData;
