@@ -40,14 +40,7 @@ private:
     std::vector<TileInfo> tiles;
   };
 
-  struct ImageNodeInfo
-  {
-    int columnIndex = 0;
-    QSGImageNode* imageNode = nullptr;
-  };
-
   std::vector<TileRow> m_tiles;
-  std::vector<std::vector<ImageNodeInfo>> m_imageNodes;
 };
 
 } // namespace wsgui::quick
