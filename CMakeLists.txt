@@ -15,11 +15,11 @@ find_package(Qt6 REQUIRED COMPONENTS
   Quick
 )
 
-option(WSGUI_BUILD_EXAMPLES OFF)
+option(WSGUI_BUILD_EXAMPLES "Build example applications" OFF)
 
 # add_subdirectory(app)
 add_subdirectory(lib)
 
-if(${WSGUI_BUILD_EXAMPLES})
+if(WSGUI_BUILD_EXAMPLES)
   add_subdirectory(examples)
 endif()
