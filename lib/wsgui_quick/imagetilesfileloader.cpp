@@ -70,7 +70,7 @@ void ImageTilesFileLoader::loadImageTiles()
     }
   }
 
-  m_imageTiles.setImageTiles(tiles);
+  m_imageTiles.setImageTiles(std::move(tiles));
   emit imageTilesChanged();
 }
 
