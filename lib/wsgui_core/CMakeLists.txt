@@ -3,8 +3,8 @@ qt_add_library(wsgui_core
     colorschemedata.h
     imagetiles.h
     imagetiles.cpp
-    loadcolorscheme.h
-    loadcolorscheme.cpp
+    colorschemegenerator.h
+    colorschemegenerator.cpp
     downloader.h
     downloader.cpp
     panomax/dayimagedata.h

@@ -1,4 +1,4 @@
-#include "loadcolorscheme.h"
+#include "colorschemegenerator.h"
 
 #include <QDebug>
 

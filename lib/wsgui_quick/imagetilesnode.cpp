@@ -3,13 +3,14 @@
 namespace wsgui::quick
 {
 
-ImageNode::ImageNode(QQuickWindow* window, const core::ImageTiles& imageTiles)
+ImageTilesNode::ImageTilesNode(QQuickWindow* window,
+                               const core::ImageTiles& imageTiles)
   : m_window(window)
 {
   loadImageTiles(imageTiles);
 }
 
-void ImageNode::loadImageTiles(const core::ImageTiles& imageTiles)
+void ImageTilesNode::loadImageTiles(const core::ImageTiles& imageTiles)
 {
   if (m_window.isNull())
   {
@@ -41,7 +42,7 @@ void ImageNode::loadImageTiles(const core::ImageTiles& imageTiles)
   m_imageResolution = imageTiles.resolution();
 }
 
-void ImageNode::updateGeometry(const QSizeF& contentSize)
+void ImageTilesNode::updateGeometry(const QSizeF& contentSize)
 {
   qreal x = 0;
   qreal y = 0;
@@ -66,8 +67,8 @@ void ImageNode::updateGeometry(const QSizeF& contentSize)
   }
 }
 
-void ImageNode::updateImageNodes(const QSizeF& itemSize,
-                                 const QRectF& contentRect)
+void ImageTilesNode::updateImageNodes(const QSizeF& itemSize,
+                                      const QRectF& contentRect)
 {
   if (m_window.isNull())
   {

@@ -8,10 +8,10 @@
 namespace wsgui::quick
 {
 
-class ImageNode : public QSGNode
+class ImageTilesNode : public QSGNode
 {
 public:
-  ImageNode(QQuickWindow* window, const core::ImageTiles& imageTiles);
+  ImageTilesNode(QQuickWindow* window, const core::ImageTiles& imageTiles);
 
   void loadImageTiles(const core::ImageTiles& imageTiles);
 

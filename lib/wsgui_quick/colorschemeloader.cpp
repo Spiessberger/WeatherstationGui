@@ -1,6 +1,6 @@
 #include "colorschemeloader.h"
 
-#include "loadcolorscheme.h"
+#include <colorschemegenerator.h>
 
 namespace wsgui::quick
 {

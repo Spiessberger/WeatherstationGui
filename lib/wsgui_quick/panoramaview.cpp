@@ -31,15 +31,15 @@ PanoramaView::PanoramaView() : m_contentRect(0, 0, 0, 0)
   // m_resetZoomAnimation.setEasingCurve(QEasingCurve{QEasingCurve::InOutQuad});
 
   // connect(&m_autoScrollAnimation, &QVariantAnimation::valueChanged, this,
-  // &QmlPanoramaView::updateContentXPosition); connect(&m_autoScrollAnimation,
+  // &PanoramaView::updateContentXPosition); connect(&m_autoScrollAnimation,
   // &QVariantAnimation::finished, this,
-  // &QmlPanoramaView::startAutoScrollAnimation); connect(&m_resetZoomAnimation,
+  // &PanoramaView::startAutoScrollAnimation); connect(&m_resetZoomAnimation,
   // &QVariantAnimation::valueChanged, this,
-  // &QmlPanoramaView::updateContentRect); connect(&m_resetZoomAnimation,
+  // &PanoramaView::updateContentRect); connect(&m_resetZoomAnimation,
   // &QVariantAnimation::finished, this,
-  // &QmlPanoramaView::startAutoScrollAnimation);
+  // &PanoramaView::startAutoScrollAnimation);
   // connect(&m_autoScrollResumeTimer, &QTimer::timeout, this,
-  // &QmlPanoramaView::startAutoScrollAnimation);
+  // &PanoramaView::startAutoScrollAnimation);
 }
 
 const core::ImageTiles& PanoramaView::imageTiles() const
@@ -102,7 +102,7 @@ QSGNode* PanoramaView::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
     return nullptr;
   }
 
-  auto node = static_cast<ImageNode*>(oldNode);
+  auto node = static_cast<ImageTilesNode*>(oldNode);
 
   if (node == nullptr || m_imageTilesChanged)
   {
@@ -110,7 +110,7 @@ QSGNode* PanoramaView::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
     {
       delete node;
     }
-    node = new ImageNode(window(), m_imageTiles);
+    node = new ImageTilesNode(window(), m_imageTiles);
     m_contentSizeChanged = true;
     m_contentPositionChanged = true;
   }
@@ -327,7 +327,7 @@ void PanoramaView::setContentPosition(double xPosition, double yPosition)
                  m_contentRect.height());
 }
 
-// void QmlPanoramaView::startAutoScrollAnimation()
+// void PanoramaView::startAutoScrollAnimation()
 // {
 //   if (m_contentRect.isEmpty())
 //   {
@@ -376,12 +376,12 @@ void PanoramaView::setContentPosition(double xPosition, double yPosition)
 //   m_autoScrollAnimation.start();
 // }
 
-// void QmlPanoramaView::updateContentXPosition(const QVariant& xPosition)
+// void PanoramaView::updateContentXPosition(const QVariant& xPosition)
 // {
 //   setContentPosition(xPosition.toDouble(), 0);
 // }
 
-// void QmlPanoramaView::updateContentRect(const QVariant& rect)
+// void PanoramaView::updateContentRect(const QVariant& rect)
 // {
 //   setContentRect(m_resetZoomAnimation.currentValue().toRectF());
 // }
