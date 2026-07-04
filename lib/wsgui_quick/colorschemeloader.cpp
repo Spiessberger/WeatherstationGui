@@ -1,5 +1,7 @@
 #include "colorschemeloader.h"
 
+#include <QQmlFile>
+
 #include <colorschemegenerator.h>
 
 namespace wsgui::quick
@@ -7,7 +9,8 @@ namespace wsgui::quick
 
 std::vector<QColor> ColorSchemeLoader::colorsFromImage(const QUrl& imagePath)
 {
-  return core::extractColorsFromImageFile(imagePath.path());
+  return core::extractColorsFromImageFile(
+      QQmlFile::urlToLocalFileOrQrc(imagePath));
 }
 
 void ColorSchemeLoader::loadSchemeFromColor(const QColor& color)
