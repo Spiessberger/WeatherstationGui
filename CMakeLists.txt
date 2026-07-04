@@ -1,12 +1,9 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.22)
 
 project(WeatherStationGUI VERSION 1.0.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-find_package(Qt6 REQUIRED COMPONENTS Core)
-qt_standard_project_setup(REQUIRES 6.11)
 
 find_package(Qt6 REQUIRED COMPONENTS
   Core
@@ -14,6 +11,7 @@ find_package(Qt6 REQUIRED COMPONENTS
   Network
   Quick
 )
+qt_standard_project_setup(REQUIRES 6.11)
 
 option(WSGUI_BUILD_EXAMPLES "Build example applications" OFF)
 
