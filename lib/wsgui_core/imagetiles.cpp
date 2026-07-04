@@ -17,7 +17,7 @@ bool ImageTiles::isNull() const
 
 int ImageTiles::rowCount() const
 {
-  return m_imageTiles.size();
+  return static_cast<int>(m_imageTiles.size());
 }
 
 int ImageTiles::columnCount() const
@@ -26,7 +26,7 @@ int ImageTiles::columnCount() const
   {
     return 0;
   }
-  return m_imageTiles.front().size();
+  return static_cast<int>(m_imageTiles.front().size());
 }
 
 QSize ImageTiles::resolution() const
@@ -36,7 +36,7 @@ QSize ImageTiles::resolution() const
 
 QImage ImageTiles::imageTile(int row, int column) const
 {
-  if (row < rowCount() && column < columnCount())
+  if (row >= 0 && row < rowCount() && column >= 0 && column < columnCount())
   {
     return m_imageTiles[row][column];
   }

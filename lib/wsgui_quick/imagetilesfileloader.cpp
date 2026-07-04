@@ -29,14 +29,14 @@ const core::ImageTiles& ImageTilesFileLoader::imageTiles() const
 
 void ImageTilesFileLoader::loadImageTiles()
 {
-  if (m_rows < 1 || m_fileNames.size() % m_rows != 0)
+  if (m_rows < 1 || m_fileNames.size() % static_cast<size_t>(m_rows) != 0)
   {
     qWarning() << "cannot populate" << m_rows << "with" << m_fileNames.size()
                << "image files";
     return;
   }
 
-  const size_t numColumns = m_fileNames.size() / m_rows;
+  const size_t numColumns = m_fileNames.size() / static_cast<size_t>(m_rows);
 
   std::vector<std::vector<QImage>> tiles;
 
