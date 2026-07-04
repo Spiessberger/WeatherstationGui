@@ -13,12 +13,12 @@ class DayImageDataDownloader
 public:
   explicit DayImageDataDownloader(Downloader& downloader);
 
-  QtPromise::QPromise<DayImageData> getDayImageData(int camId);
-  QtPromise::QPromise<DayImageData> getDayImageData(int camId,
-                                                    const QDate& date);
+  QtPromise::QPromise<DayImageData> download(int camId);
+  QtPromise::QPromise<DayImageData> download(int camId, const QDate& date);
 
 private:
-  QtPromise::QPromise<DayImageData> startDownload(int camId, const QUrl& url);
+  QtPromise::QPromise<DayImageData> downloadAndParse(int camId,
+                                                     const QUrl& url);
 
   Downloader& m_downloader;
 };

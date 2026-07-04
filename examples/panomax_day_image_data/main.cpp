@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
   QVector<QtPromise::QPromise<void>> promises;
   const int camId = 10040;
 
-  promises << dayImageDataDownloader.getDayImageData(camId)
+  promises << dayImageDataDownloader.download(camId)
                   .then(dumpData)
                   .fail([](QNetworkReply::NetworkError error)
                         { qWarning() << "download error:" << error; })
@@ -42,7 +42,7 @@ int main(int argc, char* argv[])
                   .fail([]() { qWarning() << "unhandled error"; });
 
   QDate date = QDate{2025, 11, 28};
-  promises << dayImageDataDownloader.getDayImageData(camId, date)
+  promises << dayImageDataDownloader.download(camId, date)
                   .then(dumpData)
                   .fail([date](QNetworkReply::NetworkError error)
                         { qWarning() << date << "download error:" << error; })
@@ -51,7 +51,7 @@ int main(int argc, char* argv[])
                   .fail([date]() { qWarning() << date << "unhandled error"; });
 
   promises
-      << dayImageDataDownloader.getDayImageData(-1, date)
+      << dayImageDataDownloader.download(-1, date)
              .then(dumpData)
              .fail([date](QNetworkReply::NetworkError error)
                    { qWarning() << "invalid cam id download error:" << error; })
@@ -61,7 +61,7 @@ int main(int argc, char* argv[])
                    { qWarning() << "invalid cam id unhandled error"; });
 
   date = QDate{3025, 11, 28};
-  promises << dayImageDataDownloader.getDayImageData(camId, date)
+  promises << dayImageDataDownloader.download(camId, date)
                   .then(dumpData)
                   .fail([date](QNetworkReply::NetworkError error)
                         { qWarning() << date << "download error:" << error; })

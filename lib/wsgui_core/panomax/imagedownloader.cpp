@@ -2,6 +2,13 @@
 
 namespace wsgui::core::panomax
 {
+namespace
+{
+const QString ApiUrlTemplate =
+    QStringLiteral("https://panodata.panomax.com/cams/%1/%2_%3.jpg");
+const QString ApiDateTimeTemplate = QStringLiteral("yyyy/MM/dd/HH-mm-ss");
+const QString ApiTileTemplate = QStringLiteral("%1_%2_%3");
+} // namespace
 
 ImageDownloader::ImageDownloader(Downloader& downloader)
   : m_downloader(downloader)
@@ -9,7 +16,7 @@ ImageDownloader::ImageDownloader(Downloader& downloader)
 }
 
 QtPromise::QPromise<ImageTiles>
-ImageDownloader::getImage(int camId, const QDateTime& dateTime,
+ImageDownloader::download(int camId, const QDateTime& dateTime,
                           const ImageSize& size)
 {
   const int columns = size.cols > 1 ? size.cols + 1 : size.cols;
@@ -20,30 +27,28 @@ ImageDownloader::getImage(int camId, const QDateTime& dateTime,
     return QtPromise::QPromise<ImageTiles>::reject("");
   }
 
-  const QString urlTemplate = "https://panodata.panomax.com/cams/%1/%2_%3.jpg";
-
   std::vector<QtPromise::QPromise<QByteArray>> promises;
 
   if (columns == 1 && rows == 1)
   {
-    QString url = urlTemplate.arg(camId)
-                      .arg(dateTime.toString("yyyy/MM/dd/HH-mm-ss"))
+    QString url = ApiUrlTemplate.arg(camId)
+                      .arg(dateTime.toString(ApiDateTimeTemplate))
                       .arg(size.resolution);
 
-    promises.push_back(m_downloader.startDownload(url));
+    promises.push_back(m_downloader.download(url));
   }
   else
   {
-    const QString tileTemplate = "%1_%2_%3";
     for (int row = 0; row < rows; row++)
     {
       for (int column = 0; column < columns; column++)
       {
-        QString tile = tileTemplate.arg(size.resolution).arg(column).arg(row);
-        QString url = urlTemplate.arg(camId).arg(
-            dateTime.toString("yyyy/MM/dd/HH-mm-ss"), tile);
+        QString tile =
+            ApiTileTemplate.arg(size.resolution).arg(column).arg(row);
+        QString url = ApiUrlTemplate.arg(camId).arg(
+            dateTime.toString(ApiDateTimeTemplate), tile);
 
-        promises.push_back(m_downloader.startDownload(url));
+        promises.push_back(m_downloader.download(url));
       }
     }
   }

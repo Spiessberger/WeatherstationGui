@@ -5,13 +5,13 @@
 namespace wsgui::core
 {
 
-QtPromise::QPromise<QByteArray> Downloader::startDownload(const QUrl& url)
+QtPromise::QPromise<QByteArray> Downloader::download(const QUrl& url)
 {
-  return startDownload(url, std::chrono::milliseconds::zero());
+  return download(url, std::chrono::milliseconds::zero());
 }
 
 QtPromise::QPromise<QByteArray>
-Downloader::startDownload(const QUrl& url, std::chrono::milliseconds timeout)
+Downloader::download(const QUrl& url, std::chrono::milliseconds timeout)
 {
   return QtPromise::QPromise<QByteArray>{
       [this, url, timeout](const auto& resolve, const auto& reject)
@@ -22,7 +22,7 @@ Downloader::startDownload(const QUrl& url, std::chrono::milliseconds timeout)
         {
           request.setTransferTimeout(timeout);
         }
-        QNetworkReply* reply = m_net.get(request);
+        QNetworkReply* reply = m_networkAccessManager.get(request);
 
         QObject::connect(reply, &QNetworkReply::errorOccurred,
                          [=](QNetworkReply::NetworkError error)

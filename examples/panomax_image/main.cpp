@@ -51,7 +51,7 @@ int main(int argc, char* argv[])
 
   /* Successful Downloads */
   promises << imageDownloader
-                  .getImage(camId,
+                  .download(camId,
                             QDateTime{QDate{2025, 12, 2}, QTime{21, 0, 0}},
                             smallSize)
                   .then(dumpImageData)
@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
                   .fail([]() { qWarning() << "unhandled error"; });
 
   promises << imageDownloader
-                  .getImage(camId,
+                  .download(camId,
                             QDateTime{QDate{2025, 12, 2}, QTime{21, 0, 0}},
                             defaultSize)
                   .then(dumpImageData)
@@ -73,7 +73,7 @@ int main(int argc, char* argv[])
                   .fail([]() { qWarning() << "unhandled error"; });
 
   promises << imageDownloader
-                  .getImage(camId,
+                  .download(camId,
                             QDateTime{QDate{2025, 12, 2}, QTime{21, 0, 0}},
                             hdSize)
                   .then(dumpImageData)
@@ -84,7 +84,7 @@ int main(int argc, char* argv[])
                   .fail([]() { qWarning() << "unhandled error"; });
 
   promises << imageDownloader
-                  .getImage(camId,
+                  .download(camId,
                             QDateTime{QDate{2025, 12, 2}, QTime{21, 0, 0}},
                             fullSize)
                   .then(dumpImageData)
@@ -97,7 +97,7 @@ int main(int argc, char* argv[])
   /* Invalid Downloads */
   // invalid size
   promises << imageDownloader
-                  .getImage(camId,
+                  .download(camId,
                             QDateTime{QDate{2025, 12, 2}, QTime{21, 0, 0}},
                             invalidSize)
                   .then(dumpImageData)
@@ -109,7 +109,7 @@ int main(int argc, char* argv[])
 
   // invalid date
   promises << imageDownloader
-                  .getImage(camId,
+                  .download(camId,
                             QDateTime{QDate{3025, 12, 2}, QTime{21, 0, 0}},
                             hdSize)
                   .then(dumpImageData)
@@ -121,7 +121,7 @@ int main(int argc, char* argv[])
 
   // invalid cam id
   promises << imageDownloader
-                  .getImage(-1, QDateTime{QDate{3025, 12, 2}, QTime{21, 0, 0}},
+                  .download(-1, QDateTime{QDate{3025, 12, 2}, QTime{21, 0, 0}},
                             hdSize)
                   .then(dumpImageData)
                   .fail([](QNetworkReply::NetworkError error)

@@ -41,24 +41,23 @@ DayImageDataDownloader::DayImageDataDownloader(Downloader& downloader)
 {
 }
 
-QtPromise::QPromise<DayImageData>
-DayImageDataDownloader::getDayImageData(int camId)
+QtPromise::QPromise<DayImageData> DayImageDataDownloader::download(int camId)
 {
-  return startDownload(camId, ApiUrlTemplate.arg(camId).arg(""));
+  return downloadAndParse(camId, ApiUrlTemplate.arg(camId).arg(""));
 }
 
 QtPromise::QPromise<DayImageData>
-DayImageDataDownloader::getDayImageData(int camId, const QDate& date)
+DayImageDataDownloader::download(int camId, const QDate& date)
 {
-  return startDownload(
+  return downloadAndParse(
       camId, ApiUrlTemplate.arg(camId).arg(date.toString(ApiDateTemplate)));
 }
 
 // https://api.panomax.com/1.0/cams/10040/images/day
 QtPromise::QPromise<DayImageData>
-DayImageDataDownloader::startDownload(int camId, const QUrl& url)
+DayImageDataDownloader::downloadAndParse(int camId, const QUrl& url)
 {
-  return m_downloader.startDownload(url).then(
+  return m_downloader.download(url).then(
       [camId](const QByteArray& data)
       {
         DayImageData dayData;

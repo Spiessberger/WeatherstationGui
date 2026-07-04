@@ -1,6 +1,6 @@
 #pragma once
 
-#include "imagetiles.h"
+#include <imagetiles.h>
 
 #include <QObject>
 #include <QQmlEngine>

@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
   for (const QUrl& url : urls)
   {
     auto promise =
-        downloader.startDownload(url)
+        downloader.download(url)
             .then([url](const QByteArray& data)
                   { qDebug() << url << "received" << data.size() << "bytes"; })
             .fail([url](QNetworkReply::NetworkError error)

@@ -12,12 +12,12 @@ public:
   explicit Downloader() = default;
 
   // can fail with QNetworkReply::NetworkError or QList<QSslError>
-  QtPromise::QPromise<QByteArray> startDownload(const QUrl& url);
-  QtPromise::QPromise<QByteArray>
-  startDownload(const QUrl& url, std::chrono::milliseconds timeout);
+  QtPromise::QPromise<QByteArray> download(const QUrl& url);
+  QtPromise::QPromise<QByteArray> download(const QUrl& url,
+                                           std::chrono::milliseconds timeout);
 
 private:
-  QNetworkAccessManager m_net;
+  QNetworkAccessManager m_networkAccessManager;
 };
 
 } // namespace wsgui::core

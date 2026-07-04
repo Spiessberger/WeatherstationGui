@@ -13,7 +13,7 @@ class ImageDownloader
 public:
   ImageDownloader(Downloader& downloader);
 
-  QtPromise::QPromise<ImageTiles> getImage(int camId, const QDateTime& dateTime,
+  QtPromise::QPromise<ImageTiles> download(int camId, const QDateTime& dateTime,
                                            const ImageSize& size);
 
 private:
