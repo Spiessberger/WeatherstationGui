@@ -44,6 +44,7 @@ std::vector<QColor> extractColorsFromImageFile(const QString& imagePath)
   if (image.isNull())
   {
     qWarning() << "failed to load image from" << imagePath;
+    return {};
   }
 
   return extractColorsFromImage(image);
