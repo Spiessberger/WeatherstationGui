@@ -17,9 +17,6 @@ public:
                                            const ImageSize& size);
 
 private:
-  void downloadDone(const QByteArray& data, size_t downloadId, int row,
-                    int column);
-
   Downloader& m_downloader;
 };
 
