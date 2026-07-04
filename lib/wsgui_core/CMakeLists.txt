@@ -1,5 +1,6 @@
 qt_add_library(wsgui_core
   STATIC
+    wsguienums.h
     colorschemedata.h
     imagetiles.h
     imagetiles.cpp
@@ -22,7 +23,6 @@ target_link_libraries(wsgui_core
     Qt6::Gui
     Qt6::Network
     qtpromise
-    mp-units::mp-units
   PRIVATE
     glaze::glaze
     material_color_utilities

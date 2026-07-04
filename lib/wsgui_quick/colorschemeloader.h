@@ -5,6 +5,8 @@
 
 #include "colorscheme.h"
 
+#include <wsguienums.h>
+
 namespace wsgui::quick
 {
 
@@ -15,17 +17,10 @@ class ColorSchemeLoader : public QObject
 
   // clang-format off
   Q_PROPERTY(ColorScheme* colorScheme READ colorScheme WRITE setColorScheme NOTIFY colorSchemeChanged FINAL REQUIRED)
-  Q_PROPERTY(ColorSchemeLoader::Theme theme READ theme WRITE setTheme NOTIFY themeChanged FINAL)
+  Q_PROPERTY(wsgui::core::Theme theme READ theme WRITE setTheme NOTIFY themeChanged FINAL)
   Q_PROPERTY(double contrast READ contrast WRITE setContrast NOTIFY contrastChanged FINAL)
   // clang-format on
 public:
-  enum Theme
-  {
-    Light,
-    Dark
-  };
-  Q_ENUM(Theme)
-
   ColorSchemeLoader() = default;
 
   Q_INVOKABLE std::vector<QColor> colorsFromImage(const QUrl& imagePath);
@@ -34,8 +29,8 @@ public:
   ColorScheme* colorScheme() const;
   void setColorScheme(ColorScheme* newColorScheme);
 
-  ColorSchemeLoader::Theme theme() const;
-  void setTheme(ColorSchemeLoader::Theme newTheme);
+  core::Theme theme() const;
+  void setTheme(core::Theme newTheme);
 
   double contrast() const;
   void setContrast(double newContrast);
@@ -49,7 +44,7 @@ private:
   void updateColorScheme();
 
   QPointer<ColorScheme> m_colorScheme = nullptr;
-  Theme m_theme = Theme::Light;
+  core::Theme m_theme = core::Theme::Light;
   double m_contrast = 0.0;
   QColor m_sourceColor;
 };

@@ -3,6 +3,7 @@ qt_add_qml_module(wsgui_quick
   VERSION 1.0
   STATIC
   SOURCES
+    wsguiforeign.h
     imagetilesnode.h
     imagetilesnode.cpp
     panoramaview.h

@@ -49,12 +49,11 @@ std::vector<QColor> extractColorsFromImageFile(const QString& imagePath)
   return extractColorsFromImage(image);
 }
 
-ColorSchemeData colorSchemeFromColor(const QColor& color,
-                                     ColorSchemeTheme theme,
+ColorSchemeData colorSchemeFromColor(const QColor& color, Theme theme,
                                      double contrastLevel)
 {
   const Hct hct{color.rgb()};
-  const bool isDark = (theme == ColorSchemeTheme::Dark);
+  const bool isDark = (theme == Theme::Dark);
   const DynamicScheme scheme = SchemeTonalSpot(hct, isDark, contrastLevel);
 
   ColorSchemeData data;

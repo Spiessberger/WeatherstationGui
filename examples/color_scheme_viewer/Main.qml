@@ -20,7 +20,7 @@ Window {
   ColorSchemeLoader {
     id: colorSchemeLoader
     colorScheme: localColorScheme
-    theme: themeSwitch.checked ? ColorSchemeLoader.Dark : ColorSchemeLoader.Light
+    theme: themeSwitch.checked ? WsGui.Dark : WsGui.Light
     contrast: contrastSlider.value
   }
 

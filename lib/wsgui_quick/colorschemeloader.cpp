@@ -36,12 +36,12 @@ void ColorSchemeLoader::setColorScheme(ColorScheme* newColorScheme)
   updateColorScheme();
 }
 
-ColorSchemeLoader::Theme ColorSchemeLoader::theme() const
+core::Theme ColorSchemeLoader::theme() const
 {
   return m_theme;
 }
 
-void ColorSchemeLoader::setTheme(ColorSchemeLoader::Theme newTheme)
+void ColorSchemeLoader::setTheme(core::Theme newTheme)
 {
   if (m_theme == newTheme)
   {
@@ -77,12 +77,8 @@ void ColorSchemeLoader::updateColorScheme()
     return;
   }
 
-  const core::ColorSchemeTheme theme =
-      (m_theme == Theme::Light ? core::ColorSchemeTheme::Light
-                               : core::ColorSchemeTheme::Dark);
-
   m_colorScheme->setColorScheme(
-      core::colorSchemeFromColor(m_sourceColor, theme, m_contrast));
+      core::colorSchemeFromColor(m_sourceColor, m_theme, m_contrast));
 }
 
 } // namespace wsgui::quick
