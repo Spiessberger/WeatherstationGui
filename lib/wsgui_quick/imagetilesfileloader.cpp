@@ -66,6 +66,7 @@ void ImageTilesFileLoader::loadImageTiles()
     if (row.size() == numColumns)
     {
       tiles.push_back(std::move(row));
+      row.clear();
     }
   }
 
