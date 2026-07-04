@@ -5,6 +5,9 @@
 
 #include "colorscheme.h"
 
+namespace wsgui::quick
+{
+
 class ColorSchemeLoader : public QObject
 {
   Q_OBJECT
@@ -50,3 +53,5 @@ private:
   double m_contrast = 0.0;
   QColor m_sourceColor;
 };
+
+} // namespace wsgui::quick

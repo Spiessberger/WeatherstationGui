@@ -2,9 +2,12 @@
 
 #include "loadcolorscheme.h"
 
+namespace wsgui::quick
+{
+
 std::vector<QColor> ColorSchemeLoader::colorsFromImage(const QUrl& imagePath)
 {
-  return extractColorsFromImageFile(imagePath.path());
+  return core::extractColorsFromImageFile(imagePath.path());
 }
 
 void ColorSchemeLoader::loadSchemeFromColor(const QColor& color)
@@ -74,10 +77,12 @@ void ColorSchemeLoader::updateColorScheme()
     return;
   }
 
-  const ColorSchemeTheme theme =
-      (m_theme == Theme::Light ? ColorSchemeTheme::Light
-                               : ColorSchemeTheme::Dark);
+  const core::ColorSchemeTheme theme =
+      (m_theme == Theme::Light ? core::ColorSchemeTheme::Light
+                               : core::ColorSchemeTheme::Dark);
 
   m_colorScheme->setColorScheme(
-      colorSchemeFromColor(m_sourceColor, theme, m_contrast));
+      core::colorSchemeFromColor(m_sourceColor, theme, m_contrast));
 }
+
+} // namespace wsgui::quick

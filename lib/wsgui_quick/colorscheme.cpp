@@ -1,7 +1,9 @@
 #include "colorscheme.h"
 
-void ColorScheme::setColorScheme(
-    const ColorSchemeData& colorScheme)
+namespace wsgui::quick
+{
+
+void ColorScheme::setColorScheme(const core::ColorSchemeData& colorScheme)
 {
   m_colorScheme = colorScheme;
   emit colorSchemeChanged();
@@ -276,3 +278,5 @@ QColor ColorScheme::onTertiaryFixedVariant() const
 {
   return m_colorScheme.onTertiaryFixedVariant;
 }
+
+} // namespace wsgui::quick

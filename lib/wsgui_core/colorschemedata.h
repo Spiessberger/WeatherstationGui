@@ -2,6 +2,9 @@
 
 #include <QColor>
 
+namespace wsgui::core
+{
+
 struct ColorSchemeData
 {
   QColor primaryPaletteKeyColor;
@@ -59,3 +62,5 @@ struct ColorSchemeData
   QColor onTertiaryFixed;
   QColor onTertiaryFixedVariant;
 };
+
+} // namespace wsgui::core

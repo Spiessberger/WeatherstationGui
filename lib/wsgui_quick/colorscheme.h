@@ -6,6 +6,9 @@
 
 #include <colorschemedata.h>
 
+namespace wsgui::quick
+{
+
 class ColorScheme : public QObject
 {
   Q_OBJECT
@@ -70,7 +73,7 @@ class ColorScheme : public QObject
 public:
   explicit ColorScheme() = default;
 
-  void setColorScheme(const ColorSchemeData& colorScheme);
+  void setColorScheme(const core::ColorSchemeData& colorScheme);
 
   QColor primaryPaletteKeyColor() const;
   QColor secondaryPaletteKeyColor() const;
@@ -131,5 +134,7 @@ signals:
   void colorSchemeChanged();
 
 private:
-  ColorSchemeData m_colorScheme;
+  core::ColorSchemeData m_colorScheme;
 };
+
+} // namespace wsgui::quick

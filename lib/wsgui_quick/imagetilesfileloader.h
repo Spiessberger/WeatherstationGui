@@ -5,14 +5,17 @@
 #include <QObject>
 #include <QQmlEngine>
 
+namespace wsgui::quick
+{
+
 class ImageTilesFileLoader : public QObject
 {
   Q_OBJECT
   QML_ELEMENT
   Q_PROPERTY(std::vector<QString> fileNames READ fileNames WRITE setFileNames
                  NOTIFY fileNamesChanged FINAL)
-  Q_PROPERTY(
-      ImageTiles imageTiles READ imageTiles NOTIFY imageTilesChanged FINAL)
+  Q_PROPERTY(wsgui::core::ImageTiles imageTiles READ imageTiles NOTIFY
+                 imageTilesChanged FINAL)
   Q_PROPERTY(int rows READ rows WRITE setRows NOTIFY rowsChanged FINAL)
 
 public:
@@ -21,7 +24,7 @@ public:
   const std::vector<QString>& fileNames() const;
   void setFileNames(const std::vector<QString>& fileNames);
 
-  const ImageTiles& imageTiles() const;
+  const core::ImageTiles& imageTiles() const;
 
   int rows() const;
   void setRows(int rows);
@@ -35,8 +38,10 @@ private:
   void loadImageTiles();
 
   std::vector<QString> m_fileNames;
-  ImageTiles m_imageTiles;
+  core::ImageTiles m_imageTiles;
   int m_rows = 1;
 };
 
-Q_DECLARE_METATYPE(ImageTiles)
+} // namespace wsgui::quick
+
+Q_DECLARE_METATYPE(wsgui::core::ImageTiles)

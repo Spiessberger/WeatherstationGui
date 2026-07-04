@@ -11,6 +11,9 @@
 
 using namespace material_color_utilities;
 
+namespace wsgui::core
+{
+
 std::vector<QColor> extractColorsFromImage(const QImage& image)
 {
   std::vector<Argb> pixels;
@@ -115,3 +118,5 @@ ColorSchemeData colorSchemeFromColor(const QColor& color,
 
   return data;
 }
+
+} // namespace wsgui::core

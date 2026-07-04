@@ -1,12 +1,15 @@
 #include "imagetilesnode.h"
 
-ImageNode::ImageNode(QQuickWindow* window, const ImageTiles& imageTiles)
+namespace wsgui::quick
+{
+
+ImageNode::ImageNode(QQuickWindow* window, const core::ImageTiles& imageTiles)
   : m_window(window)
 {
   loadImageTiles(imageTiles);
 }
 
-void ImageNode::loadImageTiles(const ImageTiles& imageTiles)
+void ImageNode::loadImageTiles(const core::ImageTiles& imageTiles)
 {
   if (m_window.isNull())
   {
@@ -122,3 +125,5 @@ void ImageNode::updateImageNodes(const QSizeF& itemSize,
     }
   }
 }
+
+} // namespace wsgui::quick

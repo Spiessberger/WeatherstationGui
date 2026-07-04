@@ -3,6 +3,9 @@
 #include <QImage>
 #include <vector>
 
+namespace wsgui::core
+{
+
 class ImageTiles
 {
 public:
@@ -25,3 +28,5 @@ private:
   std::vector<std::vector<QImage>> m_imageTiles;
   QSize m_resolution;
 };
+
+} // namespace wsgui::core

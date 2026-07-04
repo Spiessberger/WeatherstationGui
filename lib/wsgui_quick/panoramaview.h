@@ -6,20 +6,23 @@
 #include <QTimer>
 #include <QVariantAnimation>
 
+namespace wsgui::quick
+{
+
 class PanoramaView : public QQuickItem
 {
   Q_OBJECT
   QML_ELEMENT
 
-  Q_PROPERTY(ImageTiles imageTiles READ imageTiles WRITE setImageTiles NOTIFY
-                 imageTilesChanged FINAL)
+  Q_PROPERTY(wsgui::core::ImageTiles imageTiles READ imageTiles WRITE
+                 setImageTiles NOTIFY imageTilesChanged FINAL)
   Q_PROPERTY(bool autoScroll READ autoScroll WRITE setAutoScroll NOTIFY
                  autoScrollChanged FINAL)
 public:
   PanoramaView();
 
-  const ImageTiles& imageTiles() const;
-  void setImageTiles(const ImageTiles& imageTiles);
+  const core::ImageTiles& imageTiles() const;
+  void setImageTiles(const core::ImageTiles& imageTiles);
 
   bool autoScroll() const;
   void setAutoScroll(bool autoScroll);
@@ -54,7 +57,7 @@ private:
   void updateContentXPosition(const QVariant& xPosition);
   void updateContentRect(const QVariant& rect);
 
-  ImageTiles m_imageTiles;
+  core::ImageTiles m_imageTiles;
   bool m_imageTilesChanged = false;
   bool m_contentSizeChanged = false;
   bool m_contentPositionChanged = false;
@@ -75,3 +78,5 @@ private:
   // QVariantAnimation m_autoScrollAnimation;
   // QVariantAnimation m_resetZoomAnimation;
 };
+
+} // namespace wsgui::quick

@@ -5,12 +5,15 @@
 #include <QSGImageNode>
 #include <QSGNode>
 
+namespace wsgui::quick
+{
+
 class ImageNode : public QSGNode
 {
 public:
-  ImageNode(QQuickWindow* window, const ImageTiles& imageTiles);
+  ImageNode(QQuickWindow* window, const core::ImageTiles& imageTiles);
 
-  void loadImageTiles(const ImageTiles& imageTiles);
+  void loadImageTiles(const core::ImageTiles& imageTiles);
 
   void updateGeometry(const QSizeF& contentSize);
 
@@ -46,3 +49,5 @@ private:
   std::vector<TileRow> m_tiles;
   std::vector<std::vector<ImageNodeInfo>> m_imageNodes;
 };
+
+} // namespace wsgui::quick

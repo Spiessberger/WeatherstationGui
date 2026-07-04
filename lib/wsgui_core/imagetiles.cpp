@@ -2,6 +2,9 @@
 
 #include <QDebug>
 
+namespace wsgui::core
+{
+
 ImageTiles::ImageTiles(std::vector<std::vector<QImage>> imageTiles)
 {
   setImageTiles(std::move(imageTiles));
@@ -109,3 +112,5 @@ void ImageTiles::setImageTiles(std::vector<std::vector<QImage>> imageTiles)
   m_resolution = resolution;
   m_imageTiles = std::move(imageTiles);
 }
+
+} // namespace wsgui::core

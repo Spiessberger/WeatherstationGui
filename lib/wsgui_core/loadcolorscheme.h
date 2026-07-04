@@ -6,6 +6,9 @@
 
 #include "colorschemedata.h"
 
+namespace wsgui::core
+{
+
 enum class ColorSchemeTheme
 {
   Light,
@@ -18,3 +21,5 @@ std::vector<QColor> extractColorsFromImageFile(const QString& imagePath);
 ColorSchemeData colorSchemeFromColor(const QColor& color,
                                      ColorSchemeTheme theme,
                                      double contrastLevel = 0.0);
+
+} // namespace wsgui::core

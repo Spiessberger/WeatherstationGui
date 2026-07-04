@@ -2,6 +2,9 @@
 
 #include <QQmlFile>
 
+namespace wsgui::quick
+{
+
 const std::vector<QString>& ImageTilesFileLoader::fileNames() const
 {
   return m_fileNames;
@@ -19,7 +22,7 @@ void ImageTilesFileLoader::setFileNames(const std::vector<QString>& fileNames)
   loadImageTiles();
 }
 
-const ImageTiles& ImageTilesFileLoader::imageTiles() const
+const core::ImageTiles& ImageTilesFileLoader::imageTiles() const
 {
   return m_imageTiles;
 }
@@ -86,3 +89,5 @@ void ImageTilesFileLoader::setRows(int rows)
 
   loadImageTiles();
 }
+
+} // namespace wsgui::quick

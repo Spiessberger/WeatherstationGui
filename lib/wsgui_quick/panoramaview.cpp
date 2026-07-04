@@ -6,10 +6,17 @@
 
 using namespace std::chrono_literals;
 
+namespace wsgui::quick
+{
+namespace
+{
+
 QSizeF scaleToHeight(const QSizeF& size, double height)
 {
   return size.scaled(1, height, Qt::KeepAspectRatioByExpanding);
 }
+
+} // namespace
 
 PanoramaView::PanoramaView() : m_contentRect(0, 0, 0, 0)
 {
@@ -35,12 +42,12 @@ PanoramaView::PanoramaView() : m_contentRect(0, 0, 0, 0)
   // &QmlPanoramaView::startAutoScrollAnimation);
 }
 
-const ImageTiles& PanoramaView::imageTiles() const
+const core::ImageTiles& PanoramaView::imageTiles() const
 {
   return m_imageTiles;
 }
 
-void PanoramaView::setImageTiles(const ImageTiles& imageTiles)
+void PanoramaView::setImageTiles(const core::ImageTiles& imageTiles)
 {
   const QSize oldRes = m_imageTiles.resolution();
   const QSize newRes = imageTiles.resolution();
@@ -378,3 +385,5 @@ void PanoramaView::setContentPosition(double xPosition, double yPosition)
 // {
 //   setContentRect(m_resetZoomAnimation.currentValue().toRectF());
 // }
+
+} // namespace wsgui::quick
