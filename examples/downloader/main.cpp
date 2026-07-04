@@ -25,8 +25,6 @@ int main(int argc, char* argv[])
                   { qDebug() << url << "received" << data.size() << "bytes"; })
             .fail([url](QNetworkReply::NetworkError error)
                   { qWarning() << url << "download error:" << error; })
-            .fail([url](const QList<QSslError>& errors)
-                  { qWarning() << url << "ssl errors:" << errors; })
             .fail([url]() { qWarning() << url << "unhandled error"; });
     promises.push_back(promise);
   }

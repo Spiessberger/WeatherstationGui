@@ -57,8 +57,6 @@ int main(int argc, char* argv[])
                   .then(dumpImageData)
                   .fail([](QNetworkReply::NetworkError error)
                         { qWarning() << "download error:" << error; })
-                  .fail([](const QList<QSslError>& errors)
-                        { qWarning() << "ssl errors:" << errors; })
                   .fail([]() { qWarning() << "unhandled error"; });
 
   promises << imageDownloader
@@ -68,8 +66,6 @@ int main(int argc, char* argv[])
                   .then(dumpImageData)
                   .fail([](QNetworkReply::NetworkError error)
                         { qWarning() << "download error:" << error; })
-                  .fail([](const QList<QSslError>& errors)
-                        { qWarning() << "ssl errors:" << errors; })
                   .fail([]() { qWarning() << "unhandled error"; });
 
   promises << imageDownloader
@@ -79,8 +75,6 @@ int main(int argc, char* argv[])
                   .then(dumpImageData)
                   .fail([](QNetworkReply::NetworkError error)
                         { qWarning() << "download error:" << error; })
-                  .fail([](const QList<QSslError>& errors)
-                        { qWarning() << "ssl errors:" << errors; })
                   .fail([]() { qWarning() << "unhandled error"; });
 
   promises << imageDownloader
@@ -90,8 +84,6 @@ int main(int argc, char* argv[])
                   .then(dumpImageData)
                   .fail([](QNetworkReply::NetworkError error)
                         { qWarning() << "download error:" << error; })
-                  .fail([](const QList<QSslError>& errors)
-                        { qWarning() << "ssl errors:" << errors; })
                   .fail([]() { qWarning() << "unhandled error"; });
 
   /* Invalid Downloads */
@@ -103,8 +95,6 @@ int main(int argc, char* argv[])
                   .then(dumpImageData)
                   .fail([](QNetworkReply::NetworkError error)
                         { qWarning() << "download error:" << error; })
-                  .fail([](const QList<QSslError>& errors)
-                        { qWarning() << "ssl errors:" << errors; })
                   .fail([]() { qWarning() << "unhandled error"; });
 
   // invalid date
@@ -115,8 +105,6 @@ int main(int argc, char* argv[])
                   .then(dumpImageData)
                   .fail([](QNetworkReply::NetworkError error)
                         { qWarning() << "download error:" << error; })
-                  .fail([](const QList<QSslError>& errors)
-                        { qWarning() << "ssl errors:" << errors; })
                   .fail([]() { qWarning() << "unhandled error"; });
 
   // invalid cam id
@@ -126,8 +114,6 @@ int main(int argc, char* argv[])
                   .then(dumpImageData)
                   .fail([](QNetworkReply::NetworkError error)
                         { qWarning() << "download error:" << error; })
-                  .fail([](const QList<QSslError>& errors)
-                        { qWarning() << "ssl errors:" << errors; })
                   .fail([]() { qWarning() << "unhandled error"; });
 
   QtPromise::all(promises).then([&app]() { app.quit(); });

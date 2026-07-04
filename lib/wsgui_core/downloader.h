@@ -11,7 +11,7 @@ class Downloader
 public:
   explicit Downloader() = default;
 
-  // can fail with QNetworkReply::NetworkError or QList<QSslError>
+  // can fail with QNetworkReply::NetworkError
   QtPromise::QPromise<QByteArray> download(const QUrl& url);
   QtPromise::QPromise<QByteArray> download(const QUrl& url,
                                            std::chrono::milliseconds timeout);

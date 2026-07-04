@@ -24,25 +24,16 @@ Downloader::download(const QUrl& url, std::chrono::milliseconds timeout)
         }
         QNetworkReply* reply = m_networkAccessManager.get(request);
 
-        QObject::connect(reply, &QNetworkReply::errorOccurred,
-                         [=](QNetworkReply::NetworkError error)
-                         {
-                           qWarning()
-                               << "error occured for download" << url << error;
-                           reject(error);
-                           reply->deleteLater();
-                         });
-        QObject::connect(reply, &QNetworkReply::sslErrors,
-                         [=](const QList<QSslError>& errors)
-                         {
-                           qWarning()
-                               << "ssl error occured for download" << url;
-                           reject(errors);
-                           reply->deleteLater();
-                         });
+        // log-only: a reply with ssl errors also emits finished, which
+        // rejects with QNetworkReply::SslHandshakeFailedError; this
+        // handler preserves the certificate details in the log
+        QObject::connect(
+            reply, &QNetworkReply::sslErrors,
+            [url](const QList<QSslError>& errors)
+            { qWarning() << "ssl errors for download" << url << errors; });
 
         QObject::connect(reply, &QNetworkReply::finished,
-                         [=]()
+                         [resolve, reject, reply, url]()
                          {
                            if (reply->error() == QNetworkReply::NoError)
                            {
@@ -51,7 +42,7 @@ Downloader::download(const QUrl& url, std::chrono::milliseconds timeout)
                            }
                            else
                            {
-                             qWarning() << "error occured for download" << url
+                             qWarning() << "error occurred for download" << url
                                         << reply->error();
                              reject(reply->error());
                            }
