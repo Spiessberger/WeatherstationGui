@@ -3,6 +3,7 @@
 #include <QDebug>
 
 #include <algorithm>
+#include <cmath>
 
 #include <material_color_utilities/dynamiccolor/dynamic_scheme.h>
 #include <material_color_utilities/quantize/celebi.h>
@@ -13,18 +14,43 @@ using namespace material_color_utilities;
 
 namespace wsgui::core
 {
+namespace
+{
+// the quantizer only needs a coarse color distribution; downscaling
+// bounds its runtime independently of the source resolution
+constexpr qint64 MaxQuantizerPixels = 128 * 128;
+} // namespace
 
 std::vector<QColor> extractColorsFromImage(const QImage& image)
 {
-  std::vector<Argb> pixels;
-  pixels.reserve(image.width() * image.height());
-
-  for (int y = 0; y < image.height(); y++)
+  if (image.isNull())
   {
-    for (int x = 0; x < image.width(); x++)
-    {
-      pixels.push_back(image.pixelColor(x, y).rgb());
-    }
+    return {};
+  }
+
+  QImage sampled = image;
+  const qint64 pixelCount = qint64{image.width()} * image.height();
+  if (pixelCount > MaxQuantizerPixels)
+  {
+    const double scale =
+        std::sqrt(static_cast<double>(MaxQuantizerPixels) / pixelCount);
+    sampled =
+        image.scaled(std::max(1, static_cast<int>(image.width() * scale)),
+                     std::max(1, static_cast<int>(image.height() * scale)),
+                     Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+  }
+
+  // Format_RGB32 stores one QRgb per pixel with alpha forced to 0xff,
+  // matching the Argb layout the quantizer expects
+  sampled = sampled.convertToFormat(QImage::Format_RGB32);
+
+  std::vector<Argb> pixels;
+  pixels.reserve(static_cast<size_t>(sampled.width()) * sampled.height());
+
+  for (int y = 0; y < sampled.height(); y++)
+  {
+    const QRgb* line = reinterpret_cast<const QRgb*>(sampled.constScanLine(y));
+    pixels.insert(pixels.end(), line, line + sampled.width());
   }
 
   QuantizerResult quantizerResult = QuantizeCelebi(pixels, 128);
