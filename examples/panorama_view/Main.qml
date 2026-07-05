@@ -2,13 +2,13 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Controls.Material
 
-import lib.wsgui_quick
+import wsgui.quick
 
 Window {
   width: 640
   height: 480
   visible: true
-  title: qsTr("Panorama View")
+  title: "Panorama View"
 
   ImageTilesFileLoader {
     id: imageTiles1x6

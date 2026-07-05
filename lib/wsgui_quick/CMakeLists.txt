@@ -1,7 +1,10 @@
 qt_add_qml_module(wsgui_quick
-  URI lib.wsgui_quick
+  URI wsgui.quick
   VERSION 1.0
   STATIC
+  # mirror the uri in the build tree so ide code models can resolve
+  # the import (see QML_IMPORT_PATH in the top-level CMakeLists.txt)
+  OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/qml/wsgui/quick
   SOURCES
     wsguiforeign.h
     imagetilesnode.h

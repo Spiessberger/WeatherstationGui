@@ -5,7 +5,7 @@ import QtQuick.Controls.Material
 import QtQuick.Dialogs
 import QtQuick.Layouts
 
-import lib.wsgui_quick
+import wsgui.quick
 
 Window {
   width: 640
@@ -47,7 +47,7 @@ Window {
     RowLayout {
       Button {
         Layout.alignment: Qt.AlignLeft
-        text: "load Image"
+        text: "Load Image"
         onClicked: imageDialog.open()
       }
 
