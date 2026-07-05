@@ -1,5 +1,7 @@
 #include "imagedownloader.h"
 
+#include <logging.h>
+
 namespace wsgui::core::panomax
 {
 namespace
@@ -24,7 +26,8 @@ ImageDownloader::download(int camId, const QDateTime& dateTime,
 
   if (columns < 1 || rows < 1)
   {
-    qWarning() << "invalid tile layout" << size.rows << "x" << size.cols;
+    qCWarning(lcPanomax) << "invalid tile layout" << size.rows << "x"
+                         << size.cols;
     return QtPromise::QPromise<ImageTiles>::reject(Error::InvalidTileLayout);
   }
 
@@ -65,7 +68,7 @@ ImageDownloader::download(int camId, const QDateTime& dateTime,
           QImage image = QImage::fromData(imageData);
           if (image.isNull())
           {
-            qWarning() << "failed to load image data";
+            qCWarning(lcPanomax) << "failed to load image data";
             throw Error::ImageDataLoadingFailed;
           }
           row.push_back(image);

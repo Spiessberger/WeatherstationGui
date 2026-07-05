@@ -7,6 +7,8 @@ qt_add_qml_module(wsgui_quick
   OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/qml/wsgui/quick
   SOURCES
     wsguiforeign.h
+    logging.h
+    logging.cpp
     imagetilesnode.h
     imagetilesnode.cpp
     panoramaview.h

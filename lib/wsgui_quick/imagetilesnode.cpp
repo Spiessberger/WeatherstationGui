@@ -1,5 +1,7 @@
 #include "imagetilesnode.h"
 
+#include "logging.h"
+
 namespace wsgui::quick
 {
 
@@ -14,7 +16,7 @@ void ImageTilesNode::loadImageTiles(const core::ImageTiles& imageTiles)
 {
   if (m_window.isNull())
   {
-    qWarning() << "cannot create Image textures without window";
+    qCWarning(lcImageTiles) << "cannot create Image textures without window";
     return;
   }
 
@@ -72,7 +74,7 @@ void ImageTilesNode::updateImageNodes(const QSizeF& itemSize,
 {
   if (m_window.isNull())
   {
-    qWarning() << "cannot create Image nodes without window";
+    qCWarning(lcImageTiles) << "cannot create Image nodes without window";
     return;
   }
 
@@ -82,12 +84,12 @@ void ImageTilesNode::updateImageNodes(const QSizeF& itemSize,
 #ifdef QT_DEBUG
   if (xOffset < 0 || xOffset > contentRect.width())
   {
-    qWarning() << "x offset out of bounds" << xOffset;
+    qCWarning(lcImageTiles) << "x offset out of bounds" << xOffset;
     return;
   }
   if (yOffset < 0 || yOffset > contentRect.height() - itemSize.height())
   {
-    qWarning() << "y offset out of bounds" << yOffset;
+    qCWarning(lcImageTiles) << "y offset out of bounds" << yOffset;
     return;
   }
 #endif

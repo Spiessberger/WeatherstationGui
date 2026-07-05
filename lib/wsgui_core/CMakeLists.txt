@@ -1,6 +1,8 @@
 qt_add_library(wsgui_core
   STATIC
     wsguienums.h
+    logging.h
+    logging.cpp
     colorschemedata.h
     imagetiles.h
     imagetiles.cpp

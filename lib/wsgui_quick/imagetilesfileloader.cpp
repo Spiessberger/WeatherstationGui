@@ -1,5 +1,7 @@
 #include "imagetilesfileloader.h"
 
+#include "logging.h"
+
 #include <QQmlFile>
 
 namespace wsgui::quick
@@ -31,8 +33,8 @@ void ImageTilesFileLoader::loadImageTiles()
 {
   if (m_rows < 1 || m_fileNames.size() % static_cast<size_t>(m_rows) != 0)
   {
-    qWarning() << "cannot populate" << m_rows << "with" << m_fileNames.size()
-               << "image files";
+    qCWarning(lcImageTiles) << "cannot populate" << m_rows << "with"
+                            << m_fileNames.size() << "image files";
     return;
   }
 
@@ -57,7 +59,7 @@ void ImageTilesFileLoader::loadImageTiles()
 
     if (tile.isNull())
     {
-      qWarning() << "failed to load image" << fileName;
+      qCWarning(lcImageTiles) << "failed to load image" << fileName;
       return;
     }
 

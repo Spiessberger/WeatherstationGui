@@ -1,6 +1,6 @@
 #include "imagetiles.h"
 
-#include <QDebug>
+#include "logging.h"
 
 namespace wsgui::core
 {
@@ -63,7 +63,7 @@ void ImageTiles::setImageTiles(std::vector<std::vector<QImage>> imageTiles)
   const size_t columnCount = imageTiles.front().size();
   if (columnCount == 0)
   {
-    qWarning() << "no images specified in column";
+    qCWarning(lcImageTiles) << "no images specified in column";
     return;
   }
 
@@ -71,8 +71,8 @@ void ImageTiles::setImageTiles(std::vector<std::vector<QImage>> imageTiles)
   {
     if (row.size() != columnCount)
     {
-      qWarning() << "column count mismatch" << row.size()
-                 << "!=" << columnCount;
+      qCWarning(lcImageTiles)
+          << "column count mismatch" << row.size() << "!=" << columnCount;
       return;
     }
 
@@ -83,13 +83,13 @@ void ImageTiles::setImageTiles(std::vector<std::vector<QImage>> imageTiles)
     {
       if (tile.isNull() || tile.height() <= 0 || tile.width() <= 0)
       {
-        qWarning() << "invalid image tile";
+        qCWarning(lcImageTiles) << "invalid image tile";
         return;
       }
       if (tile.height() != rowHeight)
       {
-        qWarning() << "row height mismatch" << tile.height()
-                   << "!=" << rowHeight;
+        qCWarning(lcImageTiles)
+            << "row height mismatch" << tile.height() << "!=" << rowHeight;
         return;
       }
       rowWidth += tile.width();
@@ -101,8 +101,8 @@ void ImageTiles::setImageTiles(std::vector<std::vector<QImage>> imageTiles)
     }
     else if (resolution.width() != rowWidth)
     {
-      qWarning() << "row width mismatch" << rowWidth
-                 << "!=" << resolution.width();
+      qCWarning(lcImageTiles)
+          << "row width mismatch" << rowWidth << "!=" << resolution.width();
       return;
     }
 

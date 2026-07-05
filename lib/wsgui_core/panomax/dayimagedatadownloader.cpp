@@ -1,5 +1,7 @@
 #include "dayimagedatadownloader.h"
 
+#include <logging.h>
+
 #include <glaze/glaze.hpp>
 
 namespace glz
@@ -65,9 +67,9 @@ DayImageDataDownloader::downloadAndParse(int camId, const QUrl& url)
             dayData, data.constData());
         if (error)
         {
-          qWarning() << "failed to parse day image data:"
-                     << QString::fromStdString(
-                            glz::format_error(error, data.constData()));
+          qCWarning(lcPanomax) << "failed to parse day image data:"
+                               << QString::fromStdString(glz::format_error(
+                                      error, data.constData()));
           throw Error::ParsingFailed;
         }
         dayData.camId = camId;
