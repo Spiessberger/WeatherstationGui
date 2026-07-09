@@ -19,8 +19,8 @@ option(WSGUI_BUILD_EXAMPLES "Build example applications" OFF)
 set(QML_IMPORT_PATH ${CMAKE_BINARY_DIR}/qml
     CACHE STRING "qml import path for the ide code model" FORCE)
 
-# add_subdirectory(app)
 add_subdirectory(lib)
+add_subdirectory(app)
 
 if(WSGUI_BUILD_EXAMPLES)
   add_subdirectory(examples)
