@@ -10,6 +10,9 @@ qt_add_library(wsgui_core
     colorschemegenerator.cpp
     downloader.h
     downloader.cpp
+    appsettings.h
+    appsettingsloader.h
+    appsettingsloader.cpp
     panomax/dayimagedata.h
     panomax/dayimagedatadownloader.h
     panomax/dayimagedatadownloader.cpp
