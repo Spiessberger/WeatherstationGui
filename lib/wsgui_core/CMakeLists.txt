@@ -15,6 +15,8 @@ qt_add_library(wsgui_core
     panomax/dayimagedatadownloader.cpp
     panomax/imagedownloader.h
     panomax/imagedownloader.cpp
+    panomax/panoramaupdater.h
+    panomax/panoramaupdater.cpp
 )
 
 target_include_directories(wsgui_core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
