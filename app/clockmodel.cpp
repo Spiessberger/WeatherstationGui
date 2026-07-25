@@ -52,7 +52,7 @@ void ClockModel::updateClock()
 {
   const QDateTime now = QDateTime::currentDateTime();
 
-  const QString timeText = now.toString(QStringLiteral("HH:mm:ss"));
+  const QString timeText = now.toString(QStringLiteral("HH:mm"));
   if (timeText != m_timeText)
   {
     m_timeText = timeText;
@@ -63,7 +63,8 @@ void ClockModel::updateClock()
   if (date != m_currentDate)
   {
     m_currentDate = date;
-    m_dateText = QLocale::system().toString(date, QLocale::LongFormat);
+    auto locale = QLocale::system();
+    m_dateText = locale.dayName(date.dayOfWeek(), QLocale::ShortFormat) + " " + locale.toString(date, QLocale::ShortFormat);
     emit dateTextChanged();
   }
 }

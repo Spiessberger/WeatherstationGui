@@ -30,7 +30,7 @@ ApplicationWindow {
 
   Pane {
     anchors.top: parent.top
-    anchors.right: parent.right
+    anchors.left: parent.left
     anchors.margins: 24
 
     Material.elevation: 6
