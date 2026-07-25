@@ -29,7 +29,7 @@ target_link_libraries(wsgui_core
     Qt6::Core
     Qt6::Gui
     Qt6::Network
-    qtpromise
+    qtpromise::qtpromise
   PRIVATE
     glaze::glaze
     material_color_utilities
