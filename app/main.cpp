@@ -27,15 +27,10 @@ int main(int argc, char* argv[])
   QCommandLineOption settingsOption(
       QStringLiteral("settings"), QStringLiteral("Path to the settings file."),
       QStringLiteral("path"), AppSettingsLoader::defaultFilePath());
-  QCommandLineOption fullscreenOption(
-      QStringLiteral("fullscreen"),
-      QStringLiteral("Show the window fullscreen (kiosk mode)."));
   parser.addOption(settingsOption);
-  parser.addOption(fullscreenOption);
   parser.process(app);
 
   const QString settingsPath = parser.value(settingsOption);
-  const bool startFullscreen = parser.isSet(fullscreenOption);
 
   // first run: write the default file and continue; parse error: log and
   // continue with defaults. Neither prevents startup.
@@ -72,8 +67,6 @@ int main(int argc, char* argv[])
   wsgui::app::PanoramaModel::setInstance(&panoramaModel);
 
   QQmlApplicationEngine engine;
-  engine.setInitialProperties(
-      {{QStringLiteral("startFullscreen"), startFullscreen}});
 
   QObject::connect(
       &engine, &QQmlApplicationEngine::objectCreationFailed, &app,

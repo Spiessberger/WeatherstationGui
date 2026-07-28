@@ -4,18 +4,15 @@ import QtQuick.Controls.Material
 import QtQuick.Layouts
 
 import wsgui.quick
+import app.weatherstation
 
 ApplicationWindow {
   id: root
 
-  // set from C++ via setInitialProperties()
-  property bool startFullscreen: false
-
-  width: 1024
-  height: 600
+  width: 1280
+  height: 800
   visible: true
-  visibility: root.startFullscreen ? Window.FullScreen
-                                   : Window.AutomaticVisibility
+
   title: qsTr("Weatherstation")
 
   Material.theme: Material.Dark
